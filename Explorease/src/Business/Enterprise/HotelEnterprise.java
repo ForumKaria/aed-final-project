@@ -8,6 +8,9 @@ package Business.Enterprise;
  *
  * @author emi
  */
-public class HotelEnterprise {
+public class HotelEnterprise extends Enterprise{
     
+   public HotelEnterprise(){
+       super();
+   }
 }

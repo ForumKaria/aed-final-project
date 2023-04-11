@@ -8,6 +8,6 @@ package Business.Enterprise;
  *
  * @author emi
  */
-public class AttractionEnterprise {
+public class AttractionEnterprise extends Enterprise{
     
 }

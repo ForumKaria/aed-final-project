@@ -4,10 +4,21 @@
  */
 package Roles;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author emi
  */
-public class SystemAdminRole {
+public class SystemAdminRole extends Role{
+
+    public SystemAdminRole() {
+    }
+
+    @Override
+    public JPanel createWorkArea() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }

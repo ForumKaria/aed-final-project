@@ -9,5 +9,37 @@ package Person;
  * @author emi
  */
 public class Person {
+    String personId;
+    String name;
     
+    public Person(){
+        
+    }
+    
+    public Person(String id, String name){
+        this.personId = id;
+        this.name = name;
+
+    }
+
+    public String getPersonid() {
+        return personId;
+    }
+
+    public void setPersonid(String personid) {
+        this.personId = personid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return this.personId;
+    }
 }
