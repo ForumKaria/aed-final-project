@@ -18,12 +18,17 @@ import static Business.Organization.Organization.OrganizationType.FoodServiceOrg
 import static Business.Organization.Organization.OrganizationType.HotelOrg;
 import static Business.Organization.Organization.OrganizationType.InsuranceOrg;
 import static Business.Organization.Organization.OrganizationType.TravelAgencyOrg;
+import Business.Product.FlightTicketProduct;
+import Business.Product.FoodServiceProduct;
+import Business.Product.HotelRoomsProduct;
 import Order.OrderReport;
 import Person.PersonDirectory;
 import Roles.EnterpriseAdminRole;
 import Roles.SystemAdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -46,8 +51,9 @@ public class Platform {
         this.personDirectory = new PersonDirectory();
         this.enterpriseDirectory = new EnterpriseDirectory();
         this.masterOrderReport = new OrderReport();
-    
+       
         configureBusiness();
+        populateData();
     }
     
     public void configureBusiness(){
@@ -76,6 +82,64 @@ public class Platform {
         
     }
 
+     public void populateData() {
+        // Flight Ticket Products
+      try{
+                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
+
+        new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100);
+        new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50);
+        new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "1:00 PM", "03:00 hrs", true, 200, 75);
+        new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "11:00 AM", "02:00 hrs", true, 100, 30);
+        new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "9:00 AM", "01:30 hrs", true, 80, 20);
+        new FlightTicketProduct("Los Angeles", "New York", "Delta Airlines", sdf.parse("2023-05-06"), "9:30 AM", "05:30 hrs", true, 300, 50);
+        new FlightTicketProduct("Miami", "Chicago", "American Airlines", sdf.parse("2023-05-07"), "11:45 AM", "03:30 hrs", true, 175, 40);
+        new FlightTicketProduct("Denver", "Houston", "Southwest Airlines", sdf.parse("2023-05-08"), "12:30 PM", "03:00 hrs", false, 175, 60);
+        new FlightTicketProduct("Seattle", "San Francisco", "Alaska Airlines", sdf.parse("2023-05-09"), "1:30 PM", "02:00 hrs", true, 120, 15);
+        new FlightTicketProduct("Washington DC", "Boston", "United Airlines", sdf.parse("2023-05-10"), "10:15 AM", "01:30 hrs", true, 90, 25);
+        new FlightTicketProduct("New York", "San Francisco", "American Airlines", sdf.parse("2023-05-11"), "7:00 AM", "07:00 hrs", true, 400, 50);
+        new FlightTicketProduct("Los Angeles", "Miami", "Delta Airlines", sdf.parse("2023-05-12"), "8:45 AM", "05:30 hrs", false, 275, 45);
+        new FlightTicketProduct("Houston", "Seattle", "United Airlines", sdf.parse("2023-05-13"), "11:00 AM", "05:00 hrs", true, 225, 70);
+        new FlightTicketProduct("Chicago", "Denver", "Southwest Airlines", sdf.parse("2023-05-14"), "2:00 PM", "02:30 hrs", true, 120, 30);
+        new FlightTicketProduct("San Francisco", "Boston", "JetBlue Airways", sdf.parse("2023-05-15"), "12:00 PM", "06:00 hrs", true, 350, 20);
+        new FlightTicketProduct("Washington DC", "Los Angeles", "United Airlines", sdf.parse("2023-05-16"), "9:30 AM", "06:00 hrs", true, 350, 60);
+        new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25);
+        new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40);
+        new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80);
+
+        // In Flight food Product 
+        new FoodServiceProduct("FOOD_SERVICE_1",  true, 50);
+        new FoodServiceProduct("FOOD_SERVICE_2",  false, 80);
+                
+        // Hotel Room Products
+        new HotelRoomsProduct("Atlanta", "Standard Double", 150, 10);
+        new HotelRoomsProduct("Austin", "Standard Double", 175, 20);
+        new HotelRoomsProduct("Boston", "Deluxe Single", 175, 30);
+        new HotelRoomsProduct("Chicago", "Standard Single", 100, 5);
+        new HotelRoomsProduct("Denver", "Deluxe Suite", 375, 15);
+        new HotelRoomsProduct("Houston", "Executive Suite", 500, 14);
+        new HotelRoomsProduct("Las Vegas", "King Suite", 350, 14);
+        new HotelRoomsProduct("Los Angeles", "Deluxe Suite", 400, 13);
+        new HotelRoomsProduct("Miami", "King Suite", 300, 13);
+        new HotelRoomsProduct("Nashville", "Standard Single", 80, 12);
+        new HotelRoomsProduct("New Orleans", "Deluxe Suite", 400, 12);
+        new HotelRoomsProduct("New York", "Standard Double", 150, 11);
+        new HotelRoomsProduct("Orlando", "Standard Single", 100, 11);
+        new HotelRoomsProduct("Philadelphia", "King Suite", 425, 10);
+        new HotelRoomsProduct("Phoenix", "Standard Twin", 120, 10);
+        new HotelRoomsProduct("Portland", "Executive Suite", 550, 9);
+        new HotelRoomsProduct("San Antonio", "Deluxe Single", 300, 9);
+        new HotelRoomsProduct("San Diego", "Deluxe Twin", 225, 8);
+        new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8);
+        new HotelRoomsProduct("Seattle", "Standard Double", 200, 7);
+        new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7);
+
+        System.out.println("Flights & Hotels Created");
+      }catch(ParseException  e){
+           e.printStackTrace();
+      }
+    }
+    
     public UserAccountDirectory getUad() {
         return uad;
     }
