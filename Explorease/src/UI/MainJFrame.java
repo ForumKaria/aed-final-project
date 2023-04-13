@@ -38,7 +38,9 @@ public class MainJFrame extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null); //center the window in screen
         loginPanel.setBackground(new Color(0, 0, 0, 90));
-        logoutPanel.setBackground(new Color(0, 0, 0, 90));
+//        logoutPanel.setBackground(new Color(0, 0, 0, 90));
+        logoutPanel.setBackground(new Color(67, 70, 86));
+        
         logoutPanel.setVisible(false);
         container.setVisible(false);
         
@@ -58,9 +60,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         if (userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi "+ userAccount.getUsername() + "!";
-//            if (userAccount.getRole() instanceof SystemAdminRole) {
-                container.add("workArea", userAccount.getRole().createWorkArea(container,userAccount, platform ,enterprise,organization));
-//            }
+            container.add("workArea", userAccount.getRole().createWorkArea(container,userAccount, platform ,enterprise,organization));
             greetingLabel.setText(greetings);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
@@ -77,7 +77,6 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        container = new javax.swing.JPanel();
         logoutPanel = new javax.swing.JPanel();
         greetingLabel = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
@@ -90,27 +89,26 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         fieldpassword = new javax.swing.JTextField();
         registerBtn2 = new javax.swing.JButton();
+        container = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        bgPanel = new javax.swing.JPanel();
         bgImageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(2000, 2000));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        container.setBackground(new java.awt.Color(255, 255, 255));
-        container.setLayout(new java.awt.CardLayout());
-        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 800));
-
         greetingLabel.setBackground(new java.awt.Color(255, 255, 255));
         greetingLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         greetingLabel.setForeground(new java.awt.Color(255, 255, 255));
+        greetingLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        logoutBtn.setBackground(new java.awt.Color(0, 102, 255));
+        logoutBtn.setBackground(new java.awt.Color(8, 57, 97));
         logoutBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
         logoutBtn.setText("Logout");
         logoutBtn.setToolTipText("");
-        logoutBtn.setBorder(null);
-        logoutBtn.setBorderPainted(false);
+        logoutBtn.setContentAreaFilled(false);
         logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,11 +121,11 @@ public class MainJFrame extends javax.swing.JFrame {
         logoutPanelLayout.setHorizontalGroup(
             logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(greetingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 701, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 814, Short.MAX_VALUE)
+                .addComponent(greetingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         logoutPanelLayout.setVerticalGroup(
             logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,9 +208,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
         getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 430, 580));
 
+        container.setBackground(new java.awt.Color(255, 255, 255));
+        container.setLayout(new java.awt.CardLayout());
+        container.add(jPanel1, "card2");
+
+        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 800));
+
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
         bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
         bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
-        getContentPane().add(bgImageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, -30, 1410, 950));
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 870));
 
         setSize(new java.awt.Dimension(1100, 900));
         setLocationRelativeTo(null);
@@ -265,6 +273,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginPanel.setVisible(false);
                 container.setVisible(true);
                 logoutPanel.setVisible(true);
+//                bgPanel.setVisible(true);
                 fieldusername.setText("");
                 fieldpassword.setText("");
                 //get work area panel
@@ -279,6 +288,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
+        loginPanel.setVisible(true);
+        container.setVisible(false);
+        logoutPanel.setVisible(false);
+        container.removeAll();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void registerBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtn2ActionPerformed
@@ -325,6 +338,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JPanel container;
     private javax.swing.JTextField fieldpassword;
     private javax.swing.JTextField fieldusername;
@@ -332,6 +346,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JButton logoutBtn;
