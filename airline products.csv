@@ -1,0 +1,21 @@
+﻿Departure City,Destination City,Airline Company,Departure Date,Departure Time,Flight Duration,Non-Stop,Price,Number of Seats Available
+New York,Los Angeles,American Airlines,2023/5/1,8:00 AM,06:00,TRUE,$250 ,100
+Chicago,Miami,Delta Airlines,2023/5/2,10:30 AM,03:30,FALSE,$150 ,50
+Houston,Denver,United Airlines,2023/5/3,1:00 PM,03:00,TRUE,$200 ,75
+San Francisco,Seattle,Alaska Airlines,2023/5/4,11:00 AM,02:00,TRUE,$100 ,30
+Boston,Washington DC,JetBlue Airways,2023/5/5,9:00 AM,01:30,TRUE,$80 ,20
+Los Angeles,New York,Delta Airlines,2023/5/6,9:30 AM,05:30,TRUE,$300 ,50
+Miami,Chicago,American Airlines,2023/5/7,11:45 AM,03:30,TRUE,$175 ,40
+Denver,Houston,Southwest Airlines,2023/5/8,12:30 PM,03:00,FALSE,$175 ,60
+Seattle,San Francisco,Alaska Airlines,2023/5/9,1:30 PM,02:00,TRUE,$120 ,15
+Washington DC,Boston,United Airlines,2023/5/10,10:15 AM,01:30,TRUE,$90 ,25
+New York,San Francisco,American Airlines,2023/5/11,7:00 AM,07:00,TRUE,$400 ,50
+Los Angeles,Miami,Delta Airlines,2023/5/12,8:45 AM,05:30,FALSE,$275 ,45
+Houston,Seattle,United Airlines,2023/5/13,11:00 AM,05:00,TRUE,$225 ,70
+Chicago,Denver,Southwest Airlines,2023/5/14,2:00 PM,02:30,TRUE,$120 ,30
+San Francisco,Boston,JetBlue Airways,2023/5/15,12:00 PM,06:00,TRUE,$350 ,20
+Washington DC,Los Angeles,United Airlines,2023/5/16,9:30 AM,06:00,TRUE,$350 ,60
+Boston,Miami,American Airlines,2023/5/17,11:15 AM,03:00,TRUE,$150 ,25
+Denver,Chicago,United Airlines,2023/5/18,1:45 PM,02:30,TRUE,$125 ,40
+Seattle,Houston,Delta Airlines,2023/5/19,10:30 AM,04:00,TRUE,$225 ,80
+
