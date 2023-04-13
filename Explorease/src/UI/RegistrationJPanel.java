@@ -4,7 +4,10 @@
  */
 package UI;
 
+import Business.Customer.Customer;
 import Business.Platform;
+import Person.Person;
+import Roles.CustomerRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import VerifyNull.VerifyNull;
@@ -17,7 +20,7 @@ import javax.swing.JOptionPane;
 public
         class RegistrationJPanel extends javax.swing.JPanel {
     private Platform platform;
-//    private UserAccount ua;
+    private UserAccount ua;
     
     /**
      * Creates new form RegistrationJPanel
@@ -27,9 +30,7 @@ public
         initComponents();
         
         this.platform = platform;
-        
-        populateroleCombo();
-        comboRole.setSelectedIndex(-1);
+      
     }
 
     /**
@@ -42,23 +43,26 @@ public
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        fieldusername1 = new javax.swing.JTextField();
-        fieldPassword1 = new javax.swing.JTextField();
-        fieldname1 = new javax.swing.JTextField();
+        fieldusername = new javax.swing.JTextField();
+        fieldPassword = new javax.swing.JTextField();
+        fieldname = new javax.swing.JTextField();
         registerBtn = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        comboRole = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        filedEmail = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        fieldPhone = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 153));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 120, 30));
-        jPanel1.add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 120, 30));
-        jPanel1.add(fieldname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 120, 30));
+        jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 120, 30));
+        jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 120, 30));
+        jPanel1.add(fieldname, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 120, 30));
 
         registerBtn.setText("Register");
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -66,38 +70,41 @@ public
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, -1, -1));
+        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, -1, -1));
 
-        jLabel5.setText("role");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, 20));
+        jLabel2.setText("Password:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, 20));
 
-        jLabel2.setText("password");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, 20));
+        jLabel6.setText("Username:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, 20));
 
-        jLabel6.setText("username");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
+        jLabel7.setText("Name:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, 20));
 
-        comboRole.setToolTipText("");
-        jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
+        jLabel8.setText("Email:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, 20));
+        jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 120, 30));
 
-        jLabel7.setText("name");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, 20));
+        jLabel9.setText("Phone Number:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, -1, 30));
+        jPanel1.add(fieldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, 120, 30));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Welcome Explorers");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 270, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,54 +112,49 @@ public
         // TODO add your handling code here:
         UserAccountDirectory uad = this.platform.getUad();
 
-        //get user account information
-        String userName = fieldusername1.getText();
-        String pass = fieldPassword1.getText();
-
-        //get employee information
-        String name = fieldname1.getText();
-        String role = (String) comboRole.getSelectedItem();
+        //get customer information
+        String userName = fieldusername.getText();
+        String pass = fieldPassword.getText();
+        String name = fieldname.getText();
+        String email = filedEmail.getText();
+        String phone = fieldPhone.getText();
+        
        
         //check null fields
         VerifyNull checkNull = new VerifyNull();
-        boolean nonull = checkNull.checkNullObject(userName,pass,name,role);
+        boolean nonull = checkNull.checkNullObject(userName,pass,name, email, phone);
         if(nonull){
             //check user account unique
         if(!uad.checkUserNameUnique(userName)) {
-            JOptionPane.showMessageDialog(null, "Sorry username is taken.");
+            JOptionPane.showMessageDialog(null, "Credentials are taken. Try again!");
         }
-        //create user account and employee profile
+        //create user account
         else {
-            if (role.equals("student")){
-                UserAccount user = uad.createUserAccount(userName, pass, new StudentRole());
-                Student s = this.platform.getSd().createStudent(user.getAccountId(), name);
+                UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
+                Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
+                Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
                 JOptionPane.showMessageDialog(null, "User created");
 
-            } else if(role.equals("professor")){
-                UserAccount user = uad.createUserAccount(userName, pass, new ProfessorRole());
-                Professor p = this.platform.getPd().createProfessor(user.getAccountId(), name);
-                JOptionPane.showMessageDialog(null, "User created");
-            }
+ 
             
         }
         }
         
     }//GEN-LAST:event_registerBtnActionPerformed
-        public void populateroleCombo(){
-            comboRole.removeAllItems();
-            comboRole.addItem("student");
-            comboRole.addItem("professor");   
-        }
+       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comboRole;
-    private javax.swing.JTextField fieldPassword1;
-    private javax.swing.JTextField fieldname1;
-    private javax.swing.JTextField fieldusername1;
+    private javax.swing.JTextField fieldPassword;
+    private javax.swing.JTextField fieldPhone;
+    private javax.swing.JTextField fieldname;
+    private javax.swing.JTextField fieldusername;
+    private javax.swing.JTextField filedEmail;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton registerBtn;
     // End of variables declaration//GEN-END:variables
