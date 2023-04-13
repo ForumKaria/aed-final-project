@@ -11,6 +11,7 @@ import Roles.CustomerRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import VerifyNull.VerifyNull;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author forumkaria
  */
 public
-        class RegistrationJPanel extends javax.swing.JPanel {
+        class CustomerRegistrationJPanel extends javax.swing.JPanel {
     private Platform platform;
     private UserAccount ua;
     
@@ -26,11 +27,11 @@ public
      * Creates new form RegistrationJPanel
      */
     public
-            RegistrationJPanel(Platform platform) {
+            CustomerRegistrationJPanel(Platform platform) {
         initComponents();
         
         this.platform = platform;
-      
+        jPanel1.setBackground(new Color(0,0,0,90));
     }
 
     /**
@@ -55,14 +56,15 @@ public
         jLabel9 = new javax.swing.JLabel();
         fieldPhone = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        bgPanel = new javax.swing.JPanel();
+        bgImageLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 153));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 120, 30));
-        jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 120, 30));
-        jPanel1.add(fieldname, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 120, 30));
+        jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 120, 30));
+        jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 120, 30));
+        jPanel1.add(fieldname, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 120, 30));
 
         registerBtn.setText("Register");
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -70,41 +72,60 @@ public
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, -1, -1));
+        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
 
         jLabel2.setText("Password:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, 20));
 
         jLabel6.setText("Username:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, 20));
 
         jLabel7.setText("Name:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, 20));
 
         jLabel8.setText("Email:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, 20));
-        jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 120, 30));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, 20));
+        jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 120, 30));
 
-        jLabel9.setText("Phone Number:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, -1, 30));
-        jPanel1.add(fieldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, 120, 30));
+        jLabel9.setText("Phone:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, 30));
+        jPanel1.add(fieldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 120, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome Explorers");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 270, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 270, 40));
+
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(248, 248, 248)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(299, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(195, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,9 +155,6 @@ public
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
                 Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
                 JOptionPane.showMessageDialog(null, "User created");
-
- 
-            
         }
         }
         
@@ -144,6 +162,8 @@ public
        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JTextField fieldPassword;
     private javax.swing.JTextField fieldPhone;
     private javax.swing.JTextField fieldname;

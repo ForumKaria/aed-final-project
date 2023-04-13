@@ -284,6 +284,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         // TODO add your handling code here:
+        container.add("EmployeeRegistrationArea", new EmployeeRegistrationJPanel(platform));
+
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+        loginPanel.setVisible(false);
+        container.setVisible(true);
+        logoutPanel.setVisible(true);
+
     }//GEN-LAST:event_registerBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -296,7 +304,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void registerBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtn2ActionPerformed
         // TODO add your handling code here:
-        container.add("CustomerRegistrationArea", new RegistrationJPanel( platform));
+        container.add("CustomerRegistrationArea", new CustomerRegistrationJPanel( platform));
 
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);
