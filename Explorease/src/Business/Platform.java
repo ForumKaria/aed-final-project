@@ -18,6 +18,7 @@ import static Business.Organization.Organization.OrganizationType.FoodServiceOrg
 import static Business.Organization.Organization.OrganizationType.HotelOrg;
 import static Business.Organization.Organization.OrganizationType.InsuranceOrg;
 import static Business.Organization.Organization.OrganizationType.TravelAgencyOrg;
+import Business.Product.AttractionTicketProduct;
 import Business.Product.FlightTicketProduct;
 import Business.Product.FoodServiceProduct;
 import Business.Product.HotelRoomsProduct;
@@ -133,6 +134,12 @@ public class Platform {
         new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8);
         new HotelRoomsProduct("Seattle", "Standard Double", 200, 7);
         new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7);
+
+        // Creating AttractionTickets
+        new AttractionTicketProduct("Disneyland", 344, sdf.parse("2023-03-12"));
+        new AttractionTicketProduct("Universal Studios", 250, sdf.parse("2023-03-12"));
+        new AttractionTicketProduct("Eiffel Tower", 50, sdf.parse("2023-03-12"));
+        new AttractionTicketProduct("Grand Canyon", 100, sdf.parse("2023-03-12"));
 
         System.out.println("Flights & Hotels Created");
       }catch(ParseException  e){
