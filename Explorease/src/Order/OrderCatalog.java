@@ -4,10 +4,43 @@
  */
 package Order;
 
+import Business.Customer.Customer;
+import java.util.ArrayList;
+
 /**
  *
  * @author emi
  */
-public class OrderCatalog {
+public
+        class OrderCatalog {
+
+    private
+            ArrayList<Order> orders;
+
+    public
+            OrderCatalog() {
+        this.orders = new ArrayList<Order>();
+    }
+
+    public
+            Order createOrder(Customer customer) {
+        Order order = new Order(customer);
+        this.orders.add(order);
+
+        return order;
+
+    }
+
+    public
+            Order findOrder(String id) {
+        for (Order order : this.orders) {
+            if (order.getOrderId().equals(id)) {
+                return order;
+            }
+        }
+        return null;
+    }
+            
     
+
 }
