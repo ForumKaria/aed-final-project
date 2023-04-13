@@ -38,10 +38,8 @@ public class FlightTicketProduct extends Product {
     }
 
     @Override
-    public void getProductDetails() {
-        System.out.println("Departure City: " + departureCity);
-        System.out.println("Airline: " + airline);
-        System.out.println("Price: " + price);
+    public FlightTicketProduct getFlightProductDetails() {
+        return this;
     }
     
     public String getDepartureCity() {

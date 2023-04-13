@@ -17,7 +17,8 @@ public abstract class Product {
     }
     
     // Abstract method to get product details
-    public abstract void getProductDetails();
+    public abstract FlightTicketProduct getFlightProductDetails();
+    public abstract HotelRoomsProduct getHotelProductDetails();
     
     // Getters and Setters
     public String getProductId() {

@@ -21,6 +21,7 @@ import static Business.Organization.Organization.OrganizationType.TravelAgencyOr
 import Business.Product.FlightTicketProduct;
 import Business.Product.FoodServiceProduct;
 import Business.Product.HotelRoomsProduct;
+import Business.Product.Product;
 import Order.OrderReport;
 import Person.PersonDirectory;
 import Roles.EnterpriseAdminRole;
@@ -29,6 +30,7 @@ import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
@@ -40,7 +42,9 @@ public class Platform {
     PersonDirectory personDirectory;
     EnterpriseDirectory enterpriseDirectory;
     OrderReport masterOrderReport;
-    
+    ArrayList<Product> hotelProducts;
+    ArrayList<Product> flightProducts;
+    ArrayList<Product> flightFoodProducts;
     public static Platform getInstance() {
         return new Platform();
     }
@@ -87,57 +91,81 @@ public class Platform {
       try{
                   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 
-        new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100);
-        new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50);
-        new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "1:00 PM", "03:00 hrs", true, 200, 75);
-        new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "11:00 AM", "02:00 hrs", true, 100, 30);
-        new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "9:00 AM", "01:30 hrs", true, 80, 20);
-        new FlightTicketProduct("Los Angeles", "New York", "Delta Airlines", sdf.parse("2023-05-06"), "9:30 AM", "05:30 hrs", true, 300, 50);
-        new FlightTicketProduct("Miami", "Chicago", "American Airlines", sdf.parse("2023-05-07"), "11:45 AM", "03:30 hrs", true, 175, 40);
-        new FlightTicketProduct("Denver", "Houston", "Southwest Airlines", sdf.parse("2023-05-08"), "12:30 PM", "03:00 hrs", false, 175, 60);
-        new FlightTicketProduct("Seattle", "San Francisco", "Alaska Airlines", sdf.parse("2023-05-09"), "1:30 PM", "02:00 hrs", true, 120, 15);
-        new FlightTicketProduct("Washington DC", "Boston", "United Airlines", sdf.parse("2023-05-10"), "10:15 AM", "01:30 hrs", true, 90, 25);
-        new FlightTicketProduct("New York", "San Francisco", "American Airlines", sdf.parse("2023-05-11"), "7:00 AM", "07:00 hrs", true, 400, 50);
-        new FlightTicketProduct("Los Angeles", "Miami", "Delta Airlines", sdf.parse("2023-05-12"), "8:45 AM", "05:30 hrs", false, 275, 45);
-        new FlightTicketProduct("Houston", "Seattle", "United Airlines", sdf.parse("2023-05-13"), "11:00 AM", "05:00 hrs", true, 225, 70);
-        new FlightTicketProduct("Chicago", "Denver", "Southwest Airlines", sdf.parse("2023-05-14"), "2:00 PM", "02:30 hrs", true, 120, 30);
-        new FlightTicketProduct("San Francisco", "Boston", "JetBlue Airways", sdf.parse("2023-05-15"), "12:00 PM", "06:00 hrs", true, 350, 20);
-        new FlightTicketProduct("Washington DC", "Los Angeles", "United Airlines", sdf.parse("2023-05-16"), "9:30 AM", "06:00 hrs", true, 350, 60);
-        new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25);
-        new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40);
-        new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80);
+        flightProducts.add(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
+        flightProducts.add(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50));
+        flightProducts.add(new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "1:00 PM", "03:00 hrs", true, 200, 75));
+        flightProducts.add(new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "11:00 AM", "02:00 hrs", true, 100, 30));
+        flightProducts.add(new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "9:00 AM", "01:30 hrs", true, 80, 20));
+        flightProducts.add(new FlightTicketProduct("Los Angeles", "New York", "Delta Airlines", sdf.parse("2023-05-06"), "9:30 AM", "05:30 hrs", true, 300, 50));
+        flightProducts.add(new FlightTicketProduct("Miami", "Chicago", "American Airlines", sdf.parse("2023-05-07"), "11:45 AM", "03:30 hrs", true, 175, 40));
+        flightProducts.add(new FlightTicketProduct("Denver", "Houston", "Southwest Airlines", sdf.parse("2023-05-08"), "12:30 PM", "03:00 hrs", false, 175, 60));
+        flightProducts.add(new FlightTicketProduct("Seattle", "San Francisco", "Alaska Airlines", sdf.parse("2023-05-09"), "1:30 PM", "02:00 hrs", true, 120, 15));
+        flightProducts.add(new FlightTicketProduct("Washington DC", "Boston", "United Airlines", sdf.parse("2023-05-10"), "10:15 AM", "01:30 hrs", true, 90, 25));
+        flightProducts.add(new FlightTicketProduct("New York", "San Francisco", "American Airlines", sdf.parse("2023-05-11"), "7:00 AM", "07:00 hrs", true, 400, 50));
+        flightProducts.add(new FlightTicketProduct("Los Angeles", "Miami", "Delta Airlines", sdf.parse("2023-05-12"), "8:45 AM", "05:30 hrs", false, 275, 45));
+        flightProducts.add(new FlightTicketProduct("Houston", "Seattle", "United Airlines", sdf.parse("2023-05-13"), "11:00 AM", "05:00 hrs", true, 225, 70));
+        flightProducts.add(new FlightTicketProduct("Chicago", "Denver", "Southwest Airlines", sdf.parse("2023-05-14"), "2:00 PM", "02:30 hrs", true, 120, 30));
+        flightProducts.add(new FlightTicketProduct("San Francisco", "Boston", "JetBlue Airways", sdf.parse("2023-05-15"), "12:00 PM", "06:00 hrs", true, 350, 20));
+        flightProducts.add(new FlightTicketProduct("Washington DC", "Los Angeles", "United Airlines", sdf.parse("2023-05-16"), "9:30 AM", "06:00 hrs", true, 350, 60));
+        flightProducts.add(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25));
+        flightProducts.add(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40));
+        flightProducts.add(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80));
 
         // In Flight food Product 
-        new FoodServiceProduct("FOOD_SERVICE_1",  true, 50);
-        new FoodServiceProduct("FOOD_SERVICE_2",  false, 80);
+        flightFoodProducts.add(new FoodServiceProduct("FOOD_SERVICE_1",  true, 50));
+        flightFoodProducts.add(new FoodServiceProduct("FOOD_SERVICE_2",  false, 80));
                 
         // Hotel Room Products
-        new HotelRoomsProduct("Atlanta", "Standard Double", 150, 10);
-        new HotelRoomsProduct("Austin", "Standard Double", 175, 20);
-        new HotelRoomsProduct("Boston", "Deluxe Single", 175, 30);
-        new HotelRoomsProduct("Chicago", "Standard Single", 100, 5);
-        new HotelRoomsProduct("Denver", "Deluxe Suite", 375, 15);
-        new HotelRoomsProduct("Houston", "Executive Suite", 500, 14);
-        new HotelRoomsProduct("Las Vegas", "King Suite", 350, 14);
-        new HotelRoomsProduct("Los Angeles", "Deluxe Suite", 400, 13);
-        new HotelRoomsProduct("Miami", "King Suite", 300, 13);
-        new HotelRoomsProduct("Nashville", "Standard Single", 80, 12);
-        new HotelRoomsProduct("New Orleans", "Deluxe Suite", 400, 12);
-        new HotelRoomsProduct("New York", "Standard Double", 150, 11);
-        new HotelRoomsProduct("Orlando", "Standard Single", 100, 11);
-        new HotelRoomsProduct("Philadelphia", "King Suite", 425, 10);
-        new HotelRoomsProduct("Phoenix", "Standard Twin", 120, 10);
-        new HotelRoomsProduct("Portland", "Executive Suite", 550, 9);
-        new HotelRoomsProduct("San Antonio", "Deluxe Single", 300, 9);
-        new HotelRoomsProduct("San Diego", "Deluxe Twin", 225, 8);
-        new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8);
-        new HotelRoomsProduct("Seattle", "Standard Double", 200, 7);
-        new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7);
+        hotelProducts.add(new HotelRoomsProduct("Atlanta", "Standard Double", 150, 10));
+        hotelProducts.add(new HotelRoomsProduct("Austin", "Standard Double", 175, 20));
+        hotelProducts.add(new HotelRoomsProduct("Boston", "Deluxe Single", 175, 30));
+        hotelProducts.add(new HotelRoomsProduct("Chicago", "Standard Single", 100, 5));
+        hotelProducts.add(new HotelRoomsProduct("Denver", "Deluxe Suite", 375, 15));
+        hotelProducts.add(new HotelRoomsProduct("Houston", "Executive Suite", 500, 14));
+        hotelProducts.add(new HotelRoomsProduct("Las Vegas", "King Suite", 350, 14));
+        hotelProducts.add(new HotelRoomsProduct("Los Angeles", "Deluxe Suite", 400, 13));
+        hotelProducts.add(new HotelRoomsProduct("Miami", "King Suite", 300, 13));
+        hotelProducts.add(new HotelRoomsProduct("Nashville", "Standard Single", 80, 12));
+        hotelProducts.add(new HotelRoomsProduct("New Orleans", "Deluxe Suite", 400, 12));
+        hotelProducts.add(new HotelRoomsProduct("New York", "Standard Double", 150, 11));
+        hotelProducts.add(new HotelRoomsProduct("Orlando", "Standard Single", 100, 11));
+        hotelProducts.add(new HotelRoomsProduct("Philadelphia", "King Suite", 425, 10));
+        hotelProducts.add(new HotelRoomsProduct("Phoenix", "Standard Twin", 120, 10));
+        hotelProducts.add(new HotelRoomsProduct("Portland", "Executive Suite", 550, 9));
+        hotelProducts.add(new HotelRoomsProduct("San Antonio", "Deluxe Single", 300, 9));
+        hotelProducts.add(new HotelRoomsProduct("San Diego", "Deluxe Twin", 225, 8));
+        hotelProducts.add(new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8));
+        hotelProducts.add(new HotelRoomsProduct("Seattle", "Standard Double", 200, 7));
+        hotelProducts.add(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7));
 
         System.out.println("Flights & Hotels Created");
       }catch(ParseException  e){
            e.printStackTrace();
       }
+    }
+
+    public ArrayList<Product> getHotelProducts() {
+        return hotelProducts;
+    }
+
+    public void setHotelProducts(ArrayList<Product> hotelProducts) {
+        this.hotelProducts = hotelProducts;
+    }
+
+    public ArrayList<Product> getFlightProducts() {
+        return flightProducts;
+    }
+
+    public void setFlightProducts(ArrayList<Product> flightProducts) {
+        this.flightProducts = flightProducts;
+    }
+
+    public ArrayList<Product> getFlightFoodProducts() {
+        return flightFoodProducts;
+    }
+
+    public void setFlightFoodProducts(ArrayList<Product> flightFoodProducts) {
+        this.flightFoodProducts = flightFoodProducts;
     }
     
     public UserAccountDirectory getUad() {
