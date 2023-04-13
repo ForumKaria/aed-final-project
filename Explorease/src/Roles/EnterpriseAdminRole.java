@@ -4,6 +4,12 @@
  */
 package Roles;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.Platform;
+import UI.EnterpriseAdminWorkArea.EnterpriseAdminWorkAreaJPanel;
+import UI.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
+import UserAccount.UserAccount;
 import javax.swing.JPanel;
 
 /**
@@ -13,8 +19,9 @@ import javax.swing.JPanel;
 public class EnterpriseAdminRole extends Role{
 
     @Override
-    public JPanel createWorkArea() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
+        return new EnterpriseAdminWorkAreaJPanel(container, ua, platform, enterprise);
     }
+
     
 }

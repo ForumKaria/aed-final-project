@@ -4,6 +4,10 @@
  */
 package Roles;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.Platform;
+import UserAccount.UserAccount;
 import javax.swing.JPanel;
 
 /**
@@ -12,15 +16,15 @@ import javax.swing.JPanel;
  */
 public abstract class Role {
         public enum Type {
-        SystemAdmin("System Admin"),
-        EnterpriseAdmin("Enterprise Admin"),
-        OrganizationManager("Organization Manager"),
-        AirlineAgent("Airline Agent"),
-        FoodServiceSupplier("Food Service Supplier"),
-        HotelAgent("Hotel Agent"),
-        TravelAgencyAgent("Travel Agency Agent"),
-        InsuranceAgent("Insurance Agent"),
-        AttractionManager("Attraction Manager");
+        SystemAdminRole("System Admin"),
+        EnterpriseAdminRole("Enterprise Admin"),
+        OrganizationManagerRole("Organization Manager"),
+        AirlineAgentRole("Airline Agent"),
+        FoodServiceSupplierRole("Food Service Supplier"),
+        HotelAgentRole("Hotel Agent"),
+        TravelAgencyAgentRole("Travel Agency Agent"),
+        InsuranceAgentRole("Insurance Agent"),
+        AttractionManagerRole("Attraction Manager");
         
         
         private String value;
@@ -40,5 +44,10 @@ public abstract class Role {
     }
 
     
-    public abstract JPanel createWorkArea();
+    public abstract JPanel createWorkArea( JPanel container,  UserAccount ua, Platform platform,Enterprise enterprise, Organization organization);
+    
+    @Override
+    public String toString() {
+        return this.getClass().getName();
+    }
 }

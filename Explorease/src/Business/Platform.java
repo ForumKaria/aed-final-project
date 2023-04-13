@@ -11,6 +11,13 @@ import static Business.Enterprise.Enterprise.EnterpriseType.Transportation;
 import static Business.Enterprise.Enterprise.EnterpriseType.TravelAgency;
 import Business.Enterprise.EnterpriseDirectory;
 import Business.Enterprise.TransportationEnterprise;
+import Business.Organization.Organization;
+import static Business.Organization.Organization.OrganizationType.AirlineOrg;
+import static Business.Organization.Organization.OrganizationType.AttractionOrg;
+import static Business.Organization.Organization.OrganizationType.FoodServiceOrg;
+import static Business.Organization.Organization.OrganizationType.HotelOrg;
+import static Business.Organization.Organization.OrganizationType.InsuranceOrg;
+import static Business.Organization.Organization.OrganizationType.TravelAgencyOrg;
 import Order.OrderReport;
 import Person.PersonDirectory;
 import Roles.EnterpriseAdminRole;
@@ -39,13 +46,13 @@ public class Platform {
         this.personDirectory = new PersonDirectory();
         this.enterpriseDirectory = new EnterpriseDirectory();
         this.masterOrderReport = new OrderReport();
-        
+    
         configureBusiness();
     }
     
     public void configureBusiness(){
         //create system admin user
-        UserAccount systemAdmin = this.uad.createUserAccount("sysadmin", "sysadmin", new SystemAdminRole());
+        UserAccount systemAdmin = this.uad.createUserAccount("sys", "sys", new SystemAdminRole());
         
         //create 4 enterprises
         Enterprise transportation = this.getEnterpriseDirectory().createEnterprise(Transportation);
@@ -54,10 +61,19 @@ public class Platform {
         Enterprise attraction = this.getEnterpriseDirectory().createEnterprise(Attraction);
         
         //create enterprise admin user
-        UserAccount tranAdmin = transportation.getUserAccountDirectory().createUserAccount("transadmin", "transadmin", new EnterpriseAdminRole());
+        UserAccount transAdmin = transportation.getUserAccountDirectory().createUserAccount("transadmin", "transadmin", new EnterpriseAdminRole());
         UserAccount hotelAdmin = hotel.getUserAccountDirectory().createUserAccount("hoteladmin", "hoteladmin", new EnterpriseAdminRole());
         UserAccount travelAgencyAdmin = travelAgency.getUserAccountDirectory().createUserAccount("travelAgencyadmin", "travelAgencyadmin", new EnterpriseAdminRole());
         UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attractionadmin", "attractionadmin", new EnterpriseAdminRole());
+        
+        //create the 6 orgs
+        Organization airlineOrg = transportation.getOrganizationDirectory().createOrganization(AirlineOrg);
+        Organization foodServiceOrg = transportation.getOrganizationDirectory().createOrganization(FoodServiceOrg);
+        Organization hotelOrg = transportation.getOrganizationDirectory().createOrganization(HotelOrg);
+        Organization travelAgencyOrg = transportation.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
+        Organization insuranceOrg = transportation.getOrganizationDirectory().createOrganization(InsuranceOrg);
+        Organization attractionOrg = transportation.getOrganizationDirectory().createOrganization(AttractionOrg);
+        
     }
 
     public UserAccountDirectory getUad() {

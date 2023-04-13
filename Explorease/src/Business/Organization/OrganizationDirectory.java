@@ -4,10 +4,62 @@
  */
 package Business.Organization;
 
+import Business.Organization.Organization.OrganizationType;
+import static Business.Organization.Organization.OrganizationType.AirlineOrg;
+import static Business.Organization.Organization.OrganizationType.AttractionOrg;
+import static Business.Organization.Organization.OrganizationType.FoodServiceOrg;
+import static Business.Organization.Organization.OrganizationType.InsuranceOrg;
+import static Business.Organization.Organization.OrganizationType.TravelAgencyOrg;
+import static Business.Organization.Organization.OrganizationType.HotelOrg;
+import java.util.ArrayList;
+
 /**
  *
  * @author emi
  */
 public class OrganizationDirectory {
+    ArrayList<Organization> organizationList;
     
+    public OrganizationDirectory(){
+        this.organizationList = new ArrayList<Organization>();
+    }
+
+    public ArrayList<Organization> getOrganizationList() {
+        return organizationList;
+    }
+    
+    public Organization createOrganization(OrganizationType type){
+        Organization org;
+        
+        if(null != type) switch (type) {
+            case AirlineOrg:
+                org = new AirlineOrganization();
+                organizationList.add(org);
+                return org;
+            case FoodServiceOrg:
+                org = new FoodServicesOrganization();
+                organizationList.add(org);
+                return org;
+            case HotelOrg:
+                org = new HotelOrganization();
+                organizationList.add(org);
+                return org;
+            case TravelAgencyOrg:
+                org = new TravelAgencyOrganization();
+                organizationList.add(org);
+                return org;
+            case InsuranceOrg:
+                org = new InsuranceOrganization();
+                organizationList.add(org);
+                return org;
+            case AttractionOrg:
+                org = new AttractionOrganization();
+                organizationList.add(org);
+                return org;
+            default:
+                break;
+        }
+        
+        return null;
+    }
 }

@@ -4,19 +4,18 @@
  */
 package UI;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
 import Business.Platform;
-import UI.RegistrationJPanel;
-import UI.LoginJPanel;
+import Roles.SystemAdminRole;
 import UserAccount.UserAccount;
-import java.awt.BorderLayout;
+import VerifyNull.VerifyNull;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Image;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import java.awt.Window;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -29,26 +28,46 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     
     private Platform platform;
-    private  UserAccount useraccount;
+    private UserAccount userAccount;
+    private Enterprise enterprise;
+    private Organization organization;
     
     public MainJFrame() {
         initComponents();
+        this.platform = Platform.getInstance();
+        
         this.setLocationRelativeTo(null); //center the window in screen
-//        jPanel1.setBackground(new Color(100, 102, 105, 70));
-        jPanel1.setBackground(new Color(0, 0, 0, 90));
+        loginPanel.setBackground(new Color(0, 0, 0, 90));
+        logoutPanel.setBackground(new Color(0, 0, 0, 90));
+        logoutPanel.setVisible(false);
+        container.setVisible(false);
+        
     }
-    public MainJFrame(Platform platform, UserAccount useraccount) {
+    public MainJFrame(Platform platform, UserAccount useraccount,Enterprise enterprise,Organization organization) {
         initComponents();
         this.setVisible(true);
         
         this.platform = platform;
-        this.useraccount = useraccount;
-        
-        this.platform = Platform.getInstance();
-        
+        this.userAccount = useraccount;
+        this.enterprise = enterprise;
+        this.organization = organization;
+            
     }
+    
+    private void switchPanel() {
 
-
+        if (userAccount != null && userAccount.getRole() != null) {
+            String greetings = "Hi "+ userAccount.getUsername() + "!";
+//            if (userAccount.getRole() instanceof SystemAdminRole) {
+                container.add("workArea", userAccount.getRole().createWorkArea(container,userAccount, platform ,enterprise,organization));
+//            }
+            greetingLabel.setText(greetings);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+            
+        }
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,37 +77,87 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        container = new javax.swing.JPanel();
+        logoutPanel = new javax.swing.JPanel();
+        greetingLabel = new javax.swing.JLabel();
+        logoutBtn = new javax.swing.JButton();
+        loginPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         fieldusername = new javax.swing.JTextField();
         registerBtn = new javax.swing.JButton();
-        fieldpassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        fieldpassword = new javax.swing.JTextField();
+        registerBtn2 = new javax.swing.JButton();
+        bgImageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(2000, 2000));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        container.setBackground(new java.awt.Color(255, 255, 255));
+        container.setLayout(new java.awt.CardLayout());
+        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 800));
+
+        greetingLabel.setBackground(new java.awt.Color(255, 255, 255));
+        greetingLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        greetingLabel.setForeground(new java.awt.Color(255, 255, 255));
+
+        logoutBtn.setBackground(new java.awt.Color(0, 102, 255));
+        logoutBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        logoutBtn.setText("Logout");
+        logoutBtn.setToolTipText("");
+        logoutBtn.setBorder(null);
+        logoutBtn.setBorderPainted(false);
+        logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout logoutPanelLayout = new javax.swing.GroupLayout(logoutPanel);
+        logoutPanel.setLayout(logoutPanelLayout);
+        logoutPanelLayout.setHorizontalGroup(
+            logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(greetingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 701, Short.MAX_VALUE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        logoutPanelLayout.setVerticalGroup(
+            logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(greetingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+        );
+
+        getContentPane().add(logoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 70));
+
+        loginPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome Explorers");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 270, 40));
+        loginPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 270, 40));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
+        loginPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
 
         loginBtn.setBackground(new java.awt.Color(0, 102, 255));
         loginBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
-        loginBtn.setText("LOGIN");
+        loginBtn.setText("Login");
         loginBtn.setBorder(null);
         loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +165,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 220, 40));
+        loginPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 220, 40));
 
         fieldusername.setToolTipText("");
         fieldusername.addActionListener(new java.awt.event.ActionListener() {
@@ -104,46 +173,50 @@ public class MainJFrame extends javax.swing.JFrame {
                 fieldusernameActionPerformed(evt);
             }
         });
-        jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 220, 42));
+        loginPanel.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 220, 42));
 
         registerBtn.setBackground(new java.awt.Color(0, 102, 255));
         registerBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         registerBtn.setForeground(new java.awt.Color(255, 255, 255));
-        registerBtn.setText("REGISTER");
+        registerBtn.setText("Employee Register");
+        registerBtn.setToolTipText("");
         registerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 220, 40));
-
-        fieldpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldpasswordActionPerformed(evt);
-            }
-        });
-        jPanel1.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 220, 42));
+        loginPanel.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 220, 40));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Username");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+        loginPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+        loginPanel.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 220, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 430, 580));
+        registerBtn2.setBackground(new java.awt.Color(0, 102, 255));
+        registerBtn2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        registerBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        registerBtn2.setText("Customer Register");
+        registerBtn2.setToolTipText("");
+        registerBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerBtn2ActionPerformed(evt);
+            }
+        });
+        loginPanel.add(registerBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 220, 40));
 
-        jLabel4.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, -30, 1410, 950));
+        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 430, 580));
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
+        getContentPane().add(bgImageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, -30, 1410, 950));
 
         setSize(new java.awt.Dimension(1100, 900));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fieldpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldpasswordActionPerformed
 
     private void fieldusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldusernameActionPerformed
         // TODO add your handling code here:
@@ -153,22 +226,49 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = fieldusername.getText();
         String password = fieldpassword.getText();
-        //        String role = (String) roleCombo.getSelectedItem();
+        
         VerifyNull checkNull = new VerifyNull();
         boolean nonull = checkNull.checkNullObject(username,password);
+        
         if(nonull){
-            if(this.platform.getUad().accountExists(username, password)){
-                UserAccount user = this.platform.getUad().getUserAccount(username, password);
-
-                //get work area panel
-                user.getRole().createWorkArea(this.platform, user);
-
-                Window frame = SwingUtilities.windowForComponent((Component) evt.getSource());
-                frame.setVisible(false);
-                this.setVisible(false);
-
+            Boolean hasUserAtTopLevel = this.platform.getUad().accountExists(username, password);
+            if(!hasUserAtTopLevel){
+                for (Enterprise en: this.platform.getEnterpriseDirectory().getEnterpriseList()){
+                    Boolean hasUserAtEnterpriseLevel = en.getUserAccountDirectory().accountExists(username, password);
+                    if (!hasUserAtEnterpriseLevel){
+                        for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
+                            Boolean hasUserAtOrgLevel = org.getUserAccountDirectory().accountExists(username, password);
+                            if(hasUserAtOrgLevel){
+                                //org level user login
+                                this.enterprise = en;
+                                this.organization = org;
+                                this.userAccount = org.getUserAccountDirectory().getUserAccount(username, password);
+                                break;
+                            }else{
+                                //no such user at any level
+                                JOptionPane.showMessageDialog(null, "Invalid credentials");
+                            }
+                        }
+                    } else{
+                        //enterprise level user login
+                        this.enterprise = en;
+                        this.userAccount = en.getUserAccountDirectory().getUserAccount(username, password);
+                        break;
+                    }
+                }
             }else{
-                JOptionPane.showMessageDialog(null, "Invalid credentials");
+                //system level user login
+                this.userAccount = this.platform.getUad().getUserAccount(username, password);
+            }
+            
+            if(this.userAccount!=null){
+                loginPanel.setVisible(false);
+                container.setVisible(true);
+                logoutPanel.setVisible(true);
+                fieldusername.setText("");
+                fieldpassword.setText("");
+                //get work area panel
+                switchPanel();
             }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
@@ -176,6 +276,14 @@ public class MainJFrame extends javax.swing.JFrame {
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void registerBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerBtn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,14 +324,19 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel container;
     private javax.swing.JTextField fieldpassword;
     private javax.swing.JTextField fieldusername;
+    private javax.swing.JLabel greetingLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JPanel loginPanel;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JPanel logoutPanel;
     private javax.swing.JButton registerBtn;
+    private javax.swing.JButton registerBtn2;
     // End of variables declaration//GEN-END:variables
 }

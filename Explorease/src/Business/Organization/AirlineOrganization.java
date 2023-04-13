@@ -8,6 +8,10 @@ package Business.Organization;
  *
  * @author emi
  */
-public class AirlineOrganization {
+public class AirlineOrganization extends Organization{
+
+    public AirlineOrganization() {
+        super();
+    }
     
 }

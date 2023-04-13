@@ -8,6 +8,6 @@ package Business.Organization;
  *
  * @author emi
  */
-public class InsuranceOrganization {
+public class InsuranceOrganization extends Organization{
     
 }

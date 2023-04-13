@@ -51,14 +51,6 @@ public
         jLabel6 = new javax.swing.JLabel();
         comboRole = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        loginBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        fieldusername = new javax.swing.JTextField();
-        registerBtn1 = new javax.swing.JButton();
-        fieldpassword = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 204, 153));
 
@@ -90,50 +82,6 @@ public
 
         jLabel7.setText("name");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, 20));
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Big Caslon", 1, 18)); // NOI18N
-        jLabel1.setText("WELCOME");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 40));
-
-        jLabel3.setText("PASSWORD");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
-
-        loginBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        loginBtn.setText("LOGIN");
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginBtnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, 160, 40));
-
-        jLabel4.setText("USERNAME");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, -1, -1));
-
-        fieldusername.setBackground(new java.awt.Color(204, 204, 204));
-        fieldusername.setToolTipText("");
-        fieldusername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldusernameActionPerformed(evt);
-            }
-        });
-        jPanel2.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 162, 168, 42));
-
-        registerBtn1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        registerBtn1.setText("REGISTER");
-        jPanel2.add(registerBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 160, 40));
-
-        fieldpassword.setBackground(new java.awt.Color(204, 204, 204));
-        fieldpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldpasswordActionPerformed(evt);
-            }
-        });
-        jPanel2.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 235, 168, 42));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 240, 770, 680));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -190,38 +138,6 @@ public
         }
         
     }//GEN-LAST:event_registerBtnActionPerformed
-
-    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
-        String username = fieldusername.getText();
-        String password = fieldpassword.getText();
-        //        String role = (String) roleCombo.getSelectedItem();
-        VerifyNull checkNull = new VerifyNull();
-        boolean nonull = checkNull.checkNullObject(username,password);
-        if(nonull){
-            if(this.platform.getUad().accountExists(username, password)){
-                UserAccount user = this.platform.getUad().getUserAccount(username, password);
-
-                //get work area panel
-                user.getRole().createWorkArea(this.platform, user);
-
-                Window frame = SwingUtilities.windowForComponent((Component) evt.getSource());
-                frame.setVisible(false);
-                this.setVisible(false);
-
-            }else{
-                JOptionPane.showMessageDialog(null, "Invalid credentials");
-            }
-        }
-    }//GEN-LAST:event_loginBtnActionPerformed
-
-    private void fieldusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldusernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldusernameActionPerformed
-
-    private void fieldpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldpasswordActionPerformed
         public void populateroleCombo(){
             comboRole.removeAllItems();
             comboRole.addItem("student");
@@ -232,20 +148,12 @@ public
     private javax.swing.JComboBox<String> comboRole;
     private javax.swing.JTextField fieldPassword1;
     private javax.swing.JTextField fieldname1;
-    private javax.swing.JTextField fieldpassword;
-    private javax.swing.JTextField fieldusername;
     private javax.swing.JTextField fieldusername1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton loginBtn;
     private javax.swing.JButton registerBtn;
-    private javax.swing.JButton registerBtn1;
     // End of variables declaration//GEN-END:variables
 }
