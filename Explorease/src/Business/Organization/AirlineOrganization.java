@@ -14,4 +14,5 @@ public class AirlineOrganization extends Organization{
         super();
     }
     
+    
 }

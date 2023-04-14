@@ -16,11 +16,16 @@ public class FoodServiceProduct extends Product {
     }
     
     // Override abstract method to get product details
+//    @Override
+//    public void getProductDetails() {
+//        System.out.println("Product ID: " + getProductId());
+//        System.out.println("Cuisine: " + vegan);
+//        System.out.println("Price: " + price);
+//    }
+    
     @Override
-    public void getProductDetails() {
-        System.out.println("Product ID: " + getProductId());
-        System.out.println("Cuisine: " + vegan);
-        System.out.println("Price: " + price);
+    public FoodServiceProduct getProductDetails() {
+        return this;
     }
     
    

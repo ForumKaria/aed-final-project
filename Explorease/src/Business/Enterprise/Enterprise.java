@@ -24,6 +24,10 @@ public abstract class Enterprise {
         this.organizationDirectory = new OrganizationDirectory();
         this.userAccountDirectory = new UserAccountDirectory();
     }
+
+    EnterpriseType getType() {
+        return this.getType();
+    }
     
     public enum EnterpriseType {
 
@@ -72,5 +76,7 @@ public abstract class Enterprise {
     public void setUserAccountDirectory(UserAccountDirectory userAccountDirectory) {
         this.userAccountDirectory = userAccountDirectory;
     }
+    
+    
 
 }

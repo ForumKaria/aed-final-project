@@ -25,6 +25,7 @@ import Business.Product.Product;
 import Order.OrderReport;
 import Person.PersonDirectory;
 import Roles.EnterpriseAdminRole;
+import Roles.OrganizationManagerRole;
 import Roles.SystemAdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
@@ -42,9 +43,18 @@ public class Platform {
     PersonDirectory personDirectory;
     EnterpriseDirectory enterpriseDirectory;
     OrderReport masterOrderReport;
-    ArrayList<Product> hotelProducts;
-    ArrayList<Product> flightProducts;
-    ArrayList<Product> flightFoodProducts;
+    
+    Enterprise transportation;
+    Enterprise hotel;
+    Enterprise travelAgency;
+    Enterprise attraction;
+    Organization airlineOrg;
+    Organization foodServiceOrg;
+    Organization hotelOrg;
+    Organization travelAgencyOrg;
+    Organization insuranceOrg;
+    Organization attractionOrg;
+    
     public static Platform getInstance() {
         return new Platform();
     }
@@ -65,10 +75,10 @@ public class Platform {
         UserAccount systemAdmin = this.uad.createUserAccount("sys", "sys", new SystemAdminRole());
         
         //create 4 enterprises
-        Enterprise transportation = this.getEnterpriseDirectory().createEnterprise(Transportation);
-        Enterprise hotel = this.getEnterpriseDirectory().createEnterprise(Hotel);
-        Enterprise travelAgency = this.getEnterpriseDirectory().createEnterprise(TravelAgency);
-        Enterprise attraction = this.getEnterpriseDirectory().createEnterprise(Attraction);
+        transportation = this.getEnterpriseDirectory().createEnterprise(Transportation);
+        hotel = this.getEnterpriseDirectory().createEnterprise(Hotel);
+        travelAgency = this.getEnterpriseDirectory().createEnterprise(TravelAgency);
+        attraction = this.getEnterpriseDirectory().createEnterprise(Attraction);
         
         //create enterprise admin user
         UserAccount transAdmin = transportation.getUserAccountDirectory().createUserAccount("transadmin", "transadmin", new EnterpriseAdminRole());
@@ -77,19 +87,22 @@ public class Platform {
         UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attractionadmin", "attractionadmin", new EnterpriseAdminRole());
         
         //create the 6 orgs
-        Organization airlineOrg = transportation.getOrganizationDirectory().createOrganization(AirlineOrg);
-        Organization foodServiceOrg = transportation.getOrganizationDirectory().createOrganization(FoodServiceOrg);
-        Organization hotelOrg = transportation.getOrganizationDirectory().createOrganization(HotelOrg);
-        Organization travelAgencyOrg = transportation.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
-        Organization insuranceOrg = transportation.getOrganizationDirectory().createOrganization(InsuranceOrg);
-        Organization attractionOrg = transportation.getOrganizationDirectory().createOrganization(AttractionOrg);
+        airlineOrg = transportation.getOrganizationDirectory().createOrganization(AirlineOrg);
+        foodServiceOrg = transportation.getOrganizationDirectory().createOrganization(FoodServiceOrg);
+        hotelOrg = transportation.getOrganizationDirectory().createOrganization(HotelOrg);
+        travelAgencyOrg = transportation.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
+        insuranceOrg = transportation.getOrganizationDirectory().createOrganization(InsuranceOrg);
+        attractionOrg = transportation.getOrganizationDirectory().createOrganization(AttractionOrg);
+        
+        airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
         
     }
 
-     public void populateData() {
+    public void populateData() {
         // Flight Ticket Products
       try{
-                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
+        ArrayList<Product> flightProducts = this.airlineOrg.getProductCatalog().getProductList();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 
         flightProducts.add(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
         flightProducts.add(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50));
@@ -110,12 +123,16 @@ public class Platform {
         flightProducts.add(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25));
         flightProducts.add(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40));
         flightProducts.add(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80));
-
+        
+        
+        
         // In Flight food Product 
+        ArrayList<Product> flightFoodProducts = this.foodServiceOrg.getProductCatalog().getProductList();
         flightFoodProducts.add(new FoodServiceProduct("FOOD_SERVICE_1",  true, 50));
         flightFoodProducts.add(new FoodServiceProduct("FOOD_SERVICE_2",  false, 80));
-                
+        
         // Hotel Room Products
+        ArrayList<Product> hotelProducts = this.hotelOrg.getProductCatalog().getProductList();
         hotelProducts.add(new HotelRoomsProduct("Atlanta", "Standard Double", 150, 10));
         hotelProducts.add(new HotelRoomsProduct("Austin", "Standard Double", 175, 20));
         hotelProducts.add(new HotelRoomsProduct("Boston", "Deluxe Single", 175, 30));
@@ -144,30 +161,6 @@ public class Platform {
       }
     }
 
-    public ArrayList<Product> getHotelProducts() {
-        return hotelProducts;
-    }
-
-    public void setHotelProducts(ArrayList<Product> hotelProducts) {
-        this.hotelProducts = hotelProducts;
-    }
-
-    public ArrayList<Product> getFlightProducts() {
-        return flightProducts;
-    }
-
-    public void setFlightProducts(ArrayList<Product> flightProducts) {
-        this.flightProducts = flightProducts;
-    }
-
-    public ArrayList<Product> getFlightFoodProducts() {
-        return flightFoodProducts;
-    }
-
-    public void setFlightFoodProducts(ArrayList<Product> flightFoodProducts) {
-        this.flightFoodProducts = flightFoodProducts;
-    }
-    
     public UserAccountDirectory getUad() {
         return uad;
     }
@@ -186,6 +179,46 @@ public class Platform {
 
     public OrderReport getMasterOrderReport() {
         return masterOrderReport;
+    }
+
+    public Enterprise getTransportation() {
+        return transportation;
+    }
+
+    public Enterprise getHotel() {
+        return hotel;
+    }
+
+    public Enterprise getTravelAgency() {
+        return travelAgency;
+    }
+
+    public Enterprise getAttraction() {
+        return attraction;
+    }
+
+    public Organization getAirlineOrg() {
+        return airlineOrg;
+    }
+
+    public Organization getFoodServiceOrg() {
+        return foodServiceOrg;
+    }
+
+    public Organization getHotelOrg() {
+        return hotelOrg;
+    }
+
+    public Organization getTravelAgencyOrg() {
+        return travelAgencyOrg;
+    }
+
+    public Organization getInsuranceOrg() {
+        return insuranceOrg;
+    }
+
+    public Organization getAttractionOrg() {
+        return attractionOrg;
     }
     
     

@@ -71,9 +71,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         toolBar.setBackground(new java.awt.Color(61, 69, 100));
+        toolBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         manageUserBtn.setBackground(new java.awt.Color(8, 57, 97));
-        manageUserBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        manageUserBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         manageUserBtn.setForeground(new java.awt.Color(255, 255, 255));
         manageUserBtn.setText("Manage Enterprise User");
         manageUserBtn.setContentAreaFilled(false);
@@ -84,9 +85,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageUserBtnActionPerformed(evt);
             }
         });
+        toolBar.add(manageUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 51));
 
         dataBtn.setBackground(new java.awt.Color(8, 57, 97));
-        dataBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        dataBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         dataBtn.setForeground(new java.awt.Color(255, 255, 255));
         dataBtn.setText("Data Center");
         dataBtn.setContentAreaFilled(false);
@@ -97,27 +99,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 dataBtnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout toolBarLayout = new javax.swing.GroupLayout(toolBar);
-        toolBar.setLayout(toolBarLayout);
-        toolBarLayout.setHorizontalGroup(
-            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manageUserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14))
-        );
-        toolBarLayout.setVerticalGroup(
-            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toolBarLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(manageUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(dataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(638, Short.MAX_VALUE))
-        );
+        toolBar.add(dataBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 179, 39));
 
         workArea.setDoubleBuffered(false);
         workArea.setLayout(new java.awt.CardLayout());
@@ -127,9 +109,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         sysadminPanelLayout.setHorizontalGroup(
             sysadminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sysadminPanelLayout.createSequentialGroup()
-                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         sysadminPanelLayout.setVerticalGroup(
             sysadminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

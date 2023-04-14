@@ -38,7 +38,7 @@ public class FlightTicketProduct extends Product {
     }
 
     @Override
-    public FlightTicketProduct getFlightProductDetails() {
+    public FlightTicketProduct getProductDetails() {
         return this;
     }
     

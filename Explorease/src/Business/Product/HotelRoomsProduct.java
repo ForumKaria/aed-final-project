@@ -24,11 +24,16 @@ public class HotelRoomsProduct extends Product {
         this.roomsAvailable = roomsAvailable;
     }
 
+//    @Override
+//    public void getProductDetails() {
+//        System.out.println("City: " + city);
+//        System.out.println("Room Type: " + roomType);
+//        System.out.println("Price: " + price);
+//    }
+    
     @Override
-    public void getProductDetails() {
-        System.out.println("City: " + city);
-        System.out.println("Room Type: " + roomType);
-        System.out.println("Price: " + price);
+    public HotelRoomsProduct getProductDetails() {
+        return this;
     }
     
     public String getCity() {

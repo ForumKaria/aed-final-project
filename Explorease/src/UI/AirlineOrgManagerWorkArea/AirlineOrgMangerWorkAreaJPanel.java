@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.HotelManagerWorkArea;
+package UI.AirlineOrgManagerWorkArea;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.AirlineOrganization;
+import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
@@ -16,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 15512
  */
-public class MangerWorkArea extends javax.swing.JPanel {
+public class AirlineOrgMangerWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form MangerWorkArea
@@ -26,24 +29,31 @@ public class MangerWorkArea extends javax.swing.JPanel {
     UserAccount ua;
     JPanel container;
     DefaultTableModel prodTable;
+    Enterprise enterprise;
+    AirlineOrganization airlineOrg;
 
-    public MangerWorkArea(JPanel container, Platform platform, UserAccount ua) {
+    public AirlineOrgMangerWorkAreaJPanel(JPanel container, Platform platform, UserAccount ua,Enterprise enterprise) {
         initComponents();
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
+        this.enterprise = enterprise;
+        this.airlineOrg = (AirlineOrganization) this.platform.getAirlineOrg();
         this.prodTable = (DefaultTableModel) flights.getModel();
+        
         populateFlights();
     }
 
      public void populateFlights() {
         prodTable.setRowCount(0);
 
-        ArrayList<Product> flights = this.platform.getFlightProducts();
+//        ArrayList<Product> flights = this.platform.getFlightProducts();
+        ArrayList<Product> flights = this.airlineOrg.getProductCatalog().getProductList();
 
         if (flights.size() > 0) {
             for (Product flight : flights) {
-                FlightTicketProduct f = flight.getFlightProductDetails();
+                
+                FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
                 Object[] row = new Object[4];
                 row[0] = f.getAirline();
                 row[1] = f.getDepartureCity();
@@ -52,7 +62,7 @@ public class MangerWorkArea extends javax.swing.JPanel {
                 prodTable.addRow(row);
             }
         }
-    
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,7 +125,7 @@ public class MangerWorkArea extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void initComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+//    private void initComponents() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }

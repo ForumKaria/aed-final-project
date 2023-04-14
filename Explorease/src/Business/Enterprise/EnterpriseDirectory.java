@@ -47,7 +47,16 @@ public class EnterpriseDirectory {
         }
         
         return null;
-        
+    }
+    
+    public Enterprise findEnterpriseByType(EnterpriseType type){
+        for (Enterprise en: this.enterpriseList){
+            if (en.getType()==type){
+                return en;
+            }
+        }
+        return null;
+    }
 //                if(type == EnterpriseType.Transportation) {
 //            enterprise = new TransportationEnterprise();
 //            enterpriseList.add(enterprise);
@@ -67,6 +76,6 @@ public class EnterpriseDirectory {
 //        }
 //        
 //        return null;
-    }
+    
     
 }
