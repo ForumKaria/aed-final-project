@@ -28,6 +28,15 @@ public class OrganizationDirectory {
         return organizationList;
     }
     
+    public Organization findOrganization(String orgId){
+        for (Organization organization : organizationList) {
+            if(organization.getOrganizationId().equals(orgId)){
+                return organization;
+            }
+        }
+        return null;
+    }
+    
     public Organization createOrganization(OrganizationType type){
         Organization org;
         

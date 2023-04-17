@@ -87,12 +87,11 @@ public class Platform {
         //create the 6 orgs
         Organization airlineOrg = transportation.getOrganizationDirectory().createOrganization(AirlineOrg);
         Organization foodServiceOrg = transportation.getOrganizationDirectory().createOrganization(FoodServiceOrg);
-        Organization hotelOrg = transportation.getOrganizationDirectory().createOrganization(HotelOrg);
-        Organization travelAgencyOrg = transportation.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
-        Organization insuranceOrg = transportation.getOrganizationDirectory().createOrganization(InsuranceOrg);
-        Organization attractionOrg = transportation.getOrganizationDirectory().createOrganization(AttractionOrg);
-        
-    }
+        Organization hotelOrg = hotel.getOrganizationDirectory().createOrganization(HotelOrg);
+        Organization travelAgencyOrg = travelAgency.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
+        Organization insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
+        Organization attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
+       }
 
     public void populateData() {
         try {

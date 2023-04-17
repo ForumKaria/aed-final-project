@@ -4,10 +4,54 @@
  */
 package Business.Employee;
 
+import Person.Person;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author emi
  */
 public class Employee {
+
+    private String orgEmpId;
+    private Person person;
+    private UserAccount userAccount;
+
+    public Employee(String empId, Person person, UserAccount userAccount) {
+        this.orgEmpId = empId;
+        this.person = person;
+        this.userAccount = userAccount;
+    }
+
+    public
+    String getOrgEmpId() {
+        return orgEmpId;
+    }
+
+    public
+    void setOrgEmpId(String orgEmpId) {
+        this.orgEmpId = orgEmpId;
+    }
+
+    public
+    Person getPerson() {
+        return person;
+    }
+
+    public
+    void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public
+    UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public
+    void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+    
     
 }
