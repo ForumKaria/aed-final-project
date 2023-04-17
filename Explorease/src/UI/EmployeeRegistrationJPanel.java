@@ -5,6 +5,11 @@
 package UI;
 
 import Business.Customer.Customer;
+import Business.Employee.Employee;
+import Business.Enterprise.EnterpriseDirectory;
+import Business.Organization.HotelOrganization;
+import Business.Organization.Organization;
+import Business.Organization.OrganizationDirectory;
 import Business.Platform;
 import Person.Person;
 import Roles.AirlineAgentRole;
@@ -173,6 +178,7 @@ public
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         // TODO add your handling code here:
         UserAccountDirectory uad = this.platform.getUad();
+        EnterpriseDirectory enterpriseDirectory = this.platform.getEnterpriseDirectory();
 
         //get customer information
         String userName = fieldusername.getText();
@@ -193,24 +199,32 @@ public
             //create user account
             else {
                 Role role;
+                Organization org;
+                
                 switch (organization) {
                     case "Hotel":
                         role = new HotelAgentRole();
+                        org = enterpriseDirectory.findEnterprise("enterprise2").getOrganizationDirectory().findOrganization("org3");
                         break;
                     case "Airline":
                         role = new AirlineAgentRole();
+                           org = enterpriseDirectory.findEnterprise("enterprise1").getOrganizationDirectory().findOrganization("org1");
                         break;
                     case "Insurance":
                         role = new InsuranceAgentRole();
+                        org = enterpriseDirectory.findEnterprise("enterprise3").getOrganizationDirectory().findOrganization("org5");
                         break;
                     case "Food Service":
                         role = new FoodServiceSupplierRole();
+                        org = enterpriseDirectory.findEnterprise("enterprise1").getOrganizationDirectory().findOrganization("org2");
                         break;
                     case "Attraction":
                         role = new AttractionManagerRole();
+                        org = enterpriseDirectory.findEnterprise("enterprise4").getOrganizationDirectory().findOrganization("org6");
                         break;
                     case "Travel Agency":
                         role = new TravelAgencyAgentRole();
+                        org = enterpriseDirectory.findEnterprise("enterprise3").getOrganizationDirectory().findOrganization("org4");
                         break;
                                
                     default:
@@ -218,8 +232,8 @@ public
                 }
                 UserAccount user = uad.createUserAccount(userName, pass,role);
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
-                Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
-                JOptionPane.showMessageDialog(null, "User created");
+                Employee e = org.getEmployeeDirectory().createEmployee(org.getOrganizationId(),p,user);
+                JOptionPane.showMessageDialog(null, "Employee created");
             }
         }
 
