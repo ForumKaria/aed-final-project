@@ -10,15 +10,23 @@ package Business.Product;
  */
 public abstract class Product {
     private String productId;
-    
+    private int price;
     // Constructor
-    public Product(String productId) {
+    public Product(String productId,int price) {
         this.productId = productId;
+        this.price = price;
     }
     
     // Abstract method to get product details
-    public abstract FlightTicketProduct getFlightProductDetails();
-    public abstract HotelRoomsProduct getHotelProductDetails();
+    public abstract Product getProductDetails();
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
     
     // Getters and Setters
     public String getProductId() {

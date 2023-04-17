@@ -23,3 +23,4 @@ public class OrderItem {
     public int getOrderItemTotal() {
         return selectedproduct.getPrice();
     }
+}

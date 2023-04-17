@@ -6,21 +6,17 @@ package Business.Product;
 
 public class FoodServiceProduct extends Product {
     private Boolean vegan;
-    private int price;
     
     // Constructor
     public FoodServiceProduct(String productId, Boolean vegan, int price) {
-        super(productId);
+        super(productId,price);
         this.vegan = vegan;
-        this.price = price;
     }
     
     // Override abstract method to get product details
     @Override
-    public void getProductDetails() {
-        System.out.println("Product ID: " + getProductId());
-        System.out.println("Cuisine: " + vegan);
-        System.out.println("Price: " + price);
+    public FoodServiceProduct getProductDetails() {
+        return this;
     }
     
    
