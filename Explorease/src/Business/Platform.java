@@ -96,6 +96,7 @@ public class Platform {
     public void populateData() {
         try {
             // PopulateData  
+//            airlineOrg.getProductDirectory.getProductList();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 
             flightProducts.addToFlightProducts(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
