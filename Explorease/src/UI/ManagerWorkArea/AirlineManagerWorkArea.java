@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.HotelManagerWorkArea;
+package UI.ManagerWorkArea;
 
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
@@ -16,10 +16,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 15512
  */
-public class MangerWorkArea extends javax.swing.JPanel {
+public class AirlineManagerWorkArea extends javax.swing.JPanel {
 
     /**
-     * Creates new form MangerWorkArea
+     * Creates new form AirlineManagerWorkArea
      */
     
     Platform platform;
@@ -27,7 +27,7 @@ public class MangerWorkArea extends javax.swing.JPanel {
     JPanel container;
     DefaultTableModel prodTable;
 
-    public MangerWorkArea(JPanel container, Platform platform, UserAccount ua) {
+    public AirlineManagerWorkArea(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.platform = platform; 
         this.container = container;
@@ -39,19 +39,21 @@ public class MangerWorkArea extends javax.swing.JPanel {
      public void populateFlights() {
         prodTable.setRowCount(0);
 
-        ArrayList<Product> flights = this.platform.getFlightProducts();
+        ArrayList<FlightTicketProduct> flights = this.platform.getFlightProducts().getFlightProducts();
 
         if (flights.size() > 0) {
             for (Product flight : flights) {
-                FlightTicketProduct f = flight.getFlightProductDetails();
-                Object[] row = new Object[4];
-                row[0] = f.getAirline();
-                row[1] = f.getDepartureCity();
-                row[2] = f.getDepartureDate();
-                row[3] = f.getNonStop();
+                FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
+                Object[] row = new Object[5];
+                row[0] = f;
+                row[1] = f.getAirline();
+                row[2] = f.getDepartureCity();
+                row[3] = f.getDepartureDate();
+                row[4] = f.getNonStop();
                 prodTable.addRow(row);
             }
         }
+     }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,7 +117,4 @@ public class MangerWorkArea extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void initComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
