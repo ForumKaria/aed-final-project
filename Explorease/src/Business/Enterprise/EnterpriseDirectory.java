@@ -22,6 +22,15 @@ public class EnterpriseDirectory {
         return enterpriseList;
     }
     
+    public Enterprise findEnterprise(String entId){
+        for (Enterprise enterprise : enterpriseList) {
+            if(enterprise.getEnterpriseId().equals(entId)){
+                return enterprise;
+            }
+        }
+        return null;
+    }
+    
     public Enterprise createEnterprise(EnterpriseType type){
         Enterprise enterprise;
         

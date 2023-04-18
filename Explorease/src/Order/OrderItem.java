@@ -4,11 +4,23 @@
  */
 package Order;
 
+import Business.Product.Product;
+
 /**
  *
  * @author emi
  */
 public class OrderItem {
-     
-            
+
+    Product selectedproduct;
+
+    public OrderItem(Product p) {
+        selectedproduct = p;
+        //p.addOrderItem(this); //make sure product links back to the item
+        
+    }
+
+    public int getOrderItemTotal() {
+        return selectedproduct.getPrice();
+    }
 }

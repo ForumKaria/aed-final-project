@@ -4,10 +4,47 @@
  */
 package Business.Customer;
 
+import Person.Person;
+import UserAccount.UserAccount;
+import java.util.ArrayList;
+
 /**
  *
- * @author emi
+ * @author forumkaria
  */
-public class CustomerDirectory {
+public
+        class CustomerDirectory {
     
+    ArrayList<Customer> customerlist;
+    
+    public CustomerDirectory() {
+        this.customerlist = new ArrayList<Customer>();
+    }
+
+    public
+    ArrayList<Customer> getCustomerlist() {
+        return customerlist;
+    }
+
+    public
+    void addtoCustomerlist(Customer customer) {
+        this.customerlist.add(customer);
+    }
+    
+    
+    public Customer findById(String id){
+        for (Customer c:customerlist){
+            if (c.getPerson().getPersonid().equals(id)){
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    public Customer createCustomer(Person p, UserAccount ua){
+        Customer c = new Customer(p,ua);
+        
+        this.customerlist.add(c);
+        return c;
+    }
 }

@@ -20,11 +20,10 @@ public class FlightTicketProduct extends Product {
     private String departureTime;
     private String flightDuration;
     private Boolean nonStop;
-    private int price;
     private int numberOfSeatsAvailable;
     static int ctr =1;
     public FlightTicketProduct(String departureCity, String destinationCity, String airline, Date departureDate, String departureTime, String flightDuration, Boolean nonStop, int price, int numberOfSeatsAvailable) {
-        super("FLIGHT_TICKET_"+String.valueOf(ctr));
+        super("FLIGHT_TICKET_"+String.valueOf(ctr),price);
         ctr+=1;
         this.departureCity = departureCity;
         this.destinationCity = destinationCity;
@@ -33,15 +32,12 @@ public class FlightTicketProduct extends Product {
         this.departureTime = departureTime;
         this.flightDuration = flightDuration;
         this.nonStop = nonStop;
-        this.price = price;
         this.numberOfSeatsAvailable = numberOfSeatsAvailable;
     }
 
     @Override
-    public void getProductDetails() {
-        System.out.println("Departure City: " + departureCity);
-        System.out.println("Airline: " + airline);
-        System.out.println("Price: " + price);
+    public FlightTicketProduct getProductDetails() {
+        return this;
     }
     
     public String getDepartureCity() {
@@ -98,14 +94,6 @@ public class FlightTicketProduct extends Product {
 
     public void setNonStop(Boolean nonStop) {
         this.nonStop = nonStop;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getNumberOfSeatsAvailable() {

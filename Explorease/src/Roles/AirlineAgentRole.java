@@ -4,6 +4,11 @@
  */
 package Roles;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.Platform;
+import UI.ManagerWorkArea.AirlineManagerWorkArea;
+import UserAccount.UserAccount;
 import javax.swing.JPanel;
 
 /**
@@ -13,8 +18,8 @@ import javax.swing.JPanel;
 public class AirlineAgentRole extends Role{
 
     @Override
-    public JPanel createWorkArea() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
+        return new AirlineManagerWorkArea(container,platform,ua);
     }
     
 }
