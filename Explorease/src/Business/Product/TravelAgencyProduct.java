@@ -4,21 +4,26 @@
  */
 package Business.Product;
 
-public class FoodServiceProduct extends Product {
+/**
+ *
+ * @author forumkaria
+ */
+public
+        class TravelAgencyProduct extends Product {
     
-    String menu;
+    String service;
     static int ctr =1;
     // Constructor
-    public FoodServiceProduct(String menu, int price) {
+    public TravelAgencyProduct(String service, int price) {
         
-        super("FOOD_SERVICE_"+String.valueOf(ctr),price);
+        super("TRAVEL_AGENCY_SERVICE_"+String.valueOf(ctr),price);
         ctr+=1;
-        this.menu=menu;
+        this.service= service;
     }
     
     // Override abstract method to get product details
     @Override
-    public FoodServiceProduct getProductDetails() {
+    public TravelAgencyProduct getProductDetails() {
         return this;
     }
     
