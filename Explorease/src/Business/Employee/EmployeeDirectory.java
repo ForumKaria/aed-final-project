@@ -22,7 +22,7 @@ public class EmployeeDirectory {
     }
 
     public
-    ArrayList<Employee> getCustomerlist() {
+    ArrayList<Employee> getEmployeelist() {
         return employeelist;
     }
 

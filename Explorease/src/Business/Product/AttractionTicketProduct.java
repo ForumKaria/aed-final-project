@@ -12,22 +12,19 @@ import java.util.Date;
 public class AttractionTicketProduct extends Product{
 
     private String attraction;
-    private int ticketPrice;
     private Date date;
     static int ctr = 1;
     // Constructor with parameters
     public AttractionTicketProduct(String attraction, int ticketPrice, Date date) {
-        super("ATTRACTION_ID_"+String.valueOf(ctr));
+        super("ATTRACTION_ID_"+String.valueOf(ctr),ticketPrice);
         ctr+=1;
         this.attraction = attraction;
-        this.ticketPrice = ticketPrice;
         this.date = date;
     }
     
     @Override
-    public void getProductDetails() {
-        System.out.println("Attraction : " + attraction);
-        System.out.println("Ticket Price: " + ticketPrice);
+    public AttractionTicketProduct getProductDetails() {
+        return this;
     }
  
 }

@@ -64,6 +64,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageUserBtn = new javax.swing.JButton();
         dataBtn = new javax.swing.JButton();
         workArea = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -138,6 +139,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         );
 
         add(sysadminPanel, java.awt.BorderLayout.CENTER);
+        add(jSplitPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserBtnActionPerformed
@@ -153,6 +155,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dataBtn;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageUserBtn;
     private javax.swing.JPanel sysadminPanel;
     private javax.swing.JPanel toolBar;

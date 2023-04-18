@@ -79,7 +79,7 @@ public class Platform {
         Enterprise attraction = this.getEnterpriseDirectory().createEnterprise(Attraction);
 
         //create enterprise admin user
-        UserAccount transAdmin = transportation.getUserAccountDirectory().createUserAccount("transadmin", "transadmin", new EnterpriseAdminRole());
+        UserAccount transAdmin = transportation.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new EnterpriseAdminRole());
         UserAccount hotelAdmin = hotel.getUserAccountDirectory().createUserAccount("hoteladmin", "hoteladmin", new EnterpriseAdminRole());
         UserAccount travelAgencyAdmin = travelAgency.getUserAccountDirectory().createUserAccount("travelAgencyadmin", "travelAgencyadmin", new EnterpriseAdminRole());
         UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attractionadmin", "attractionadmin", new EnterpriseAdminRole());

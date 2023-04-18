@@ -26,7 +26,6 @@ public abstract class Enterprise {
     }
     
     public enum EnterpriseType {
-
         Transportation("Transportation Enterprise"),
         Hotel("Hotel Enterprise"),
         TravelAgency("TravelAgency Enterprise"),

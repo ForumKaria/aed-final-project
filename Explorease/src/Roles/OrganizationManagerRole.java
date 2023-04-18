@@ -19,6 +19,7 @@ public class OrganizationManagerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
+        
         return new SystemAdminWorkAreaJPanel(container,platform,ua);
     }
 
