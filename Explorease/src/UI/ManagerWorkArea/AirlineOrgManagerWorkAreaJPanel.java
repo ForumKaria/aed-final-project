@@ -58,6 +58,13 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }
+    
+    public void manageOrders(){
+        JPanel manageOrderJPanel = new AirlineOrgManagerAllOrdersWorkArea( platform,  container,  ua);
+        workArea.add(manageOrderJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +79,7 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         toolBar = new javax.swing.JPanel();
         manageEmployeeBtn = new javax.swing.JButton();
         productBtn = new javax.swing.JButton();
+        orderBtn = new javax.swing.JButton();
         workArea = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -110,6 +118,19 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        orderBtn.setBackground(new java.awt.Color(8, 57, 97));
+        orderBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        orderBtn.setForeground(new java.awt.Color(255, 255, 255));
+        orderBtn.setText("Manage Orders");
+        orderBtn.setContentAreaFilled(false);
+        orderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        orderBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        orderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout toolBarLayout = new javax.swing.GroupLayout(toolBar);
         toolBar.setLayout(toolBarLayout);
         toolBarLayout.setHorizontalGroup(
@@ -118,7 +139,8 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(productBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(productBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(orderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14))
         );
         toolBarLayout.setVerticalGroup(
@@ -128,6 +150,8 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(productBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(orderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -164,10 +188,16 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         manageProduct();
     }//GEN-LAST:event_productBtnActionPerformed
 
+    private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
+        // TODO add your handling code here:
+        manageOrders();
+    }//GEN-LAST:event_orderBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel airlineOrgManagerPanel;
     private javax.swing.JButton manageEmployeeBtn;
+    private javax.swing.JButton orderBtn;
     private javax.swing.JButton productBtn;
     private javax.swing.JPanel toolBar;
     private javax.swing.JPanel workArea;

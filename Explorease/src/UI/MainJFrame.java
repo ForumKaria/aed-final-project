@@ -243,17 +243,18 @@ public class MainJFrame extends javax.swing.JFrame {
                     if (!hasUserAtEnterpriseLevel){
                         for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
                             Boolean hasUserAtOrgLevel = org.getUserAccountDirectory().accountExists(username, password);
-                            System.out.println("found user at org level");
+//                            System.out.println("found user at org level");
                             if(hasUserAtOrgLevel){
                                 //org level user login
                                 this.enterprise = en;
                                 this.organization = org;
                                 this.userAccount = org.getUserAccountDirectory().getUserAccount(username, password);
+                                //org employee user needs to be aprroved before loging in
                                 if(org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount)!=null){
-                                    System.out.println("user is an employee");
+//                                    System.out.println("user is an employee");
                                     if (!org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount).getApproved()){
                                         this.userAccount = null;
-                                        System.out.println("employee status false");
+//                                        System.out.println("employee status false");
                                     }
                                 }
                                 break;
