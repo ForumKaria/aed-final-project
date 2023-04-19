@@ -35,6 +35,9 @@ public
         this.container = container;
         this.ua = ua;
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
+        
+        //default screen for customer
+        bookFlight();
        
     }
 
@@ -185,16 +188,17 @@ public
 
     private void hotelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotelBtnActionPerformed
         // TODO add your handling code here:
-//        manageProduct();
+        bookHotel();
     }//GEN-LAST:event_hotelBtnActionPerformed
 
     private void attBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attBtnActionPerformed
         // TODO add your handling code here:
-//        manageOrders();
+        bookAttraction();
     }//GEN-LAST:event_attBtnActionPerformed
 
     private void planBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planBtnActionPerformed
         // TODO add your handling code here:
+        planTrip();
     }//GEN-LAST:event_planBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
@@ -205,6 +209,27 @@ public
     public void bookFlight(){
         JPanel bookFlightJPanel = new BookFlightJPanel( container, platform, ua);
         workArea.add(bookFlightJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
+    
+    public void bookHotel(){
+        JPanel bookHotelJPanel = new BookHotelJPanel( container, platform, ua);
+        workArea.add(bookHotelJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
+    
+    public void bookAttraction(){
+        JPanel bookAttractionJPanel = new BookAttractionTicketJPanel( container, platform, ua);
+        workArea.add(bookAttractionJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
+    
+    public void planTrip(){
+        JPanel planTripJPanel = new PlanATripJPanel( container, platform, ua);
+        workArea.add(planTripJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }

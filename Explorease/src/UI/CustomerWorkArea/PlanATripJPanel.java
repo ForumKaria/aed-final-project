@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emi
  */
-public class BookFlightJPanel extends javax.swing.JPanel {
+public class PlanATripJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BookFlightJPanel
@@ -34,7 +34,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     Organization org;
     Customer cus;
     FlightTicketProduct flightSelected;
-    public BookFlightJPanel(JPanel container, Platform platform, UserAccount ua) {
+    public PlanATripJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.platform = platform; 
         this.container = container;
@@ -74,8 +74,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        nonStop = new javax.swing.JCheckBox();
-        tripTypeCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -101,7 +99,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 searchBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 140, -1, -1));
+        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,9 +132,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, -1, 20));
         add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 690, 105, -1));
 
-        jLabel6.setText("Total Price");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 690, 70, 20));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 690, 105, -1));
+        jLabel6.setText("Price");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 690, -1, 20));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 690, 105, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -154,14 +152,8 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 690, 20, 20));
         add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 690, 105, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/airplane_128px.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/planATrip_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
-
-        nonStop.setText("Non-stop");
-        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 140, 90, -1));
-
-        tripTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "One-way", "Round-trip" }));
-        add(tripTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -176,15 +168,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         
         for (Product flight: this.org.getProductCatalog().getProducts()){
             FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
-            if(!nonStop.isSelected()){
-                if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())){
-                    searchResult.add(flight);
-                }
-            }else{
-                if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                        && f.getNonStop()){
-                    searchResult.add(flight);
-                }
+            if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) 
+                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
+                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
+                    ){
+                searchResult.add(flight);
             }
         }
         
@@ -216,7 +204,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jTextField3.setText(flightSelected.getProductId());
         jTextField5.setText(flightSelected.getDepartureCity());
         jTextField6.setText(flightSelected.getDestinationCity());
-        jTextField4.setText(String.valueOf((tripTypeCombo.getSelectedItem().equals("One-way"))? flightSelected.getPrice():flightSelected.getPrice()*2));
+        jTextField4.setText(String.valueOf(flightSelected.getPrice()));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -224,14 +212,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         //create order for customer and add to customer's order list
         Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
         //link product with the order
-        if (tripTypeCombo.getSelectedItem().equals("One-way")){
-            o.newOrderItem(this.flightSelected);
-        }else {
-            //just to get the total price right for the order
-            o.newOrderItem(this.flightSelected);
-            o.newOrderItem(this.flightSelected);
-        }
-        
+        o.newOrderItem(this.flightSelected);
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
         JOptionPane.showMessageDialog(null, "Successfully booked");
@@ -259,9 +240,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JCheckBox nonStop;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton selectBtn;
-    private javax.swing.JComboBox<String> tripTypeCombo;
     // End of variables declaration//GEN-END:variables
 }

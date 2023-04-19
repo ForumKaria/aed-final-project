@@ -50,13 +50,12 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         
         if(allOrders.size()>0){
             for (Order o: allOrders){
-                for (OrderItem oi: o.getOrderitems()){
-                    Object[] row = new Object[3];
-                    row[0] = o.getOrderId();
-                    row[1] = oi.getSelectedproduct();
-                    row[2] = o.getOrderTotal();
-                    ordersTable.addRow(row);
-                }
+                Object[] row = new Object[3];
+                row[0] = o.getOrderId();
+                row[1] = o.getOrderitems().get(0).getSelectedproduct(); //same product to different order items inside one order
+                row[2] = o.getOrderTotal();
+                ordersTable.addRow(row);
+                
             }
         }
     }
@@ -72,6 +71,10 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         orders = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1100, 800));
 
         orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,26 +89,35 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(orders);
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/order_128px.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(119, 119, 119)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(370, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable orders;
     // End of variables declaration//GEN-END:variables
