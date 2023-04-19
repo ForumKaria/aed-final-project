@@ -32,9 +32,9 @@ public
     }
     
     
-    public Customer findById(String id){
+    public Customer findCustomerById(String id){
         for (Customer c:customerlist){
-            if (c.getPerson().getPersonid().equals(id)){
+            if (c.getUserAccount().getAccountId().equals(id)){
                 return c;
             }
         }

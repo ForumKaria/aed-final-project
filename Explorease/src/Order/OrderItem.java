@@ -23,4 +23,14 @@ public class OrderItem {
     public int getOrderItemTotal() {
         return selectedproduct.getPrice();
     }
+
+    public Product getSelectedproduct() {
+        return selectedproduct;
+    }
+
+    public void setSelectedproduct(Product selectedproduct) {
+        this.selectedproduct = selectedproduct;
+    }
+    
+    
 }

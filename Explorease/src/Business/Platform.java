@@ -4,6 +4,7 @@
  */
 package Business;
 
+import Business.Customer.Customer;
 import Business.Product.FlightProductsDirectory;
 import Business.Product.HotelsProductsDirectory;
 import Business.Customer.CustomerDirectory;
@@ -31,7 +32,9 @@ import Business.Product.Product;
 import Business.Product.ProductCatalog;
 import Business.Product.TravelAgencyProduct;
 import Order.OrderReport;
+import Person.Person;
 import Person.PersonDirectory;
+import Roles.CustomerRole;
 import Roles.EnterpriseAdminRole;
 import Roles.OrganizationManagerRole;
 import Roles.SystemAdminRole;
@@ -107,6 +110,10 @@ public class Platform {
         //create one org manager for airline first
         UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
         
+        //create a customer for testing
+        UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
+        Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
+        Customer c = this.getCustomerDirectory().createCustomer(p,cus);
        }
 
     public void populateData() {
@@ -224,4 +231,29 @@ public class Platform {
         return masterOrderReport;
     }
 
+    public Organization getAirlineOrg() {
+        return airlineOrg;
+    }
+
+    public Organization getHotelOrg() {
+        return hotelOrg;
+    }
+
+    public Organization getFoodServiceOrg() {
+        return foodServiceOrg;
+    }
+
+    public Organization getTravelAgencyOrg() {
+        return travelAgencyOrg;
+    }
+
+    public Organization getInsuranceOrg() {
+        return insuranceOrg;
+    }
+
+    public Organization getAttractionOrg() {
+        return attractionOrg;
+    }
+    
+    
 }

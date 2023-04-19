@@ -155,7 +155,7 @@ public
                 UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
                 Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
-                JOptionPane.showMessageDialog(null, "User created");
+                JOptionPane.showMessageDialog(null, "Registered Successfully");
         }
         }
         
