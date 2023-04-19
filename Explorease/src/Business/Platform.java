@@ -33,6 +33,7 @@ import Business.Product.TravelAgencyProduct;
 import Order.OrderReport;
 import Person.PersonDirectory;
 import Roles.EnterpriseAdminRole;
+import Roles.OrganizationManagerRole;
 import Roles.SystemAdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
@@ -103,14 +104,17 @@ public class Platform {
         insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
         
+        //create one org manager for airline first
+        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
+        
        }
 
     public void populateData() {
         try {
             // PopulateData  
-//            airlineOrg.getProductDirectory.getProductList();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 
+            //flights data
             ProductCatalog flightProducts = airlineOrg.getProductCatalog();
             flightProducts.addProduct(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
             flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50));
@@ -185,6 +189,19 @@ public class Platform {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Organization findOrgByUserAccount(String username, String password){
+        for (Enterprise en: this.getEnterpriseDirectory().getEnterpriseList()){
+            for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
+                Boolean hasUserAtOrgLevel = org.getUserAccountDirectory().accountExists(username, password);
+                    if(hasUserAtOrgLevel){
+                        //org level user login
+                        return org;
+                    }
+            }
+        }
+        return null;  
     }
 
     public UserAccountDirectory getUad() {
