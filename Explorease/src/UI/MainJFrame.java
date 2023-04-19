@@ -58,7 +58,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void switchPanel() {
 
-        if (userAccount != null && userAccount.getRole() != null) {
+        if (this.userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi "+ userAccount.getUsername() + "!";
             container.add("workArea", userAccount.getRole().createWorkArea(container,userAccount, platform ,enterprise,organization));
             greetingLabel.setText(greetings);
@@ -243,11 +243,19 @@ public class MainJFrame extends javax.swing.JFrame {
                     if (!hasUserAtEnterpriseLevel){
                         for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
                             Boolean hasUserAtOrgLevel = org.getUserAccountDirectory().accountExists(username, password);
+                            System.out.println("found user at org level");
                             if(hasUserAtOrgLevel){
                                 //org level user login
                                 this.enterprise = en;
                                 this.organization = org;
                                 this.userAccount = org.getUserAccountDirectory().getUserAccount(username, password);
+                                if(org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount)!=null){
+                                    System.out.println("user is an employee");
+                                    if (!org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount).getApproved()){
+                                        this.userAccount = null;
+                                        System.out.println("employee status false");
+                                    }
+                                }
                                 break;
                             }
                         }

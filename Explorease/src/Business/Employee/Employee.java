@@ -63,6 +63,9 @@ public class Employee {
         this.approved = approved;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.orgEmpId;
+    }
     
 }

@@ -47,7 +47,6 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         JPanel manageEmployeeJPanel = new AirlineManagerEmployeeWorkArea(platform,container,  ua);
 //        JScrollPane scroll = new JScrollPane(manageEmployeeJPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 //        workArea.add(scroll);
- 
         workArea.add(manageEmployeeJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
