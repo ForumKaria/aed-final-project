@@ -7,6 +7,7 @@ package UI.EnterpriseAdminWorkArea;
 import Business.Enterprise.Enterprise;
 import Business.Platform;
 import UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -25,10 +26,28 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     public EnterpriseAdminWorkAreaJPanel(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise) {
         initComponents();
+        
+        this.setVisible(true);
         this.container = container;
         this.ua = ua;
         this.platform = platform;
         this.enterprise = enterprise;
+        
+        manageOrganization();
+    }
+    
+    public void manageOrganization(){
+        JPanel manageOrganizationJPanel = new ManageOrganizationJPanel(container,platform, ua);
+        workArea.add(manageOrganizationJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
+    
+    public void viewData(){
+        JPanel viewEnterpriseDataJPanel = new ViewEnterpriseDataJPanel(container,platform, ua);
+        workArea.add("viewData",viewEnterpriseDataJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
     }
 
     /**
@@ -40,230 +59,103 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jPanel2 = new javax.swing.JPanel();
-        manageOrgBtn = new javax.swing.JButton();
-        addOrgBtn = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        addOrgnBtn = new javax.swing.JButton();
-        deleteOrgnBtn = new javax.swing.JButton();
-        username = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        managerName = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
-        updateOrgnBtn = new javax.swing.JButton();
+        enterpriseAdminpanel = new javax.swing.JPanel();
+        toolBar = new javax.swing.JPanel();
+        manageUserBtn = new javax.swing.JButton();
+        dataBtn = new javax.swing.JButton();
+        workArea = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
 
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        toolBar.setBackground(new java.awt.Color(61, 69, 100));
+        toolBar.setPreferredSize(new java.awt.Dimension(200, 800));
 
-        manageOrgBtn.setText("MANAGE ORGANIZATION");
-
-        addOrgBtn.setText("ADD ORGANIZATION");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(addOrgBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
-                .addComponent(manageOrgBtn)
-                .addGap(244, 244, 244))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manageOrgBtn)
-                    .addComponent(addOrgBtn))
-                .addGap(33, 33, 33))
-        );
-
-        jSplitPane2.setTopComponent(jPanel2);
-
-        jLabel1.setText("Organization Name:");
-
-        jLabel2.setText("Manager Name:");
-
-        jLabel3.setText("User Name:");
-
-        jLabel4.setText("Password:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Airline", "Food Service", "Hotel", "Travel Agency", "Insurance", "Attraction" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Ent Name", "Org Name", "Manager Name", "Username", "Password"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        addOrgnBtn.setText("ADD ORGANIZATION");
-
-        deleteOrgnBtn.setText("DELETE ORGANIZATION");
-        deleteOrgnBtn.addActionListener(new java.awt.event.ActionListener() {
+        manageUserBtn.setBackground(new java.awt.Color(8, 57, 97));
+        manageUserBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        manageUserBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageUserBtn.setText("Manage Organization User");
+        manageUserBtn.setContentAreaFilled(false);
+        manageUserBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        manageUserBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        manageUserBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteOrgnBtnActionPerformed(evt);
+                manageUserBtnActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Update Manager Name:");
+        dataBtn.setBackground(new java.awt.Color(8, 57, 97));
+        dataBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        dataBtn.setForeground(new java.awt.Color(255, 255, 255));
+        dataBtn.setText("Data Center");
+        dataBtn.setContentAreaFilled(false);
+        dataBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dataBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        dataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataBtnActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setText("Update Password:");
-
-        updateOrgnBtn.setText("UPDATE ORGANIZATION");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                    .addComponent(jTextField5)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(120, 120, 120)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(updateOrgnBtn)
-                            .addComponent(addOrgnBtn)
-                            .addComponent(deleteOrgnBtn))
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(232, Short.MAX_VALUE))
+        javax.swing.GroupLayout toolBarLayout = new javax.swing.GroupLayout(toolBar);
+        toolBar.setLayout(toolBarLayout);
+        toolBarLayout.setHorizontalGroup(
+            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(manageUserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel3)
-                                .addGap(10, 10, 10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(addOrgnBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(updateOrgnBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteOrgnBtn)
-                        .addGap(114, 114, 114))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))))
+        toolBarLayout.setVerticalGroup(
+            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toolBarLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(manageUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jSplitPane2.setRightComponent(jPanel3);
+        workArea.setDoubleBuffered(false);
+        workArea.setPreferredSize(new java.awt.Dimension(1100, 800));
+        workArea.setLayout(new java.awt.CardLayout());
 
-        add(jSplitPane2, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout enterpriseAdminpanelLayout = new javax.swing.GroupLayout(enterpriseAdminpanel);
+        enterpriseAdminpanel.setLayout(enterpriseAdminpanelLayout);
+        enterpriseAdminpanelLayout.setHorizontalGroup(
+            enterpriseAdminpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(enterpriseAdminpanelLayout.createSequentialGroup()
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        enterpriseAdminpanelLayout.setVerticalGroup(
+            enterpriseAdminpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+            .addComponent(workArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+        );
+
+        add(enterpriseAdminpanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteOrgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgnBtnActionPerformed
+    private void manageUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteOrgnBtnActionPerformed
+        manageOrganization();
+    }//GEN-LAST:event_manageUserBtnActionPerformed
+
+    private void dataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataBtnActionPerformed
+        // TODO add your handling code here:
+        viewData();
+    }//GEN-LAST:event_dataBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addOrgBtn;
-    private javax.swing.JButton addOrgnBtn;
-    private javax.swing.JButton deleteOrgnBtn;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JButton manageOrgBtn;
-    private javax.swing.JTextField managerName;
-    private javax.swing.JTextField password;
-    private javax.swing.JButton updateOrgnBtn;
-    private javax.swing.JTextField username;
+    private javax.swing.JButton dataBtn;
+    private javax.swing.JPanel enterpriseAdminpanel;
+    private javax.swing.JButton manageUserBtn;
+    private javax.swing.JPanel toolBar;
+    private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

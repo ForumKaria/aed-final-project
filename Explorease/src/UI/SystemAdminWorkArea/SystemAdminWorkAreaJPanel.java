@@ -67,11 +67,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1100, 800));
-        setRequestFocusEnabled(false);
+        setPreferredSize(new java.awt.Dimension(1300, 800));
         setLayout(new java.awt.BorderLayout());
 
         toolBar.setBackground(new java.awt.Color(61, 69, 100));
+        toolBar.setPreferredSize(new java.awt.Dimension(200, 800));
 
         manageUserBtn.setBackground(new java.awt.Color(8, 57, 97));
         manageUserBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
@@ -104,7 +104,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         toolBarLayout.setHorizontalGroup(
             toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manageUserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -117,10 +117,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(manageUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(dataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(638, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         workArea.setDoubleBuffered(false);
+        workArea.setPreferredSize(new java.awt.Dimension(1100, 800));
         workArea.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout sysadminPanelLayout = new javax.swing.GroupLayout(sysadminPanel);
@@ -130,7 +131,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(sysadminPanelLayout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         sysadminPanelLayout.setVerticalGroup(
             sysadminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

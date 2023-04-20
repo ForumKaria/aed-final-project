@@ -22,7 +22,7 @@ public class EmployeeDirectory {
     }
 
     public
-    ArrayList<Employee> getEmployeelist() {
+    ArrayList<Employee> getEmployeelist()  {
         return employeelist;
     }
 
@@ -46,5 +46,14 @@ public class EmployeeDirectory {
         
         this.employeelist.add(e);
         return e;
+    }
+    
+    public Employee findEmployeeByUserAccount(UserAccount ua){
+        for (Employee e:employeelist){
+            if (e.getUserAccount()==ua){
+                return e;
+            }
+        }
+        return null;
     }
 }

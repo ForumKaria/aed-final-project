@@ -1,4 +1,5 @@
 package UI.ManagerWorkArea;
+import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
@@ -18,14 +19,16 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
     
     Platform platform;
     UserAccount ua;
-//    JPanel container;
+    JPanel container;
+    Organization org;
     DefaultTableModel prodTable;
 
-    public AirlineManagerProductWorkArea(Platform platform, UserAccount ua) {
+    public AirlineManagerProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform; 
-//        this.container = container;
+        this.container = container;
         this.ua = ua;
+        this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.prodTable = (DefaultTableModel) flights.getModel();
         populateFlights();
     }
@@ -33,7 +36,7 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
      public void populateFlights() {
         prodTable.setRowCount(0);
 
-        ArrayList<FlightTicketProduct> flights = this.platform.getFlightProducts().getFlightProducts();
+        ArrayList<Product> flights = this.org.getProductCatalog().getProducts();
 
         if (flights.size() > 0) {
             for (Product flight : flights) {
@@ -80,11 +83,12 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         nonStop = new javax.swing.JCheckBox();
-        departureDate = new com.toedter.calendar.JDateChooser();
         jButton6 = new javax.swing.JButton();
+        departureDate = new com.toedter.calendar.JDateChooser();
 
         jButton1.setText("jButton1");
 
+        setPreferredSize(new java.awt.Dimension(1300, 553));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,7 +200,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
             }
         });
         add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 440, -1, -1));
-        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 260, -1, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 255, 255));
         jButton6.setText("Update Flight");
@@ -206,6 +209,7 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
             }
         });
         add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 490, 130, -1));
+        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 260, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void depCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depCityActionPerformed
@@ -266,7 +270,7 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
-        this.platform.getFlightProducts().getFlightProducts().remove(f);
+        this.org.getProductCatalog().getProducts().remove(f);
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

@@ -18,6 +18,7 @@ public class Order {
     ArrayList<OrderItem> orderitems;
     Customer customer;
     String status;
+    Boolean orderApproved;
     
     public Order(Customer c) {
         this.orderId = "ORDER" + this.counter++;
@@ -26,6 +27,7 @@ public class Order {
         customer = c;
         //customer.addCustomerOrder(this); //we link the order to the customer
         status = "in process";
+        this.orderApproved = false;
     }
     
     public OrderItem newOrderItem(Product p) {

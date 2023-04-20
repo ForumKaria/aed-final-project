@@ -5,6 +5,8 @@
 package WorkRequest;
 
 import Business.Customer.Customer;
+import Business.Organization.Organization;
+import Order.Order;
 import UserAccount.UserAccount;
 
 /**
@@ -15,16 +17,18 @@ public abstract class WorkRequest {
     String message;
     UserAccount sender;
     UserAccount receiver;
-    // Order id or Order object
+    Order order;
     Customer customer;
     String status;
     private String workrequestID;
     private static int counter = 1;
+    Organization receiverOrg;
+
     
-    WorkRequest() {
+    WorkRequest(Order o) {
         // auto generate ID
-        this.workrequestID = "WR" + this.counter++;
-        
+        this.workrequestID = "WORk_REQUEST_" + this.counter++;
+        this.order = o;
         // initialize required objects
     }
     

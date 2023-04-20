@@ -17,20 +17,12 @@ public class Employee {
     private Person person;
     private UserAccount userAccount;
     private Boolean approved;
-    
+
     public Employee(String empId, Person person, UserAccount userAccount) {
         this.orgEmpId = empId;
         this.person = person;
         this.userAccount = userAccount;
         this.approved = false;
-    }
-
-    public Boolean getApproved() {
-        return approved;
-    }
-
-    public void setApproved(Boolean approved) {
-        this.approved = approved;
     }
 
     public
@@ -62,6 +54,18 @@ public class Employee {
     void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
     
+    @Override
+    public String toString(){
+        return this.orgEmpId;
+    }
     
 }

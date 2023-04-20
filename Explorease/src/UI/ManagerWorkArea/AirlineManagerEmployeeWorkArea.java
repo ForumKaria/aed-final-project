@@ -20,38 +20,39 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form AirlineManagerEmployeeWorkArea
      */
-    Enterprise enterprise;
+    Platform platform;
     Organization org;
     UserAccount ua;
     JPanel container;
-    DefaultTableModel prodTable;
+    DefaultTableModel curEmployeeTable;
     DefaultTableModel approveTable;
     Employee selectedEmp;
 
-    public AirlineManagerEmployeeWorkArea(JPanel container, Enterprise enterprise, UserAccount ua) {
+    public AirlineManagerEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
-        this.org = enterprise.getOrganizationDirectory().findOrganization("org1");
+        this.platform = platform;
         this.ua = ua;
+        this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.container = container;
-        this.prodTable = (DefaultTableModel) currentEmployees.getModel();
+        this.curEmployeeTable = (DefaultTableModel) currentEmployees.getModel();
         this.approveTable = (DefaultTableModel) approveEmployeeTable.getModel();
         populateEmployees();
         populateNewEmployees();
     }
 
     public void populateEmployees() {
-        prodTable.setRowCount(0);
+        curEmployeeTable.setRowCount(0);
         ArrayList<Employee> empList = this.org.getEmployeeDirectory().getEmployeelist();
         if (empList.size() > 0) {
             for (Employee emp : empList) {
                 if (emp.getApproved()) {
-                    Object[] row = new Object[5];
+                    Object[] row = new Object[4];
+
                     row[0] = emp;
-                    row[1] = emp.getOrgEmpId();
-                    row[2] = emp.getPerson().getName();
-                    row[3] = emp.getUserAccount().getUsername();
-                    row[4] = emp.getUserAccount().getPassword();
-                    prodTable.addRow(row);
+                    row[1] = emp.getPerson().getName();
+                    row[2] = emp.getUserAccount().getUsername();
+                    row[3] = emp.getUserAccount().getPassword();
+                    curEmployeeTable.addRow(row);
                 }
             }
         }
@@ -63,12 +64,11 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         if (empList.size() > 0) {
             for (Employee emp : empList) {
                 if (!emp.getApproved()) {
-                    Object[] row = new Object[5];
+                    Object[] row = new Object[4];
                     row[0] = emp;
-                    row[1] = emp.getOrgEmpId();
-                    row[2] = emp.getPerson().getName();
-                    row[3] = emp.getUserAccount().getUsername();
-                    row[4] = emp.getUserAccount().getPassword();
+                    row[1] = emp.getPerson().getName();
+                    row[2] = emp.getUserAccount().getUsername();
+                    row[3] = emp.getUserAccount().getPassword();
                     approveTable.addRow(row);
                 }
             }
@@ -84,13 +84,12 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
         label1 = new java.awt.Label();
         jScrollPane2 = new javax.swing.JScrollPane();
         approveEmployeeTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         appBtn = new javax.swing.JButton();
         rejBtn = new javax.swing.JButton();
         remBtn = new javax.swing.JButton();
@@ -105,8 +104,8 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         currentEmployees = new javax.swing.JTable();
         updateBtn = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
-
+        setMinimumSize(new java.awt.Dimension(1100, 800));
+        setPreferredSize(new java.awt.Dimension(1100, 800));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         label1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -115,24 +114,25 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
 
         approveEmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Obj", "Emp ID", "Name", "Username", "Password"
+                "Emp ID", "Name", "Username", "Password"
             }
         ));
         jScrollPane2.setViewportView(approveEmployeeTable);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 400, 200));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 400, 200));
 
         jLabel1.setText("Password");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
 
         jLabel2.setText("Current Employees");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
 
         appBtn.setBackground(new java.awt.Color(204, 255, 204));
         appBtn.setText("Approve");
@@ -141,7 +141,7 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
                 appBtnActionPerformed(evt);
             }
         });
-        add(appBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 370, -1, -1));
+        add(appBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, -1, -1));
 
         rejBtn.setBackground(new java.awt.Color(255, 204, 204));
         rejBtn.setText("Reject");
@@ -150,7 +150,7 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
                 rejBtnActionPerformed(evt);
             }
         });
-        add(rejBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 370, -1, -1));
+        add(rejBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 360, -1, -1));
 
         remBtn.setBackground(new java.awt.Color(255, 153, 153));
         remBtn.setText("Remove Employee");
@@ -175,6 +175,7 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         });
         add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 120, -1));
 
+        username.setEditable(false);
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
@@ -191,8 +192,8 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         });
         add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 130, -1));
 
-        jLabel3.setText("New Employee Registers");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 130, -1, -1));
+        jLabel3.setText("New Employee Registration Requests");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, -1, -1));
 
         jLabel4.setText("Name");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
@@ -202,13 +203,13 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
 
         currentEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Obj", "Emp ID", "Name", "Username", "Password"
+                "Emp ID", "Name", "Username", "Password"
             }
         ));
         jScrollPane3.setViewportView(currentEmployees);
@@ -252,13 +253,15 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         int selectedRow = approveEmployeeTable.getSelectedRow();
         Employee emp = (Employee) approveTable.getValueAt(selectedRow, 0);
         this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
+        //need to delete the user account too
+        this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
         populateNewEmployees();
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = currentEmployees.getSelectedRow();
-        Employee emp = (Employee) prodTable.getValueAt(selectedRow, 0);
+        Employee emp = (Employee) curEmployeeTable.getValueAt(selectedRow, 0);
         name.setText(emp.getPerson().getName());
         username.setText(emp.getUserAccount().getUsername());
         password.setText(emp.getUserAccount().getPassword());
@@ -268,9 +271,12 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
     private void remBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = currentEmployees.getSelectedRow();
-        Employee emp = (Employee) prodTable.getValueAt(selectedRow, 0);
+        Employee emp = (Employee) curEmployeeTable.getValueAt(selectedRow, 0);
         this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
+        //need to delete the user account too
+        this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
         populateEmployees();
+        clearTextFields();
     }//GEN-LAST:event_remBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
@@ -279,22 +285,27 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
         selectedEmp.getUserAccount().setUsername(username.getText());
         selectedEmp.getUserAccount().setPassword(password.getText());
         populateEmployees();
+        clearTextFields();
     }//GEN-LAST:event_updateBtnActionPerformed
-
+    
+    public void clearTextFields(){
+        name.setText("");
+        username.setText("");
+        password.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton appBtn;
     private javax.swing.JTable approveEmployeeTable;
     private javax.swing.JTable currentEmployees;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private java.awt.Label label1;
     private javax.swing.JTextField name;
     private javax.swing.JTextField password;

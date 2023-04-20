@@ -58,7 +58,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void switchPanel() {
 
-        if (userAccount != null && userAccount.getRole() != null) {
+        if (this.userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi "+ userAccount.getUsername() + "!";
             container.add("workArea", userAccount.getRole().createWorkArea(container,userAccount, platform ,enterprise,organization));
             greetingLabel.setText(greetings);
@@ -90,7 +90,6 @@ public class MainJFrame extends javax.swing.JFrame {
         fieldpassword = new javax.swing.JTextField();
         registerBtn2 = new javax.swing.JButton();
         container = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         bgPanel = new javax.swing.JPanel();
         bgImageLabel = new javax.swing.JLabel();
 
@@ -123,7 +122,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 814, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1014, Short.MAX_VALUE)
                 .addComponent(greetingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -137,20 +136,20 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        getContentPane().add(logoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 70));
+        getContentPane().add(logoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 70));
 
         loginPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome Explorers");
-        loginPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 270, 40));
+        loginPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 270, 40));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password");
-        loginPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
+        loginPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, -1, -1));
 
         loginBtn.setBackground(new java.awt.Color(0, 102, 255));
         loginBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -163,7 +162,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginBtnActionPerformed(evt);
             }
         });
-        loginPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 220, 40));
+        loginPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 220, 40));
 
         fieldusername.setToolTipText("");
         fieldusername.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +170,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 fieldusernameActionPerformed(evt);
             }
         });
-        loginPanel.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 220, 42));
+        loginPanel.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 220, 42));
 
         registerBtn.setBackground(new java.awt.Color(0, 102, 255));
         registerBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -184,14 +183,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 registerBtnActionPerformed(evt);
             }
         });
-        loginPanel.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 220, 40));
+        loginPanel.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 220, 40));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Username");
-        loginPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
-        loginPanel.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 220, 40));
+        loginPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, -1, -1));
+        loginPanel.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 220, 40));
 
         registerBtn2.setBackground(new java.awt.Color(0, 102, 255));
         registerBtn2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -204,15 +203,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 registerBtn2ActionPerformed(evt);
             }
         });
-        loginPanel.add(registerBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 220, 40));
+        loginPanel.add(registerBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 220, 40));
 
-        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 430, 580));
+        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 650, 580));
 
         container.setBackground(new java.awt.Color(255, 255, 255));
         container.setLayout(new java.awt.CardLayout());
-        container.add(jPanel1, "card2");
-
-        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 800));
+        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1300, 800));
 
         bgPanel.setLayout(new java.awt.BorderLayout());
 
@@ -220,9 +217,9 @@ public class MainJFrame extends javax.swing.JFrame {
         bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
         bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 870));
+        getContentPane().add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 870));
 
-        setSize(new java.awt.Dimension(1100, 900));
+        setSize(new java.awt.Dimension(1300, 900));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,15 +243,21 @@ public class MainJFrame extends javax.swing.JFrame {
                     if (!hasUserAtEnterpriseLevel){
                         for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
                             Boolean hasUserAtOrgLevel = org.getUserAccountDirectory().accountExists(username, password);
+//                            System.out.println("found user at org level");
                             if(hasUserAtOrgLevel){
                                 //org level user login
                                 this.enterprise = en;
                                 this.organization = org;
                                 this.userAccount = org.getUserAccountDirectory().getUserAccount(username, password);
+                                //org employee user needs to be aprroved before loging in
+                                if(org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount)!=null){
+//                                    System.out.println("user is an employee");
+                                    if (!org.getEmployeeDirectory().findEmployeeByUserAccount(this.userAccount).getApproved()){
+                                        this.userAccount = null;
+//                                        System.out.println("employee status false");
+                                    }
+                                }
                                 break;
-                            }else{
-                                //no such user at any level
-                                JOptionPane.showMessageDialog(null, "Invalid credentials");
                             }
                         }
                     } else{
@@ -278,6 +281,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 fieldpassword.setText("");
                 //get work area panel
                 switchPanel();
+            }else{
+                //no such user at any level
+                JOptionPane.showMessageDialog(null, "Invalid credentials"); 
             }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
@@ -362,7 +368,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JButton logoutBtn;

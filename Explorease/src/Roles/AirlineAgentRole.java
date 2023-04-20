@@ -19,7 +19,7 @@ public class AirlineAgentRole extends Role{
 
     @Override
    public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
-        return new AirlineAgentWorkArea(container,organization,ua);
+        return new AirlineAgentWorkArea(platform,container,organization,ua);
     }
     
 }
