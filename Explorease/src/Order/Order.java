@@ -19,12 +19,29 @@ public class Order {
     Customer customer;
     String status;
     Boolean orderApproved;
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Order.counter = counter;
+    }
+
+    public Boolean getOrderApproved() {
+        return orderApproved;
+    }
+
+    public void setOrderApproved(Boolean orderApproved) {
+        this.orderApproved = orderApproved;
+    }
     
     public Order(Customer c) {
         this.orderId = "ORDER" + this.counter++;
         
         orderitems = new ArrayList<OrderItem>();
         customer = c;
+        
         //customer.addCustomerOrder(this); //we link the order to the customer
         status = "in process";
         this.orderApproved = false;

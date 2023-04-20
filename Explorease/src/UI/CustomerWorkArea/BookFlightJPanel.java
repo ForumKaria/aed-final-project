@@ -11,6 +11,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +59,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         desCity = new javax.swing.JTextField();
         depCity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        depDate = new com.toedter.calendar.JDateChooser();
         searchBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         flights = new javax.swing.JTable();
@@ -77,6 +77,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         nonStop = new javax.swing.JCheckBox();
         tripTypeCombo = new javax.swing.JComboBox<>();
         jCheckBox1 = new javax.swing.JCheckBox();
+        depDate = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -92,9 +93,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Date");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
-
-        depDate.setDateFormatString("yyyy-MM-dd");
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 158, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +172,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         jCheckBox1.setText("Order in-flight meal");
         add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 690, -1, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -243,7 +242,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             o.newOrderItem(this.flightSelected);
             o.newOrderItem(this.flightSelected);
         }
-        
+        WorkRequest workReq = new WorkRequest(o,this.cus, this.cus.getUserAccount(), this.org);
+        this.org.getWorkQueue().addWorkRequest(workReq);
+      
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
         JOptionPane.showMessageDialog(null, "Booking request sent");

@@ -34,10 +34,10 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
     public AirlineOrgManagerWorkAreaJPanel(JPanel container, Enterprise enterprise, UserAccount ua ,Platform platform) {
         initComponents();
         this.setVisible(true);
-
+        this.platform = platform;
         this.org = this.platform.getAirlineOrg();
         this.container = container;
-        this.platform = platform;
+       
         this.ua = ua;
         
         manageEmployee();
@@ -123,7 +123,7 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         orderBtn.setBackground(new java.awt.Color(8, 57, 97));
         orderBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         orderBtn.setForeground(new java.awt.Color(255, 255, 255));
-        orderBtn.setText("Manage Orders");
+        orderBtn.setText("Work Queue");
         orderBtn.setContentAreaFilled(false);
         orderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         orderBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -138,7 +138,7 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         toolBarLayout.setHorizontalGroup(
             toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(productBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -47,7 +47,6 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
             for (Employee emp : empList) {
                 if (emp.getApproved()) {
                     Object[] row = new Object[4];
-
                     row[0] = emp;
                     row[1] = emp.getPerson().getName();
                     row[2] = emp.getUserAccount().getUsername();

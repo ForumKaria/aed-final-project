@@ -4,9 +4,12 @@
  */
 package UI.ManagerWorkArea;
 
+import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
 import UserAccount.UserAccount;
+import WorkRequest.WorkRequest;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,20 +27,34 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     JPanel container;
     Organization org;
     DefaultTableModel orderTable;
-    
-    public AirlineOrgManagerAllOrdersWorkArea(Platform platform,JPanel container, UserAccount ua) {
+
+    public AirlineOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
-        this.orderTable = (DefaultTableModel) orders.getModel();
-        
+        this.orderTable = (DefaultTableModel) queue.getModel();
+
         populateOrders();
     }
-    
-    public void populateOrders(){
-        
+
+    public void populateOrders() {
+        this.org.getWorkQueue();
+        orderTable.setRowCount(0);
+        ArrayList<WorkRequest> wra = this.org.getWorkQueue().getWorkQueue();
+        if (wra.size() > 0) {
+            for (WorkRequest wr : wra) {
+                Object[] row = new Object[6];
+                row[0] = wr;
+                row[2] = wr.getMessage();
+                row[1] = wr.getCustomer().getPerson().getName();
+                row[3] = wr.getOrder().getOrderTotal();
+                row[4] = wr.getOrder().getOrderApproved();
+                row[5] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
+                orderTable.addRow(row);
+            }
+        }
     }
 
     /**
@@ -50,42 +67,142 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        orders = new javax.swing.JTable();
+        queue = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        select = new javax.swing.JButton();
+        appBtn = new javax.swing.JButton();
+        rejBtn = new javax.swing.JButton();
+        statusTxt = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
-        orders.setModel(new javax.swing.table.DefaultTableModel(
+        queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Order ID", "Customer", "Status", "Price", "App/Rej", "Order Details"
             }
         ));
-        jScrollPane1.setViewportView(orders);
+        jScrollPane1.setViewportView(queue);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("WORK QUEUE");
+
+        select.setText("Select");
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectActionPerformed(evt);
+            }
+        });
+
+        appBtn.setText("Approve");
+        appBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appBtnActionPerformed(evt);
+            }
+        });
+
+        rejBtn.setText("Reject");
+        rejBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Set Status");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(461, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(appBtn)
+                            .addComponent(select, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(272, 272, 272)
+                        .addComponent(jLabel1)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(select)
+                        .addGap(15, 15, 15)
+                        .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(74, 74, 74)
+                        .addComponent(appBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rejBtn)))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectActionPerformed
+
+    private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.org.getWorkQueue().finishWorkRequest(wr);
+        populateOrders();
+    }//GEN-LAST:event_appBtnActionPerformed
+
+    private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
+        // TODO add your handling code here:'
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.org.getWorkQueue().rejectWorkRequest(wr);
+        populateOrders();
+    }//GEN-LAST:event_rejBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        wr.setStatus(statusTxt.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton appBtn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable orders;
+    private javax.swing.JTable queue;
+    private javax.swing.JButton rejBtn;
+    private javax.swing.JButton select;
+    private javax.swing.JTextField statusTxt;
     // End of variables declaration//GEN-END:variables
 }

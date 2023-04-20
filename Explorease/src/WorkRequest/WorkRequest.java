@@ -13,10 +13,11 @@ import UserAccount.UserAccount;
  *
  * @author emi
  */
-public abstract class WorkRequest {
+
+// Note - can delete other work requests type and make this class not abstract. 
+public class WorkRequest{
     String message;
     UserAccount sender;
-    UserAccount receiver;
     Order order;
     Customer customer;
     String status;
@@ -24,13 +25,81 @@ public abstract class WorkRequest {
     private static int counter = 1;
     Organization receiverOrg;
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public UserAccount getSender() {
+        return sender;
+    }
+
+    public void setSender(UserAccount sender) {
+        this.sender = sender;
+    }
     
-    WorkRequest(Order o) {
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getWorkrequestID() {
+        return workrequestID;
+    }
+
+    public void setWorkrequestID(String workrequestID) {
+        this.workrequestID = workrequestID;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        WorkRequest.counter = counter;
+    }
+
+    public Organization getReceiverOrg() {
+        return receiverOrg;
+    }
+
+    public void setReceiverOrg(Organization receiverOrg) {
+        this.receiverOrg = receiverOrg;
+    }
+
+    
+    public WorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg) {
         // auto generate ID
-        this.workrequestID = "WORk_REQUEST_" + this.counter++;
+        this.workrequestID = "WORK_REQUEST_" + this.counter++;
         this.order = o;
+        this.customer = c;
+        this.sender = s;
+        this.receiverOrg = receiverOrg;
+        this.status = "Order Requested";
         // initialize required objects
     }
     
-    public abstract void determineWorkRequestStatus();
+//    public abstract void determineWorkRequestStatus();
 }
