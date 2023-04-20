@@ -107,7 +107,7 @@ public class Platform {
         insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
         
-        //create one org manager for airline first
+        //create one org manager for testing
         UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
         
         //create a customer for testing
