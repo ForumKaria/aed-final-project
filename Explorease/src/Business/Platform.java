@@ -210,6 +210,17 @@ public class Platform {
         }
         return null;  
     }
+    
+    public Enterprise findEnterpriseByUseraccount(String username, String password){
+        for (Enterprise en: this.getEnterpriseDirectory().getEnterpriseList()){
+            
+                Boolean hasUserAtEntLevel = en.getUserAccountDirectory().accountExists(username, password);
+                    if(hasUserAtEntLevel){
+                        return en;
+            }
+        }
+        return null;  
+    }
 
     public UserAccountDirectory getUad() {
         return uad;

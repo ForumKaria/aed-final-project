@@ -63,8 +63,14 @@ public
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fieldusername.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 120, 30));
+
+        fieldPassword.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 120, 30));
+
+        fieldname.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldname, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 120, 30));
 
         registerBtn.setText("Register");
@@ -86,10 +92,14 @@ public
 
         jLabel8.setText("Email:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, 20));
+
+        filedEmail.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 120, 30));
 
         jLabel9.setText("Phone:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, 30));
+
+        fieldPhone.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 120, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -100,33 +110,26 @@ public
         bgPanel.setLayout(new java.awt.BorderLayout());
 
         bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
         bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 870));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(248, 248, 248)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(233, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(473, 473, 473))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(218, 218, 218))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(149, 149, 149))
         );
     }// </editor-fold>//GEN-END:initComponents
 
