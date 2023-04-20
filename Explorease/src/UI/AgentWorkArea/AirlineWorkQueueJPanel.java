@@ -4,6 +4,11 @@
  */
 package UI.AgentWorkArea;
 
+import Business.Organization.Organization;
+import Business.Platform;
+import UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author emi
@@ -13,8 +18,16 @@ public class AirlineWorkQueueJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AirlineWorkQueueJPanel
      */
-    public AirlineWorkQueueJPanel() {
+    Platform platform;
+    Organization organization;
+    UserAccount ua;
+    JPanel container;
+    public AirlineWorkQueueJPanel(Platform platform,JPanel container, Organization organization, UserAccount ua) {
         initComponents();
+        this.platform = platform;
+        this.organization = organization; 
+        this.container = container;
+        this.ua = ua;
     }
 
     /**

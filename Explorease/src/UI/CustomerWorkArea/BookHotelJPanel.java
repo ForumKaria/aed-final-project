@@ -127,10 +127,14 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Hotel Selected");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, -1, 20));
+
+        jTextField3.setEditable(false);
         add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 690, 105, -1));
 
         jLabel6.setText("Total Price");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, -1, 20));
+
+        jTextField4.setEditable(false);
         add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 690, 105, -1));
 
         bookBtn.setText("Book");
@@ -143,6 +147,8 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Stay");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 690, 35, 20));
+
+        jTextField5.setEditable(false);
         add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 690, 30, -1));
 
         jLabel8.setText("days");
@@ -165,6 +171,8 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 
         jLabel11.setText("Rooms");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 690, 50, 20));
+
+        jTextField7.setEditable(false);
         add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 690, 30, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -234,7 +242,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         }
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Successfully booked");
+        JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
     
 

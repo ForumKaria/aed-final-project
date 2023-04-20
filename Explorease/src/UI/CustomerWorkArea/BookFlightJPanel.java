@@ -246,7 +246,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Successfully booked");
+        JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
     
 

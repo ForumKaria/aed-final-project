@@ -16,6 +16,7 @@ public
     String service;
     static int ctr =1;
     ArrayList<Product> tripDetails;
+    int tripBudget;
     // Constructor
     public TravelAgencyProduct(String service, int price) {
         
@@ -46,6 +47,17 @@ public
     public void setTripDetails(ArrayList<Product> tripDetails) {
         this.tripDetails = tripDetails;
     }
+
+    public int getTripBudget() {
+        return tripBudget;
+//edit calculate total trip budget
+    }
+
+    public void setTripBudget(int tripBudget) {
+        this.tripBudget = tripBudget;
+    }
+    
+    
     
     
     

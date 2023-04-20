@@ -5,6 +5,7 @@
 package UI.AgentWorkArea;
 
 import Business.Organization.Organization;
+import Business.Platform;
 import UI.SystemAdminWorkArea.ManageEnterpriseJPanel;
 import UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -19,13 +20,14 @@ public class AirlineAgentWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form AirlineAgentWorkArea
      */
+    Platform platform;
     Organization organization;
     UserAccount ua;
     JPanel container;
-    public AirlineAgentWorkArea(JPanel container, Organization organization, UserAccount ua) {
+    public AirlineAgentWorkArea(Platform platform, JPanel container, Organization organization, UserAccount ua) {
         initComponents();
         this.setVisible(true);
-        
+        this.platform = platform;
         this.organization = organization; 
         this.container = container;
         this.ua = ua;
@@ -148,8 +150,8 @@ public class AirlineAgentWorkArea extends javax.swing.JPanel {
     }//GEN-LAST:event_dataBtnActionPerformed
     //edit this function
     public void airlineWorkQueue(){
-        JPanel manageEnterpriseJPanel = new ManageEnterpriseJPanel(container,platform, ua);
-        workArea.add("manageEnterprise",manageEnterpriseJPanel);
+        JPanel airlineWorkQueueJPanel = new AirlineWorkQueueJPanel(platform,container,organization, ua);
+        workArea.add(airlineWorkQueueJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }

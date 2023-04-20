@@ -7,6 +7,7 @@ package UI.CustomerWorkArea;
 import Business.Customer.Customer;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.AttractionProduct;
 import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
@@ -33,14 +34,14 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
     DefaultTableModel resultTable;
     Organization org;
     Customer cus;
-    FlightTicketProduct flightSelected;
+    AttractionProduct attrctionSelected;
     public BookAttractionTicketJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
-        this.org = this.platform.getAirlineOrg();
-        this.resultTable = (DefaultTableModel) flights.getModel();
+        this.org = this.platform.getAttractionOrg();
+        this.resultTable = (DefaultTableModel) att.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
     }
 
@@ -53,45 +54,36 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         desCity = new javax.swing.JTextField();
-        depCity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         depDate = new com.toedter.calendar.JDateChooser();
         searchBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        flights = new javax.swing.JTable();
+        att = new javax.swing.JTable();
         selectBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         bookBtn = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        visitorsCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Departure City");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
-
         jLabel2.setText("Destination City");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, -1, -1));
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 113, -1));
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 113, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 150, -1));
 
         jLabel3.setText("Date");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
 
         depDate.setDateFormatString("yyyy-MM-dd");
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 158, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 158, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,22 +91,22 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 searchBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
+        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, -1, -1));
 
-        flights.setModel(new javax.swing.table.DefaultTableModel(
+        att.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Flight ID", "Airline", "Departure City", "Destination City", "Departure Date", "Departure TIme", "Flight Duration", "Non Stop", "Price"
+                "Tourist Attraction Ticket ID", "Ticket Type", "City", "Price"
             }
         ));
-        jScrollPane2.setViewportView(flights);
+        jScrollPane2.setViewportView(att);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 880, 420));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 880, 370));
 
         selectBtn.setText("Select");
         selectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,17 +116,17 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         });
         add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 230, -1, -1));
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/aircraft_16px.png"))); // NOI18N
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 36, 23));
+        jLabel5.setText("Ticket Selected");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, -1, 20));
 
-        jLabel5.setText("Flight Selected");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, -1, 20));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 690, 105, -1));
+        jTextField3.setEditable(false);
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 650, 105, -1));
 
-        jLabel6.setText("Price");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 690, -1, 20));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 690, 105, -1));
+        jLabel6.setText("Number of Visitors");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, -1, 20));
+
+        jTextField4.setEditable(false);
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 650, 105, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -142,18 +134,16 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 690, -1, -1));
-
-        jLabel7.setText("From");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 690, 35, 20));
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 690, 105, -1));
-
-        jLabel8.setText("To");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 690, 20, 20));
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 690, 105, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 650, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/attraction_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 40, 130, 130));
+
+        jLabel10.setText("Total Price");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 650, -1, 20));
+
+        visitorsCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        add(visitorsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 90, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -162,49 +152,38 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         
         ArrayList<Product> searchResult = new ArrayList<Product>();
         
-        String dep = depCity.getText();
         String des = desCity.getText();
-        Date date = depDate.getDate();
         
-        for (Product flight: this.org.getProductCatalog().getProducts()){
-            FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
-            if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) 
-                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
-                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                    ){
-                searchResult.add(flight);
+        for (Product att: this.org.getProductCatalog().getProducts()){
+            AttractionProduct ap = (AttractionProduct) att.getProductDetails();
+            if (ap.getCity().equalsIgnoreCase(des)){
+                searchResult.add(att);
             }
         }
         
         if(searchResult.size()>0){
-            for (Product flightFound: searchResult){
-                FlightTicketProduct f = (FlightTicketProduct) flightFound.getProductDetails();
-                Object[] row = new Object[9];
-                row[0] = f;
-                row[1] = f.getAirline();
-                row[2] = f.getDepartureCity();
-                row[3] = f.getDestinationCity();
-                row[4] = new SimpleDateFormat("yyyy-MM-dd").format(f.getDepartureDate());
-                row[5] = f.getDepartureTime();
-                row[6] = f.getFlightDuration();
-                row[7] = (f.getNonStop())? "Yes": "No";
-                row[8] = f.getPrice();
+            for (Product attFound: searchResult){
+                AttractionProduct att = (AttractionProduct) attFound.getProductDetails();
+                Object[] row = new Object[4];
+                row[0] = att;
+                row[1] = att.getTicketType();
+                row[2] = att.getCity();
+                row[3] = att.getPrice();
                 resultTable.addRow(row);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Oops...no flight found");
+            JOptionPane.showMessageDialog(null, "Oops...no ticket found");
         }    
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = flights.getSelectedRow();
-        this.flightSelected = (FlightTicketProduct) resultTable.getValueAt(selectedRow, 0);
-        jTextField3.setText(flightSelected.getProductId());
-        jTextField5.setText(flightSelected.getDepartureCity());
-        jTextField6.setText(flightSelected.getDestinationCity());
-        jTextField4.setText(String.valueOf(flightSelected.getPrice()));
+        int selectedRow = att.getSelectedRow();
+        this.attrctionSelected = (AttractionProduct) resultTable.getValueAt(selectedRow, 0);
+        jTextField3.setText(attrctionSelected.getProductId());
+        String num = String.valueOf(visitorsCombo.getSelectedItem());
+        jTextField4.setText(String.valueOf(attrctionSelected.getPrice()*Integer.valueOf(num)));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -212,35 +191,30 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         //create order for customer and add to customer's order list
         Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
         //link product with the order
-        o.newOrderItem(this.flightSelected);
+        o.newOrderItem(this.attrctionSelected);
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Successfully booked");
+        JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable att;
     private javax.swing.JButton bookBtn;
-    private javax.swing.JTextField depCity;
     private com.toedter.calendar.JDateChooser depDate;
     private javax.swing.JTextField desCity;
-    private javax.swing.JTable flights;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton selectBtn;
+    private javax.swing.JComboBox<String> visitorsCombo;
     // End of variables declaration//GEN-END:variables
 }

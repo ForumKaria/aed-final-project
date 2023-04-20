@@ -142,6 +142,25 @@ public class Platform {
             flightProducts.addProduct(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25));
             flightProducts.addProduct(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40));
             flightProducts.addProduct(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80));
+            flightProducts.addProduct(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "9:00 AM", "06:00 hrs", true, 255, 100));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "11:30 AM", "03:30 hrs", false, 160, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "3:00 PM", "03:00 hrs", true, 210, 75));
+            flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "10:00 AM", "02:00 hrs", true, 110, 30));
+            flightProducts.addProduct(new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "10:00 AM", "01:30 hrs", true, 90, 20));
+            flightProducts.addProduct(new FlightTicketProduct("Los Angeles", "New York", "Delta Airlines", sdf.parse("2023-05-06"), "11:30 AM", "05:30 hrs", true, 400, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Miami", "Chicago", "American Airlines", sdf.parse("2023-05-07"), "8:45 AM", "03:30 hrs", true, 178, 40));
+            flightProducts.addProduct(new FlightTicketProduct("Denver", "Houston", "Southwest Airlines", sdf.parse("2023-05-08"), "12:00 PM", "03:00 hrs", false, 185, 60));
+            flightProducts.addProduct(new FlightTicketProduct("Seattle", "San Francisco", "Alaska Airlines", sdf.parse("2023-05-09"), "6:30 PM", "02:00 hrs", true, 180, 15));
+            flightProducts.addProduct(new FlightTicketProduct("Washington DC", "Boston", "United Airlines", sdf.parse("2023-05-10"), "11:15 AM", "01:30 hrs", true, 190, 25));
+            flightProducts.addProduct(new FlightTicketProduct("New York", "San Francisco", "American Airlines", sdf.parse("2023-05-11"), "7:40 AM", "07:00 hrs", true, 420, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Los Angeles", "Miami", "Delta Airlines", sdf.parse("2023-05-12"), "6:45 AM", "05:30 hrs", false, 277, 45));
+            flightProducts.addProduct(new FlightTicketProduct("Houston", "Seattle", "United Airlines", sdf.parse("2023-05-13"), "12:00 AM", "05:00 hrs", true, 235, 70));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Denver", "Southwest Airlines", sdf.parse("2023-05-14"), "12:00 PM", "02:30 hrs", true, 150, 30));
+            flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Boston", "JetBlue Airways", sdf.parse("2023-05-15"), "11:00 PM", "06:00 hrs", true, 300, 20));
+            flightProducts.addProduct(new FlightTicketProduct("Washington DC", "Los Angeles", "United Airlines", sdf.parse("2023-05-16"), "6:30 AM", "06:00 hrs", true, 300, 60));
+            flightProducts.addProduct(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:25 AM", "03:00 hrs", true, 155, 25));
+            flightProducts.addProduct(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "5:45 PM", "02:30 hrs", true, 225, 40));
+            flightProducts.addProduct(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "11:30 AM", "04:00 hrs", true, 250, 80));
 
             // In Flight food Product 
             ProductCatalog flightFoodProducts = foodServiceOrg.getProductCatalog();
@@ -171,13 +190,34 @@ public class Platform {
             hotelProducts.addProduct(new HotelRoomsProduct("San Diego", "Deluxe Twin", 225, 8));
             hotelProducts.addProduct(new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8));
             hotelProducts.addProduct(new HotelRoomsProduct("Seattle", "Standard Double", 200, 7));
-            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 240, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Atlanta", "Standard Double", 250, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("Austin", "Standard Double", 275, 24));
+            hotelProducts.addProduct(new HotelRoomsProduct("Boston", "Deluxe Single", 115, 30));
+            hotelProducts.addProduct(new HotelRoomsProduct("Chicago", "Standard Single", 140, 4));
+            hotelProducts.addProduct(new HotelRoomsProduct("Denver", "Deluxe Suite", 315, 15));
+            hotelProducts.addProduct(new HotelRoomsProduct("Houston", "Executive Suite", 510, 14));
+            hotelProducts.addProduct(new HotelRoomsProduct("Las Vegas", "King Suite", 330, 14));
+            hotelProducts.addProduct(new HotelRoomsProduct("Los Angeles", "Deluxe Suite", 460, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Miami", "King Suite", 360, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Nashville", "Standard Single", 70, 22));
+            hotelProducts.addProduct(new HotelRoomsProduct("New Orleans", "Deluxe Suite", 300, 12));
+            hotelProducts.addProduct(new HotelRoomsProduct("New York", "Standard Double", 200, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Orlando", "Standard Single", 150, 11));
+            hotelProducts.addProduct(new HotelRoomsProduct("Philadelphia", "King Suite", 424, 16));
+            hotelProducts.addProduct(new HotelRoomsProduct("Phoenix", "Standard Twin", 121, 10));
+            hotelProducts.addProduct(new HotelRoomsProduct("Portland", "Executive Suite", 540, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Antonio", "Deluxe Single", 310, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Diego", "Deluxe Twin", 220, 8));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Francisco", "Standard Twin", 165, 8));
+            hotelProducts.addProduct(new HotelRoomsProduct("Seattle", "Standard Double", 220, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 260, 4));
 
             //travel agency products
             
             ProductCatalog travelAgencyProducts = travelAgencyOrg.getProductCatalog();
-            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Consulting", 200));
-            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Booking", 300));
+            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Consulting", 50));
+            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Booking", 100));
             
             //insurance products
             
@@ -187,9 +227,27 @@ public class Platform {
             
             //Attraction products
             ProductCatalog attractionProducts = attractionOrg.getProductCatalog();
-            attractionProducts.addProduct(new AttractionProduct("Park Ticket", 120));
-            attractionProducts.addProduct(new AttractionProduct("Museum Ticket", 100));
-            attractionProducts.addProduct(new AttractionProduct("Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Boston","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Boston","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Boston","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("New York","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("New York","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("New York","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Adventure Ticket", 200));
+            
+            
+            
             
             System.out.println("All products Created");
             

@@ -35,7 +35,7 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.setVisible(true);
 
-        this.org = enterprise.getOrganizationDirectory().findOrganization("org1"); //?
+        this.org = this.platform.getAirlineOrg();
         this.container = container;
         this.platform = platform;
         this.ua = ua;
