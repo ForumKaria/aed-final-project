@@ -39,6 +39,8 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.container = container;
         this.platform = platform;
         this.ua = ua;
+        
+        manageEmployee();
 
     }
     

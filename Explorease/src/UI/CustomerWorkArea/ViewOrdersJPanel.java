@@ -78,13 +78,13 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
 
         orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Order ID", "Product ID", "Price"
+                "Order ID", "Product ID", "Total Price", "Order Status"
             }
         ));
         jScrollPane1.setViewportView(orders);

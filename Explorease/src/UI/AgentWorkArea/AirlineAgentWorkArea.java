@@ -5,7 +5,9 @@
 package UI.AgentWorkArea;
 
 import Business.Organization.Organization;
+import UI.SystemAdminWorkArea.ManageEnterpriseJPanel;
 import UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -38,30 +40,125 @@ public class AirlineAgentWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        airlineAgentPanel = new javax.swing.JPanel();
+        toolBar = new javax.swing.JPanel();
+        manageUserBtn = new javax.swing.JButton();
+        dataBtn = new javax.swing.JButton();
+        workArea = new javax.swing.JPanel();
 
-        jLabel1.setText("Airline Agent");
+        toolBar.setBackground(new java.awt.Color(61, 69, 100));
+        toolBar.setPreferredSize(new java.awt.Dimension(200, 800));
+
+        manageUserBtn.setBackground(new java.awt.Color(8, 57, 97));
+        manageUserBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        manageUserBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageUserBtn.setText("Work Queue");
+        manageUserBtn.setContentAreaFilled(false);
+        manageUserBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        manageUserBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        manageUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageUserBtnActionPerformed(evt);
+            }
+        });
+
+        dataBtn.setBackground(new java.awt.Color(8, 57, 97));
+        dataBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        dataBtn.setForeground(new java.awt.Color(255, 255, 255));
+        dataBtn.setText("My Work");
+        dataBtn.setContentAreaFilled(false);
+        dataBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dataBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        dataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toolBarLayout = new javax.swing.GroupLayout(toolBar);
+        toolBar.setLayout(toolBarLayout);
+        toolBarLayout.setHorizontalGroup(
+            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(manageUserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(dataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+        );
+        toolBarLayout.setVerticalGroup(
+            toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toolBarLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(manageUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        workArea.setDoubleBuffered(false);
+        workArea.setPreferredSize(new java.awt.Dimension(1100, 800));
+        workArea.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout airlineAgentPanelLayout = new javax.swing.GroupLayout(airlineAgentPanel);
+        airlineAgentPanel.setLayout(airlineAgentPanelLayout);
+        airlineAgentPanelLayout.setHorizontalGroup(
+            airlineAgentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(airlineAgentPanelLayout.createSequentialGroup()
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(workArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        airlineAgentPanelLayout.setVerticalGroup(
+            airlineAgentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(workArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(jLabel1)
-                .addContainerGap(171, Short.MAX_VALUE))
+            .addGap(0, 1396, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 45, Short.MAX_VALUE)
+                    .addComponent(airlineAgentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 45, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addContainerGap(248, Short.MAX_VALUE))
+            .addGap(0, 821, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(airlineAgentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void manageUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserBtnActionPerformed
+        // TODO add your handling code here:
+        airlineWorkQueue();
+    }//GEN-LAST:event_manageUserBtnActionPerformed
+
+    private void dataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataBtnActionPerformed
+        // TODO add your handling code here:
+//        airlineAgentWork();
+    }//GEN-LAST:event_dataBtnActionPerformed
+    //edit this function
+    public void airlineWorkQueue(){
+        JPanel manageEnterpriseJPanel = new ManageEnterpriseJPanel(container,platform, ua);
+        workArea.add("manageEnterprise",manageEnterpriseJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel airlineAgentPanel;
+    private javax.swing.JButton dataBtn;
+    private javax.swing.JButton manageUserBtn;
+    private javax.swing.JPanel toolBar;
+    private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }
