@@ -37,6 +37,15 @@ public class OrganizationDirectory {
         return null;
     }
     
+    public Organization findOrganizationByType(String orgType){
+        for (Organization organization : organizationList) {
+            if(organization.getClass().getSimpleName().equals(orgType)){
+                return organization;
+            }
+        }
+        return null;
+    }
+    
     public Organization createOrganization(OrganizationType type){
         Organization org;
         

@@ -8,9 +8,12 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import UI.SystemAdminWorkArea.*;
 import Business.Platform;
+import Person.Person;
 import Roles.OrganizationManagerRole;
 import UserAccount.UserAccount;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +27,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     Platform platform;
     UserAccount ua;
     JPanel container;
+    Enterprise en;
+    DefaultTableModel tableModel;
+
     
     public ManageOrganizationJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
@@ -32,17 +38,38 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
-        
+        this.en= this.platform.findEnterpriseByUseraccount(this.ua.getUsername(), this.ua.getPassword());
+        this.tableModel = (DefaultTableModel) jTable.getModel();
         populateDropdown();
     }
     
     public void populateDropdown(){
-       Enterprise en = this.platform.findEnterpriseByUseraccount(this.ua.getUsername(), this.ua.getPassword());
-        if(en!=null){
+       
+        if(this.en!=null){
             for(Organization o : en.getOrganizationDirectory().getOrganizationList()){
                 jComboBox1.addItem(o.getClass().getSimpleName());
             }
         }
+    }
+    
+    public void populateTable(){
+        tableModel.setRowCount(0);
+      
+        for(Organization o: this.en.getOrganizationDirectory().getOrganizationList()){
+            for(UserAccount orgUA: o.getUserAccountDirectory().getUseraccountList()){
+                if (orgUA.getRole() instanceof OrganizationManagerRole){
+                    Object[] row = new Object[4];
+                    row[0] = this.en.getClass().getSimpleName();
+                    row[1] = o.getClass().getSimpleName();
+                    row[2] = orgUA.getUsername();
+                    row[3] = orgUA.getPassword();
+    
+                    tableModel.addRow(row);
+                }
+
+            }
+        }
+        
     }
     
 
@@ -61,12 +88,10 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         deleteOrgnBtn = new javax.swing.JButton();
         username = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        updatePass = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         managerName = new javax.swing.JTextField();
         addOrgnManagerBtn = new javax.swing.JButton();
@@ -78,7 +103,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Organization Name:");
 
-        jLabel2.setText("Manager Name:");
+        jLabel2.setText("Organization Manager Name:");
 
         jLabel3.setText("User Name:");
 
@@ -90,26 +115,26 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Ent Name", "Org Name", "Manager Name", "Username", "Password"
+                "Ent Name", "Org Name", "Username", "Password"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTable);
 
         deleteOrgnBtn.setText("DELETE ORGANIZATION");
         deleteOrgnBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +142,6 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 deleteOrgnBtnActionPerformed(evt);
             }
         });
-
-        jLabel5.setText("Update Manager Name:");
 
         jLabel6.setText("Update Password:");
 
@@ -129,7 +152,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             }
         });
 
-        updateOrgnManagerBtn.setText("UPDATE ORGANIZATION MANAGER");
+        updateOrgnManagerBtn.setText("UPDATE PASSWORD");
         updateOrgnManagerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateOrgnManagerBtnActionPerformed(evt);
@@ -148,116 +171,165 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(119, 119, 119)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(48, 48, 48)
+                                        .addComponent(jLabel6)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(updatePass, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(91, 91, 91)
+                                        .addComponent(updateOrgnManagerBtn))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(deleteOrgManager, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(deleteOrgnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(updateOrgnManagerBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteOrgManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteOrgnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addOrgnManagerBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                        .addGap(146, 146, 146)
+                        .addComponent(addOrgnManagerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(92, 92, 92)
+                        .addComponent(jLabel2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel3)
-                                .addGap(10, 10, 10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addComponent(updatePass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(managerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(updateOrgnManagerBtn)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(addOrgnManagerBtn)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(addOrgnManagerBtn)
-                        .addGap(40, 40, 40)
-                        .addComponent(updateOrgnManagerBtn)
-                        .addGap(29, 29, 29)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
                         .addComponent(deleteOrgManager)
-                        .addGap(35, 35, 35)
-                        .addComponent(deleteOrgnBtn)
-                        .addGap(15, 15, 15)))
-                .addGap(97, 97, 97))
+                        .addGap(91, 91, 91)
+                        .addComponent(deleteOrgnBtn)))
+                .addGap(115, 115, 115))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteOrgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgnBtnActionPerformed
         // TODO add your handling code here:
-
+        int selectedRow = jTable.getSelectedRow();
+        String orgName = (String) jTable.getValueAt(selectedRow, 1);
+        Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
+        this.en.getOrganizationDirectory().getOrganizationList().remove(o);
+        
+        populateTable();
+        
     }//GEN-LAST:event_deleteOrgnBtnActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void addOrgnManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrgnManagerBtnActionPerformed
         // TODO add your handling code here:
+        Organization orgSelected  = this.en.getOrganizationDirectory().findOrganizationByType((String) jComboBox1.getSelectedItem());
+        String user = username.getText();
+        String pass = password.getText();
+        UserAccount userCreated;
+        if(orgSelected == this.platform.getAirlineOrg()){
+            userCreated = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }else if(orgSelected == this.platform.getHotelOrg()){
+            userCreated = this.platform.getHotelOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }else if(orgSelected == this.platform.getFoodServiceOrg()){
+            userCreated = this.platform.getFoodServiceOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }else if(orgSelected == this.platform.getInsuranceOrg()){
+            userCreated = this.platform.getInsuranceOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }else if(orgSelected == this.platform.getTravelAgencyOrg()){
+            userCreated = this.platform.getTravelAgencyOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }else {
+            userCreated = this.platform.getAttractionOrg().getUserAccountDirectory().createUserAccount(user, pass, new OrganizationManagerRole());
+        }
         
+        Person orgManagerPerson = this.platform.getPersonDirectory().createPerson(userCreated.getAccountId(), managerName.getText());
         
-        UserAccount airOrgAdmin = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
+        populateTable();
+        
         
     }//GEN-LAST:event_addOrgnManagerBtnActionPerformed
 
     private void updateOrgnManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrgnManagerBtnActionPerformed
         // TODO add your handling code here:
         
+        int selectedRow = jTable.getSelectedRow();
+        
+        String orgName = (String) jTable.getValueAt(selectedRow, 1);
+        String username = (String) jTable.getValueAt(selectedRow, 2);
+        
+        Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
+        UserAccount uaSelected = o.getUserAccountDirectory().findByUserName(username);
+        uaSelected.setPassword(updatePass.getText());
+        
+        populateTable();
+        
+        
     }//GEN-LAST:event_updateOrgnManagerBtnActionPerformed
 
     private void deleteOrgManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgManagerActionPerformed
         // TODO add your handling code here:
+        
+        int selectedRow = jTable.getSelectedRow();
+        
+        String orgName = (String) jTable.getValueAt(selectedRow, 1);
+        String username = (String) jTable.getValueAt(selectedRow, 2);
+        
+        Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
+        UserAccount uaSelected = o.getUserAccountDirectory().findByUserName(username);
+        o.getUserAccountDirectory().getUseraccountList().remove(uaSelected);
+        
+        populateTable();
         
     }//GEN-LAST:event_deleteOrgManagerActionPerformed
 
@@ -271,15 +343,13 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField managerName;
     private javax.swing.JTextField password;
     private javax.swing.JButton updateOrgnManagerBtn;
+    private javax.swing.JTextField updatePass;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
