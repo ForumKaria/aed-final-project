@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
@@ -39,7 +39,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.org = this.platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.container = container;
 
-        manageEmployee();
+        manageProduct();
 
     }
     

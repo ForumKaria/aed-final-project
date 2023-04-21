@@ -81,9 +81,9 @@
               <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="Order ID" type="java.lang.Object"/>
                 <Column editable="true" title="Customer" type="java.lang.Object"/>
-                <Column editable="true" title="Status" type="java.lang.Object"/>
                 <Column editable="true" title="Price" type="java.lang.Object"/>
-                <Column editable="true" title="App/Rej" type="java.lang.Object"/>
+                <Column editable="true" title="Status" type="java.lang.Object"/>
+                <Column editable="true" title="Order Booked" type="java.lang.Object"/>
                 <Column editable="true" title="Order Details" type="java.lang.Object"/>
               </Table>
             </Property>

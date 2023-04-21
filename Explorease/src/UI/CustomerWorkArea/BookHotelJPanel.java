@@ -11,6 +11,7 @@ import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -85,14 +86,14 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Destination City");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 113, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 113, -1));
 
         jLabel3.setText("Check-in Date");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
 
         checkIn.setDateFormatString("yyyy-MM-dd");
-        add(checkIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 158, -1));
+        add(checkIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 158, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +101,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
                 searchBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, -1, -1));
+        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, -1));
 
         rooms.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,7 +116,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(rooms);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 880, 420));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 880, 420));
 
         selectBtn.setText("Select");
         selectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -123,19 +124,19 @@ public class BookHotelJPanel extends javax.swing.JPanel {
                 selectBtnActionPerformed(evt);
             }
         });
-        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 230, -1, -1));
+        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 190, -1, -1));
 
         jLabel5.setText("Hotel Selected");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, -1, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, -1, 20));
 
         jTextField3.setEditable(false);
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 690, 105, -1));
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 650, 105, -1));
 
         jLabel6.setText("Total Price");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, -1, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 650, -1, 20));
 
         jTextField4.setEditable(false);
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 690, 105, -1));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 650, 105, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -143,37 +144,42 @@ public class BookHotelJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 690, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 650, -1, -1));
 
         jLabel7.setText("Stay");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 690, 35, 20));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 650, 35, 20));
 
         jTextField5.setEditable(false);
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 690, 30, -1));
+        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 650, 30, -1));
 
         jLabel8.setText("days");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 30, 20));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 650, 30, 20));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/hotel_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, 138, 136));
 
         jLabel10.setText("Check-out Date");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
         checkOut.setDateFormatString("yyyy-MM-dd");
-        add(checkOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 158, -1));
+        add(checkOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 158, -1));
 
         roomsCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-        add(roomsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 130, -1));
+        roomsCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomsComboActionPerformed(evt);
+            }
+        });
+        add(roomsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 130, -1));
 
         jLabel1.setText("Rooms");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 120, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 120, -1));
 
         jLabel11.setText("Rooms");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 690, 50, 20));
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 650, 50, 20));
 
         jTextField7.setEditable(false);
-        add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 690, 30, -1));
+        add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 650, 30, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -240,10 +246,17 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         for (int i=0; i< Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText()); i++){
             o.newOrderItem(this.roomSelected);
         }
+        
+        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.org); 
+        this.org.getWorkQueue().addWorkRequest(workReq);
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);
         JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
+
+    private void roomsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roomsComboActionPerformed
     
 
 

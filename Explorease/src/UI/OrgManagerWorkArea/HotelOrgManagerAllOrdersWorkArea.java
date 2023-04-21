@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 
 import Business.Employee.Employee;
 import Business.Organization.Organization;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emi
  */
-public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
+public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form AirlineOrgManagerAllOrdersWorkArea
@@ -28,7 +28,7 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     Organization org;
     DefaultTableModel orderTable;
 
-    public AirlineOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
+    public HotelOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;

@@ -1,8 +1,7 @@
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
-import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 15512
  */
-public class HotelManagerProductWorkArea extends javax.swing.JPanel {
+public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form AirlineManagerWorkArea
@@ -24,29 +23,30 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
     Organization org;
     DefaultTableModel prodTable;
 
-    public HotelManagerProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public AirlineManagerProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.prodTable = (DefaultTableModel) flights.getModel();
-        populateRooms();
+        populateFlights();
     }
 
-     public void populateRooms() {
+     public void populateFlights() {
         prodTable.setRowCount(0);
 
         ArrayList<Product> flights = this.org.getProductCatalog().getProducts();
 
         if (flights.size() > 0) {
             for (Product flight : flights) {
-                HotelRoomsProduct f = (HotelRoomsProduct) flight.getProductDetails();
-                Object[] row = new Object[4];
+                FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
+                Object[] row = new Object[10];
                 row[0] = f;
-                row[1] = f.getCity();
-                row[2] = f.getRoomType();
-                row[3] = f.getRoomsAvailable();
+                row[1] = f.getAirline();
+                row[2] = f.getDepartureCity();
+                row[3] = f.getDepartureDate();
+                row[4] = f.getNonStop();
                 prodTable.addRow(row);
             }
         }
@@ -65,9 +65,11 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         flights = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         depCity = new javax.swing.JTextField();
+        seats = new javax.swing.JTextField();
         select = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -75,6 +77,12 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         desCity = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         airline = new javax.swing.JTextField();
+        duration = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        departureTime = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        nonStop = new javax.swing.JCheckBox();
         jButton6 = new javax.swing.JButton();
         departureDate = new com.toedter.calendar.JDateChooser();
 
@@ -85,88 +93,132 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "City", "Room Type", "Number of Rooms", "Price"
+                "Obj", "Flight ID", "Departure City", "Destination City", "Airline", "Departure Date", "Departure TIme", "Flight Duration", "Non Stop", "Seats "
             }
         ));
         jScrollPane2.setViewportView(flights);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 570, 280));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 910, 420));
+
+        jLabel1.setText("Non-Stop");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Hotel Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+        jLabel2.setText("Airline Flight Management");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 153, 153));
-        jButton4.setText("Remove Room");
+        jButton4.setText("Remove Flight");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 130, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 530, 130, -1));
 
         depCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depCityActionPerformed(evt);
             }
         });
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 120, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 120, -1));
+
+        seats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seatsActionPerformed(evt);
+            }
+        });
+        add(seats, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 410, 120, -1));
 
         select.setBackground(new java.awt.Color(204, 255, 204));
-        select.setText("Select Room");
+        select.setText("Select Flight");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectActionPerformed(evt);
             }
         });
-        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 130, 40));
+        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 130, 40));
 
-        jLabel4.setText("City");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
+        jLabel4.setText("Departure City");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 90, -1, -1));
 
-        jLabel7.setText("Date");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, -1, -1));
+        jLabel7.setText("Departure Date");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 240, -1, -1));
 
-        jLabel8.setText("Number of Rooms");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, -1, -1));
+        jLabel8.setText("Destination City");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 140, -1, -1));
 
         desCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 desCityActionPerformed(evt);
             }
         });
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 120, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 160, 120, -1));
 
-        jLabel9.setText("Room Type");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
+        jLabel9.setText("Airline");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, -1, -1));
 
         airline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 airlineActionPerformed(evt);
             }
         });
-        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 120, -1));
+        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 210, 120, -1));
+
+        duration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                durationActionPerformed(evt);
+            }
+        });
+        add(duration, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 120, -1));
+
+        jLabel10.setText("Seats");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 390, -1, -1));
+
+        departureTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departureTimeActionPerformed(evt);
+            }
+        });
+        add(departureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 310, 120, -1));
+
+        jLabel11.setText("Departure Time");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 290, -1, -1));
+
+        jLabel12.setText("Duration");
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, -1));
+
+        nonStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nonStopActionPerformed(evt);
+            }
+        });
+        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 440, -1, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 255, 255));
-        jButton6.setText("Update Room");
+        jButton6.setText("Update Flight");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 370, 130, -1));
-        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 120, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 490, 130, -1));
+        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 260, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void depCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depCityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_depCityActionPerformed
+
+    private void seatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seatsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_seatsActionPerformed
 
     private void desCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desCityActionPerformed
         // TODO add your handling code here:
@@ -176,6 +228,18 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_airlineActionPerformed
 
+    private void durationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_durationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_durationActionPerformed
+
+    private void departureTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_departureTimeActionPerformed
+
+    private void nonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonStopActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nonStopActionPerformed
+
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
@@ -183,7 +247,12 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         depCity.setText(f.getDepartureCity());
         airline.setText(f.getAirline());
         departureDate.setDate(f.getDepartureDate());
-        desCity.setText(f.getDestinationCity());                                
+        departureTime.setText(f.getDepartureTime());
+        desCity.setText(f.getDestinationCity());
+        duration.setText(f.getFlightDuration());
+        nonStop.setEnabled(f.getNonStop());
+        seats.setText(String.valueOf(f.getNumberOfSeatsAvailable()));
+                                
     }//GEN-LAST:event_selectActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -194,7 +263,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         f.setDepartureCity(depCity.getText());
         f.setAirline(airline.getText());
         airline.setText(f.getAirline());
-        populateRooms();
+        populateFlights();
         // Others to add
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -203,7 +272,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         int selectedRow = flights.getSelectedRow();
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
         this.org.getProductCatalog().getProducts().remove(f);
-        populateRooms();
+        populateFlights();
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
@@ -211,11 +280,17 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
     private javax.swing.JTextField airline;
     private javax.swing.JTextField depCity;
     private com.toedter.calendar.JDateChooser departureDate;
+    private javax.swing.JTextField departureTime;
     private javax.swing.JTextField desCity;
+    private javax.swing.JTextField duration;
     private javax.swing.JTable flights;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -223,6 +298,8 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JCheckBox nonStop;
+    private javax.swing.JTextField seats;
     private javax.swing.JButton select;
     // End of variables declaration//GEN-END:variables
 

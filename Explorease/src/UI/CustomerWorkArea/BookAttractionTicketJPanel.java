@@ -76,14 +76,14 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Destination City");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 150, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 150, -1));
 
         jLabel3.setText("Date");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
 
         depDate.setDateFormatString("yyyy-MM-dd");
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 158, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 158, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +91,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 searchBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, -1, -1));
+        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, -1, -1));
 
         att.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,7 +106,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(att);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 880, 370));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 880, 370));
 
         selectBtn.setText("Select");
         selectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -114,19 +114,19 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 selectBtnActionPerformed(evt);
             }
         });
-        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 230, -1, -1));
+        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 210, -1, -1));
 
         jLabel5.setText("Ticket Selected");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, -1, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, -1, 20));
 
         jTextField3.setEditable(false);
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 650, 105, -1));
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 630, 105, -1));
 
         jLabel6.setText("Number of Visitors");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, -1, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, 20));
 
         jTextField4.setEditable(false);
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 650, 105, -1));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, 105, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -134,16 +134,16 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 650, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 630, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/attraction_128px.png"))); // NOI18N
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 40, 130, 130));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 130, 130));
 
         jLabel10.setText("Total Price");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 650, -1, 20));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 630, -1, 20));
 
         visitorsCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-        add(visitorsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 90, -1));
+        add(visitorsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 90, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

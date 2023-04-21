@@ -1,4 +1,4 @@
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;

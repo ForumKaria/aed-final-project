@@ -16,7 +16,7 @@ import UserAccount.UserAccount;
 
 // Note - can delete other work requests type and make this class not abstract. 
 public class WorkRequest{
-    String message;
+    String message; //do we need this?
     UserAccount sender;
     Order order;
     Customer customer;
@@ -24,6 +24,17 @@ public class WorkRequest{
     private String workrequestID;
     private static int counter = 1;
     Organization receiverOrg;
+    
+    public WorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg) {
+        // auto generate ID
+        this.workrequestID = "WORK_REQUEST_" + this.counter++;
+        this.order = o;
+        this.customer = c;
+        this.sender = s;
+        this.receiverOrg = receiverOrg;
+        this.status = "Order Requested";
+        // initialize required objects
+    }
 
     public String getMessage() {
         return message;
@@ -89,16 +100,9 @@ public class WorkRequest{
         this.receiverOrg = receiverOrg;
     }
 
-    
-    public WorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg) {
-        // auto generate ID
-        this.workrequestID = "WORK_REQUEST_" + this.counter++;
-        this.order = o;
-        this.customer = c;
-        this.sender = s;
-        this.receiverOrg = receiverOrg;
-        this.status = "Order Requested";
-        // initialize required objects
+    @Override
+    public String toString(){
+        return this.getWorkrequestID();
     }
     
 //    public abstract void determineWorkRequestStatus();

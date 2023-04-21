@@ -6,6 +6,7 @@ package Order;
 
 import Business.Customer.Customer;
 import Business.Product.Product;
+import WorkRequest.WorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ public class Order {
     Customer customer;
     String status;
     Boolean orderApproved;
+    WorkQueue orderWorkQueue;
 
     public static int getCounter() {
         return counter;
@@ -45,6 +47,7 @@ public class Order {
         //customer.addCustomerOrder(this); //we link the order to the customer
         status = "in process";
         this.orderApproved = false;
+        this.orderWorkQueue = new WorkQueue();
     }
     
     public OrderItem newOrderItem(Product p) {
@@ -100,5 +103,10 @@ public class Order {
     void setStatus(String status) {
         this.status = status;
     }
+
+    public WorkQueue getOrderWorkQueue() {
+        return orderWorkQueue;
+    }
+    
     
 }

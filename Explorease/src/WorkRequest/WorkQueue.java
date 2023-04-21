@@ -4,7 +4,11 @@
  */
 package WorkRequest;
 
+import Business.Customer.Customer;
 import Business.Employee.Employee;
+import Business.Organization.Organization;
+import Order.Order;
+import UserAccount.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -33,9 +37,17 @@ public class WorkQueue {
         workReq.getOrder().setOrderApproved(false);
         this.workQueue.remove(workReq);
     }
-
+    
+    //to add the work request to org's work queue
     public void addWorkRequest(WorkRequest workReq) {
         this.workQueue.add(workReq);
+    }
+    
+    //this is for customer to initiate the first work request for an order
+    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg){
+        WorkRequest wr = new WorkRequest(o,c,s,recieverOrg);
+        this.workQueue.add(wr);
+        return wr;
     }
     
 }

@@ -84,15 +84,15 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Departure City");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
         jLabel2.setText("Destination City");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, -1, -1));
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 113, -1));
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 113, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 113, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 113, -1));
 
         jLabel3.setText("Date");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 searchBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 140, -1, -1));
+        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, -1, -1));
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,7 +115,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(flights);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 880, 420));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 890, 420));
 
         selectBtn.setText("Select");
         selectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -123,23 +123,23 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 selectBtnActionPerformed(evt);
             }
         });
-        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 230, -1, -1));
+        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 210, -1, -1));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/aircraft_16px.png"))); // NOI18N
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 36, 23));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 36, 23));
 
         jLabel5.setText("Flight Selected");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, -1, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 670, -1, 20));
 
         jTextField3.setEditable(false);
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 690, 105, -1));
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 670, 105, -1));
 
         jLabel6.setText("Total Price");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, 70, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 670, 70, 20));
 
         jTextField4.setEditable(false);
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 690, 80, -1));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 670, 80, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -147,32 +147,32 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 690, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 670, 80, -1));
 
         jLabel7.setText("From");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 690, 35, 20));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 670, 35, 20));
 
         jTextField5.setEditable(false);
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 690, 105, -1));
+        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 670, 105, -1));
 
         jLabel8.setText("To");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 690, 20, 20));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, 20, 20));
 
         jTextField6.setEditable(false);
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 690, 105, -1));
+        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 670, 105, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/airplane_128px.png"))); // NOI18N
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, 138, 136));
 
         nonStop.setText("Non-stop");
-        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 140, 90, -1));
+        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 120, 90, -1));
 
         tripTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "One-way", "Round-trip" }));
-        add(tripTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 130, -1));
+        add(tripTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 130, -1));
 
         jCheckBox1.setText("Order in-flight meal");
-        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 690, -1, -1));
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
+        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 670, -1, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 150, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -242,7 +242,8 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             o.newOrderItem(this.flightSelected);
             o.newOrderItem(this.flightSelected);
         }
-        WorkRequest workReq = new WorkRequest(o,this.cus, this.cus.getUserAccount(), this.org);
+//        WorkRequest workReq = new WorkRequest(o,this.cus, this.cus.getUserAccount(), this.org);
+        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.org); //this WR would be the main WR(initiated bycustomer) attached to the order
         this.org.getWorkQueue().addWorkRequest(workReq);
       
         //add the order to org's order list

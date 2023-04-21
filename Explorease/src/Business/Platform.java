@@ -31,6 +31,7 @@ import Business.Product.InsuranceProduct;
 import Business.Product.Product;
 import Business.Product.ProductCatalog;
 import Business.Product.TravelAgencyProduct;
+import Order.Order;
 import Order.OrderReport;
 import Person.Person;
 import Person.PersonDirectory;
@@ -44,6 +45,7 @@ import Roles.SystemAdminRole;
 import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import WorkRequest.WorkRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,7 +84,8 @@ public class Platform {
         
 //        this.flightFoodProducts = new ArrayList<FoodServiceProduct>();
         configureBusiness();
-        populateData();
+        populateProductData();
+        generateFakeOrders(this.getCustomerDirectory().getCustomerlist().get(0));
     }
 
     public void configureBusiness() {
@@ -123,9 +126,13 @@ public class Platform {
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
         Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
         Customer c = this.getCustomerDirectory().createCustomer(p,cus);
+        
+//        System.out.println(this.airlineOrg.getProductCatalog().getProducts().get(0).getProductId());
+        //create fake orders for customer c
+        
        }
 
-    public void populateData() {
+    public void populateProductData() {
         try {
             // PopulateData  
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
@@ -254,15 +261,39 @@ public class Platform {
             attractionProducts.addProduct(new AttractionProduct("Seattle","Theme Park Ticket", 120));
             attractionProducts.addProduct(new AttractionProduct("Seattle","Museum Ticket", 100));
             attractionProducts.addProduct(new AttractionProduct("Seattle","Adventure Ticket", 200));
-            
-            
-            
-            
-            System.out.println("All products Created");
+
             
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void generateFakeOrders(Customer c){
+        //create two orders for each of the four orgs
+ 
+        ArrayList<Organization> orgs = new ArrayList<Organization>();
+        orgs.add(airlineOrg);
+        orgs.add(hotelOrg);
+        orgs.add(travelAgencyOrg);
+        orgs.add(attractionOrg);
+        
+        for (Organization o:orgs){
+            int productIndex = 0;
+            for (int i =0 ;i <2; i++){
+                Order order =c.getCustomerOrderCatalog().createOrder(c);
+            
+                Product selectP = o.getProductCatalog().getProducts().get(productIndex);
+                productIndex+=1;
+                order.newOrderItem(selectP);
+                
+                WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), o); 
+                o.getWorkQueue().addWorkRequest(workReq);
+      
+                //add the order to org's order list
+                o.getOrderCatalog().getOrders().add(order);
+            }
+        }
+   
     }
     
     public Organization findOrgByUserAccount(String username, String password){

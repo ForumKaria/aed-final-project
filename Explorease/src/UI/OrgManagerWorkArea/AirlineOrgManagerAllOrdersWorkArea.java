@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 
 import Business.Employee.Employee;
 import Business.Organization.Organization;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emi
  */
-public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
+public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form AirlineOrgManagerAllOrdersWorkArea
@@ -28,7 +28,7 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     Organization org;
     DefaultTableModel orderTable;
 
-    public HotelOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
+    public AirlineOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;
@@ -47,9 +47,9 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             for (WorkRequest wr : wra) {
                 Object[] row = new Object[6];
                 row[0] = wr;
-                row[2] = wr.getMessage();
                 row[1] = wr.getCustomer().getPerson().getName();
-                row[3] = wr.getOrder().getOrderTotal();
+                row[2] = wr.getOrder().getOrderTotal();
+                row[3] = wr.getStatus();
                 row[4] = wr.getOrder().getOrderApproved();
                 row[5] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
                 orderTable.addRow(row);
@@ -83,7 +83,7 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Customer", "Status", "Price", "App/Rej", "Order Details"
+                "Order ID", "Customer", "Price", "Status", "Order Booked", "Order Details"
             }
         ));
         jScrollPane1.setViewportView(queue);
@@ -192,6 +192,7 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         wr.setStatus(statusTxt.getText());
+        populateOrders();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

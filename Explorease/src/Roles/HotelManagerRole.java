@@ -7,7 +7,7 @@ package Roles;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Platform;
-import UI.ManagerWorkArea.OrgManagerWorkAreaJPanel;
+import UI.OrgManagerWorkArea.OrgManagerWorkAreaJPanel;
 import UI.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import UserAccount.UserAccount;
 import javax.swing.JPanel;

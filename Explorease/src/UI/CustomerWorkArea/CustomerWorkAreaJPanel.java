@@ -6,7 +6,7 @@ package UI.CustomerWorkArea;
 
 import Business.Customer.Customer;
 import Business.Platform;
-import UI.ManagerWorkArea.AirlineManagerProductWorkArea;
+import UI.OrgManagerWorkArea.AirlineManagerProductWorkArea;
 import UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
