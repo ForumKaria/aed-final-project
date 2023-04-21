@@ -7,7 +7,9 @@ package Roles;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Platform;
-import UI.AgentWorkArea.AirlineAgentWorkArea;
+import UI.ManagerWorkArea.ManageOrgEmployeeWorkArea;
+import UI.ManagerWorkArea.OrgManagerWorkAreaJPanel;
+import UI.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import UserAccount.UserAccount;
 import javax.swing.JPanel;
 
@@ -18,8 +20,8 @@ import javax.swing.JPanel;
 public class AirlineAgentRole extends Role{
 
     @Override
-   public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
-        return new AirlineAgentWorkArea(platform,container,organization,ua);
+    public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
+           return new OrgManagerWorkAreaJPanel( container,  enterprise,  ua , platform);
     }
-    
+  
 }

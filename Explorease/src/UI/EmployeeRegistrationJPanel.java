@@ -13,13 +13,13 @@ import Business.Organization.OrganizationDirectory;
 import Business.Platform;
 import Person.Person;
 import Roles.AirlineAgentRole;
-import Roles.AttractionManagerRole;
+import Roles.AttractionOfficerRole;
 import Roles.CustomerRole;
 import Roles.FoodServiceSupplierRole;
-import Roles.HotelAgentRole;
-import Roles.InsuranceAgentRole;
+import Roles.HotelManagerRole;
+import Roles.InsuranceAdvisorRole;
 import Roles.Role;
-import Roles.TravelAgencyAgentRole;
+import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import VerifyNull.VerifyNull;
@@ -183,7 +183,7 @@ public
                 
                 switch (organization) {
                     case "Hotel":
-                        role = new HotelAgentRole();
+                        role = new HotelManagerRole();
                         org = enterpriseDirectory.findEnterprise("enterprise2").getOrganizationDirectory().findOrganization("org3");
                         break;
                     case "Airline":
@@ -191,7 +191,7 @@ public
                            org = enterpriseDirectory.findEnterprise("enterprise1").getOrganizationDirectory().findOrganization("org1");
                         break;
                     case "Insurance":
-                        role = new InsuranceAgentRole();
+                        role = new InsuranceAdvisorRole();
                         org = enterpriseDirectory.findEnterprise("enterprise3").getOrganizationDirectory().findOrganization("org5");
                         break;
                     case "Food Service":
@@ -199,11 +199,11 @@ public
                         org = enterpriseDirectory.findEnterprise("enterprise1").getOrganizationDirectory().findOrganization("org2");
                         break;
                     case "Attraction":
-                        role = new AttractionManagerRole();
+                        role = new AttractionOfficerRole();
                         org = enterpriseDirectory.findEnterprise("enterprise4").getOrganizationDirectory().findOrganization("org6");
                         break;
                     case "Travel Agency":
-                        role = new TravelAgencyAgentRole();
+                        role = new TravelAgentRole();
                         org = enterpriseDirectory.findEnterprise("enterprise3").getOrganizationDirectory().findOrganization("org4");
                         break;
                                

@@ -36,8 +36,12 @@ import Person.Person;
 import Person.PersonDirectory;
 import Roles.CustomerRole;
 import Roles.EnterpriseAdminRole;
-import Roles.OrganizationManagerRole;
+import Roles.AirlineAgentRole;
+import Roles.AttractionOfficerRole;
+import Roles.FoodServiceSupplierRole;
+import Roles.InsuranceAdvisorRole;
 import Roles.SystemAdminRole;
+import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import java.text.ParseException;
@@ -107,8 +111,13 @@ public class Platform {
         insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
         
-        //create one org manager for testing
-        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
+        //create org persons for testing, enterprise admin can also create new org admin users from UI
+        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airorgadmin", "airorgadmin", new AirlineAgentRole());
+        UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
+        UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
+        UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
+        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insuranceorgadmin", "insuranceorgadmin", new InsuranceAdvisorRole());
+        UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
         
         //create a customer for testing
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());

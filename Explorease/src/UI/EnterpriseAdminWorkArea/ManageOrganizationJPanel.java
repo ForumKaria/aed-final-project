@@ -8,7 +8,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import UI.SystemAdminWorkArea.*;
 import Business.Platform;
-import Roles.OrganizationManagerRole;
+import Roles.AirlineAgentRole;
 import UserAccount.UserAccount;
 import javax.swing.JPanel;
 
@@ -247,7 +247,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         
-        UserAccount airOrgAdmin = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
+        UserAccount airOrgAdmin = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new AirlineAgentRole());
         
     }//GEN-LAST:event_addOrgnManagerBtnActionPerformed
 

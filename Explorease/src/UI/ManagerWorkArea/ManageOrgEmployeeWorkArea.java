@@ -15,10 +15,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 15512
  */
-public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
+public class ManageOrgEmployeeWorkArea extends javax.swing.JPanel {
 
     /**
-     * Creates new form AirlineManagerEmployeeWorkArea
+     * Creates new form ManageOrgEmployeeWorkArea
      */
     Platform platform;
     Organization org;
@@ -28,7 +28,7 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
     DefaultTableModel approveTable;
     Employee selectedEmp;
 
-    public AirlineManagerEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public ManageOrgEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.ua = ua;

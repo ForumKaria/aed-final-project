@@ -68,8 +68,8 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         jCheckBox3 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        desCity1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        depCity = new javax.swing.JTextField();
+        depDate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -152,8 +152,8 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Where will you departure from?");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
-        add(desCity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, -1));
-        add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, -1));
 
         jLabel10.setText("Destination in mind?");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
@@ -227,14 +227,14 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookBtn;
+    private javax.swing.JTextField depCity;
+    private com.toedter.calendar.JDateChooser depDate;
     private javax.swing.JTextField desCity;
-    private javax.swing.JTextField desCity1;
     private javax.swing.JTable flights;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

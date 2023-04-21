@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author emi
  */
-public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
+public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SystemAdminWorkArea
@@ -31,50 +31,108 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
     Enterprise enterprise;
     Organization org;
     
-    public AirlineOrgManagerWorkAreaJPanel(JPanel container, Enterprise enterprise, UserAccount ua ,Platform platform) {
+    public OrgManagerWorkAreaJPanel(JPanel container, Enterprise enterprise, UserAccount ua ,Platform platform) {
         initComponents();
         this.setVisible(true);
         this.platform = platform;
-        this.org = this.platform.getAirlineOrg();
-        this.container = container;
-       
         this.ua = ua;
-        
+        this.org = this.platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
+        this.container = container;
+
         manageEmployee();
 
     }
     
+    
     public void manageEmployee(){
-        
-        JPanel manageEmployeeJPanel = new AirlineManagerEmployeeWorkArea(platform,container,  ua);
-//        JScrollPane scroll = new JScrollPane(manageEmployeeJPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        workArea.add(scroll);
+        //to do: delete manage employee panel, org emloyees will be visible to its enterprise admin
+        JPanel manageEmployeeJPanel = new ManageOrgEmployeeWorkArea(platform,container,  ua);
         workArea.add(manageEmployeeJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }
     
     public void manageProduct(){
-        if(ua.getUsername().equals("airadmin")){
-        JPanel manageProductJPanel = new AirlineManagerProductWorkArea( platform,  container,  ua);
-        workArea.add(manageProductJPanel);
-        CardLayout layout = (CardLayout) workArea.getLayout();
-        layout.next(workArea);
+//        if(ua.getUsername().equals("airadmin")){
+        if (this.org==this.platform.getAirlineOrg()){
+            JPanel manageProductJPanel = new AirlineManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
         
-        }else if(ua.getUsername().equals("hoteladmin")){
-        JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
-        workArea.add(manageProductJPanel);
-        CardLayout layout = (CardLayout) workArea.getLayout();
-        layout.next(workArea);
-        
+        }
+//        else if(ua.getUsername().equals("hotelorgadmin")){ //changed username cuz hoteladmin is for hotel enterprise
+        else if (this.org==this.platform.getHotelOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        //to do: create product panels for below orgs
+        else if (this.org==this.platform.getFoodServiceOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getTravelAgencyOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getInsuranceOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getAttractionOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
         }
     }
     
     public void manageOrders(){
-        JPanel manageOrderJPanel = new AirlineOrgManagerAllOrdersWorkArea( platform,  container,  ua);
-        workArea.add(manageOrderJPanel);
-        CardLayout layout = (CardLayout) workArea.getLayout();
-        layout.next(workArea);
+        if (this.org==this.platform.getAirlineOrg()){
+            JPanel manageOrderJPanel = new AirlineOrgManagerAllOrdersWorkArea( platform,  container,  ua);
+            workArea.add(manageOrderJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getHotelOrg()){
+            JPanel manageOrderJPanel = new HotelOrgManagerAllOrdersWorkArea( platform,  container,  ua);
+            workArea.add(manageOrderJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        //to do: create all orders panels for below orgs
+        else if (this.org==this.platform.getFoodServiceOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getTravelAgencyOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getInsuranceOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
+        else if (this.org==this.platform.getAttractionOrg()){
+            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            workArea.add(manageProductJPanel);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+        }
     }
 
     /**
@@ -147,7 +205,7 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         toolBarLayout.setHorizontalGroup(
             toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toolBarLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(toolBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(productBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
