@@ -4,10 +4,21 @@
  */
 package WorkRequest;
 
+import Business.Customer.Customer;
+import Business.Platform;
+import Order.Order;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author emi
  */
-public class FoodServiceWorkRequest {
+public class FoodServiceWorkRequest extends WorkRequest{
+    
+    public FoodServiceWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
+        super(o, c, sender, platform);
+        this.receiverOrg = platform.getFoodServiceOrg();
+        this.receiverOrg.getWorkQueue().addWorkRequest(this);
+    }
     
 }

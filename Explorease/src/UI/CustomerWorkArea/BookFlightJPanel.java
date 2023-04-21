@@ -11,6 +11,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         nonStop = new javax.swing.JCheckBox();
         tripTypeCombo = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        orderFood = new javax.swing.JCheckBox();
         depDate = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -170,8 +171,8 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         tripTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "One-way", "Round-trip" }));
         add(tripTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 130, -1));
 
-        jCheckBox1.setText("Order in-flight meal");
-        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 670, -1, -1));
+        orderFood.setText("Order in-flight meal");
+        add(orderFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 670, -1, -1));
         add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 150, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -242,12 +243,14 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             o.newOrderItem(this.flightSelected);
             o.newOrderItem(this.flightSelected);
         }
-//        WorkRequest workReq = new WorkRequest(o,this.cus, this.cus.getUserAccount(), this.org);
-        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.org); //this WR would be the main WR(initiated bycustomer) attached to the order
-        this.org.getWorkQueue().addWorkRequest(workReq);
+
+        AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+        
+        if(orderFood.isSelected()){
+            airworkReq.setNeedFood(true);
+        }
       
-        //add the order to org's order list
-        this.org.getOrderCatalog().getOrders().add(o);
+        //no need to add to the org's order list, we just loop workQueue for org data
         JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
     
@@ -259,7 +262,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser depDate;
     private javax.swing.JTextField desCity;
     private javax.swing.JTable flights;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -275,6 +277,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JCheckBox nonStop;
+    private javax.swing.JCheckBox orderFood;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton selectBtn;
     private javax.swing.JComboBox<String> tripTypeCombo;

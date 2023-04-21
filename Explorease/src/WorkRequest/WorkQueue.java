@@ -7,6 +7,7 @@ package WorkRequest;
 import Business.Customer.Customer;
 import Business.Employee.Employee;
 import Business.Organization.Organization;
+import Business.Platform;
 import Order.Order;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
@@ -43,9 +44,21 @@ public class WorkQueue {
         this.workQueue.add(workReq);
     }
     
-    //this is for customer to initiate the first work request for an order
-    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg){
-        WorkRequest wr = new WorkRequest(o,c,s,recieverOrg);
+    //use customer's order to create work request
+    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
+        WorkRequest wr = new WorkRequest(o,c,s,platform);
+        this.workQueue.add(wr);
+        return wr;
+    }
+    
+    public AirTicketWorkRequest newAirTicketWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
+        AirTicketWorkRequest wr = new AirTicketWorkRequest(o,c,s,platform);
+        this.workQueue.add(wr);
+        return wr;
+    }
+    
+    public FoodServiceWorkRequest newFoodServiceWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
+       FoodServiceWorkRequest wr = new FoodServiceWorkRequest(o,c,s,platform);
         this.workQueue.add(wr);
         return wr;
     }

@@ -15,6 +15,7 @@ import static Business.Enterprise.Enterprise.EnterpriseType.Transportation;
 import static Business.Enterprise.Enterprise.EnterpriseType.TravelAgency;
 import Business.Enterprise.EnterpriseDirectory;
 import Business.Enterprise.TransportationEnterprise;
+import Business.Organization.AirlineOrganization;
 import Business.Organization.Organization;
 import static Business.Organization.Organization.OrganizationType.AirlineOrg;
 import static Business.Organization.Organization.OrganizationType.AttractionOrg;
@@ -45,6 +46,7 @@ import Roles.SystemAdminRole;
 import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,10 +84,11 @@ public class Platform {
         this.enterpriseDirectory = new EnterpriseDirectory();
         this.masterOrderReport = new OrderReport();
         
-//        this.flightFoodProducts = new ArrayList<FoodServiceProduct>();
         configureBusiness();
         populateProductData();
-        generateFakeOrders(this.getCustomerDirectory().getCustomerlist().get(0));
+        
+        //create fake orders for the pre-created customer
+        generateFakeOrders(this.getCustomerDirectory().findCustomerById("user12"));
     }
 
     public void configureBusiness() {
@@ -126,9 +129,6 @@ public class Platform {
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
         Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
         Customer c = this.getCustomerDirectory().createCustomer(p,cus);
-        
-//        System.out.println(this.airlineOrg.getProductCatalog().getProducts().get(0).getProductId());
-        //create fake orders for customer c
         
        }
 
@@ -286,9 +286,14 @@ public class Platform {
                 productIndex+=1;
                 order.newOrderItem(selectP);
                 
-                WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), o); 
-                o.getWorkQueue().addWorkRequest(workReq);
-      
+                if(o instanceof AirlineOrganization){
+                    AirTicketWorkRequest workReq =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
+                    workReq.setNeedFood(true);
+//                    o.getWorkQueue().addWorkRequest(workReq);
+                }else {
+                    WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 
+                    o.getWorkQueue().addWorkRequest(workReq);
+                }
                 //add the order to org's order list
                 o.getOrderCatalog().getOrders().add(order);
             }

@@ -247,7 +247,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
             o.newOrderItem(this.roomSelected);
         }
         
-        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.org); 
+        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); 
         this.org.getWorkQueue().addWorkRequest(workReq);
         //add the order to org's order list
         this.org.getOrderCatalog().getOrders().add(o);

@@ -6,6 +6,7 @@ package WorkRequest;
 
 import Business.Customer.Customer;
 import Business.Organization.Organization;
+import Business.Platform;
 import Order.Order;
 import UserAccount.UserAccount;
 
@@ -24,14 +25,16 @@ public class WorkRequest{
     private String workrequestID;
     private static int counter = 1;
     Organization receiverOrg;
+    Platform platform;
     
-    public WorkRequest(Order o,Customer c, UserAccount s, Organization recieverOrg) {
+    public WorkRequest(Order o,Customer c, UserAccount sender,Platform platform) {
         // auto generate ID
         this.workrequestID = "WORK_REQUEST_" + this.counter++;
         this.order = o;
         this.customer = c;
-        this.sender = s;
-        this.receiverOrg = receiverOrg;
+        this.sender = sender;
+        this.platform = platform;
+//        this.receiverOrg = receiverOrg;
         this.status = "Order Requested";
         // initialize required objects
     }

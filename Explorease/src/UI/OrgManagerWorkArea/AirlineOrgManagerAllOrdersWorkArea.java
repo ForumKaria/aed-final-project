@@ -7,9 +7,13 @@ package UI.OrgManagerWorkArea;
 import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
+import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.FoodServiceWorkRequest;
 import WorkRequest.WorkRequest;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,14 +48,18 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         orderTable.setRowCount(0);
         ArrayList<WorkRequest> wra = this.org.getWorkQueue().getWorkQueue();
         if (wra.size() > 0) {
+            
             for (WorkRequest wr : wra) {
-                Object[] row = new Object[6];
+                AirTicketWorkRequest awr = (AirTicketWorkRequest) wr;
+                Object[] row = new Object[8];
                 row[0] = wr;
-                row[1] = wr.getCustomer().getPerson().getName();
-                row[2] = wr.getOrder().getOrderTotal();
-                row[3] = wr.getStatus();
-                row[4] = wr.getOrder().getOrderApproved();
-                row[5] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
+                row[1] = wr.getOrder();
+                row[2] = wr.getCustomer().getPerson().getName();
+                row[3] = wr.getOrder().getOrderTotal();
+                row[4] = awr.getNeedFood();
+                row[5] = wr.getStatus();
+                row[6] = wr.getOrder().getOrderApproved();
+                row[7] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
                 orderTable.addRow(row);
             }
         }
@@ -69,7 +77,7 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         queue = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        select = new javax.swing.JButton();
+        orderFood = new javax.swing.JButton();
         appBtn = new javax.swing.JButton();
         rejBtn = new javax.swing.JButton();
         statusTxt = new javax.swing.JTextField();
@@ -77,13 +85,13 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
         queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Customer", "Price", "Status", "Order Booked", "Order Details"
+                "WorkRequest ID", "Order ID", "Customer", "Price", "Food Required", "Status", "Order Booked", "Order Details"
             }
         ));
         jScrollPane1.setViewportView(queue);
@@ -91,10 +99,10 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("WORK QUEUE");
 
-        select.setText("Select");
-        select.addActionListener(new java.awt.event.ActionListener() {
+        orderFood.setText("Order Food For Customer");
+        orderFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectActionPerformed(evt);
+                orderFoodActionPerformed(evt);
             }
         });
 
@@ -112,7 +120,7 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Set Status");
+        jButton1.setText("Set Processing Status");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -124,49 +132,62 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(appBtn)
-                            .addComponent(select, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(jLabel1)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(orderFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(appBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rejBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statusTxt))
+                        .addGap(63, 63, 63))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(select)
-                        .addGap(15, 15, 15)
+                        .addComponent(orderFood)
+                        .addGap(120, 120, 120)
                         .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(74, 74, 74)
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rejBtn)))
-                .addContainerGap(285, Short.MAX_VALUE))
+                        .addComponent(rejBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
+    private void orderFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderFoodActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_selectActionPerformed
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        Boolean needFood = (Boolean) orderTable.getValueAt(selectedRow, 4);
+        Order order = (Order) orderTable.getValueAt(selectedRow, 1);
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        if (!needFood){
+            JOptionPane.showMessageDialog(null, "No in-flight food ordered");
+        }else{
+            FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(order,order.getCustomer(),order.getCustomer().getUserAccount(),this.platform);
+//            adding request to the org's workQueue is handled inside FoodServiceWorkRequest constructor
+//            this.platform.getFoodServiceOrg().getWorkQueue().addWorkRequest(foodwr);
+            wr.setStatus("Making food reservation from food supplier");
+            JOptionPane.showMessageDialog(null, "Food request sent");
+            populateOrders();
+        }
+    }//GEN-LAST:event_orderFoodActionPerformed
 
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:
@@ -201,9 +222,9 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton orderFood;
     private javax.swing.JTable queue;
     private javax.swing.JButton rejBtn;
-    private javax.swing.JButton select;
     private javax.swing.JTextField statusTxt;
     // End of variables declaration//GEN-END:variables
 }

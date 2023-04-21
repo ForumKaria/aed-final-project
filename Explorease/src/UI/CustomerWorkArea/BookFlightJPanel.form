@@ -325,7 +325,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+    <Component class="javax.swing.JCheckBox" name="orderFood">
       <Properties>
         <Property name="text" type="java.lang.String" value="Order in-flight meal"/>
       </Properties>
