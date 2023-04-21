@@ -55,10 +55,19 @@ public class AirlineOrgManagerWorkAreaJPanel extends javax.swing.JPanel {
     }
     
     public void manageProduct(){
+        if(ua.getUsername().equals("airadmin")){
         JPanel manageProductJPanel = new AirlineManagerProductWorkArea( platform,  container,  ua);
         workArea.add(manageProductJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
+        
+        }else if(ua.getUsername().equals("hoteladmin")){
+        JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+        workArea.add(manageProductJPanel);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+        
+        }
     }
     
     public void manageOrders(){
