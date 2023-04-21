@@ -51,7 +51,7 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 Object[] row = new Object[6];
                 row[0] = wr;
                 row[1] = wr.getCustomer().getPerson().getName();
-                row[2] = wr.getOrder().getOrderTotal();
+                row[2] = wr.getOrder().getMainOrderTotal();
                 row[3] = wr.getStatus();
                 FoodServiceProduct fp = (FoodServiceProduct) wr.getOrder().getOrderitems().get(0).getSelectedproduct().getProductDetails();
                 row[4] = fp.getMenu();
@@ -150,7 +150,7 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         
-        if (wr.getStatus().equals("Order requested")){
+        if (wr.getStatus().equalsIgnoreCase("Order requested")){
             wr.setStatus("Food service approved");
 //          this.org.getWorkQueue().finishWorkRequest(wr);
             FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
@@ -167,7 +167,7 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getStatus().equals("Order requested")){
+        if (wr.getStatus().equalsIgnoreCase("Order requested")){
             wr.setStatus("Food service rejected");
 //        this.org.getWorkQueue().rejectWorkRequest(wr);
             FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;

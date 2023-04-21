@@ -51,10 +51,12 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
                 Object[] row = new Object[5];
                 row[0] = o.getOrderId();
                 row[1] = o.getOrderitems().get(0).getSelectedproduct(); //same product to different order items inside one order
-                row[2] = o.getOrderTotal();
+//                row[2] = o.getOrderTotal();
+                row[2] = (o.getOrderWorkQueue().getWorkQueue().get(0).getReceiverOrg() == this.platform.getAirlineOrg())? o.getFlightOrderPriceWithFood():o.getOrderTotal();
                 row[3] = o.getOrderWorkQueue().getWorkQueue().get(0).getStatus(); //main work request's processing status
                 row[4] = o.getOrderApproved()?"Booked":"Not Booked"; //final order status
                 ordersTable.addRow(row);
+                
             }
         }
     }

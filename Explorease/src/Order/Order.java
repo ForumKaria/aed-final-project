@@ -7,6 +7,7 @@ package Order;
 import Business.Customer.Customer;
 import Business.Product.Product;
 import WorkRequest.WorkQueue;
+import WorkRequest.WorkRequest;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,7 @@ public class Order {
     String status;
     Boolean orderApproved;
     WorkQueue orderWorkQueue;
+    int flightOrderPriceWithFood;
 
     public static int getCounter() {
         return counter;
@@ -43,8 +45,6 @@ public class Order {
         
         orderitems = new ArrayList<OrderItem>();
         customer = c;
-        
-        //customer.addCustomerOrder(this); //we link the order to the customer
         status = "in process";
         this.orderApproved = false;
         this.orderWorkQueue = new WorkQueue();
@@ -55,14 +55,36 @@ public class Order {
         orderitems.add(oi);
         return oi;
     }
-    //order total is the sumer of the order item totals
+    //modification for use cases where flight order has food request attached to it
     public int getOrderTotal() {
+        int sum = 0;
+        for (WorkRequest wr: this.orderWorkQueue.getWorkQueue()){
+            Order or= wr.getOrder();
+            for (OrderItem oi : or.getOrderitems()) {
+                sum = sum + oi.getOrderItemTotal();
+            }
+        }
+        
+        return sum;
+    }
+    
+    public int getMainOrderTotal(){
         int sum = 0;
         for (OrderItem oi : orderitems) {
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
-    } 
+    }
+    
+    public void setFlightOrderPriceWithFood(int p){
+        this.flightOrderPriceWithFood = p;
+    }
+
+    public int getFlightOrderPriceWithFood() {
+        return flightOrderPriceWithFood;
+    }
+    
+    
 
     public
     String getOrderId() {

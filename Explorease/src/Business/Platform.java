@@ -47,6 +47,7 @@ import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.FoodServiceWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -287,10 +288,24 @@ public class Platform {
                 order.newOrderItem(selectP);
                 
                 if(o instanceof AirlineOrganization){
-                    AirTicketWorkRequest workReq =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
-                    workReq.setNeedFood(true);
-                    workReq.setIsVegan(false);
-//                    o.getWorkQueue().addWorkRequest(workReq);
+                    AirTicketWorkRequest airWR =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
+                    airWR.setNeedFood(true);
+                    airWR.setIsVegan(false);
+                    
+                    Order foodOrderSentToFS = o.getOrderCatalog().createOrder(order.getCustomer());
+   
+                    FoodServiceProduct foodSelected = (airWR.getIsVegan())? new FoodServiceProduct("Vegan",30):new FoodServiceProduct("Non-veg",40);
+                    foodOrderSentToFS.newOrderItem(foodSelected);
+                    FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(foodOrderSentToFS,order.getCustomer(),this.getAirlineOrg().getUserAccountDirectory().findByUserName("airorgadmin"),this);
+            
+                    //link this request with customer's main flight order and request
+                    foodwr.setCustomerFlightOrder(order);
+                    foodwr.setCustomerFlightRequest(airWR);
+            
+                    airWR.setStatus("Making food reservation from food supplier");
+                    
+                    order.setFlightOrderPriceWithFood(order.getOrderTotal());
+
                 }else {
                     WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 
                     o.getWorkQueue().addWorkRequest(workReq);

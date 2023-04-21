@@ -257,12 +257,15 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
         
+        //prepare food info to send to airline org
         if(foodCombo.getSelectedItem().equals("Order vegan meal")){
             airworkReq.setNeedFood(true);
             airworkReq.setIsVegan(true);
         }else if(foodCombo.getSelectedItem().equals("Order non-vegan meal")){
             airworkReq.setNeedFood(true);
         }
+        
+        o.setFlightOrderPriceWithFood(Integer.valueOf(jTextField4.getText())); //only works for orders created from UI
       
         //no need to add to the org's order list, we just loop workQueue for org data
         JOptionPane.showMessageDialog(null, "Booking request sent");
@@ -278,8 +281,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         int flightPrice = flightSelected.getPrice();
         int oneWayPrice = foodPrice+flightPrice;
         Boolean isOneWay = (tripTypeCombo.getSelectedItem().equals("One-way"))? true:false;
-                
-        jTextField4.setText(String.valueOf((isOneWay)? oneWayPrice: oneWayPrice*2));
+        int totalPrice = (isOneWay)? oneWayPrice: oneWayPrice*2;
+        
+        jTextField4.setText(String.valueOf(totalPrice));
     }//GEN-LAST:event_foodComboItemStateChanged
     
 

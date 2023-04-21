@@ -56,7 +56,8 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 row[0] = wr;
                 row[1] = wr.getOrder();
                 row[2] = wr.getCustomer().getPerson().getName();
-                row[3] = wr.getOrder().getOrderTotal();
+//                row[3] = wr.getOrder().getOrderTotal();
+                row[3] = wr.getOrder().getMainOrderTotal(); //not including food price for air org revenue
                 row[4] = awr.getNeedFood();
                 row[5] = wr.getStatus();
                 row[6] = wr.getOrder().getOrderApproved();
@@ -207,7 +208,7 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getStatus().equals("Work Request Finished") || wr.getStatus().equals("Work Request Rejected")){
+        if (wr.getStatus().equalsIgnoreCase("Work Request Finished") || wr.getStatus().equalsIgnoreCase("Work Request Rejected")){
             JOptionPane.showMessageDialog(null, "Processing already completed");
         }else{
             this.org.getWorkQueue().finishWorkRequest(wr);
@@ -221,7 +222,7 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getStatus().equals("Work Request Finished") || wr.getStatus().equals("Work Request Rejected")){
+        if (wr.getStatus().equalsIgnoreCase("Work Request Finished") || wr.getStatus().equalsIgnoreCase("Work Request Rejected")){
             JOptionPane.showMessageDialog(null, "Processing already completed");
         }else{
             this.org.getWorkQueue().rejectWorkRequest(wr);
