@@ -39,7 +39,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.org = this.platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.container = container;
 
-        manageProduct();
+        manageOrders();
 
     }
     
@@ -59,7 +59,6 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
-        
         }
 //        else if(ua.getUsername().equals("hotelorgadmin")){ //changed username cuz hoteladmin is for hotel enterprise
         else if (this.org==this.platform.getHotelOrg()){
@@ -110,7 +109,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         //to do: create all orders panels for below orgs
         else if (this.org==this.platform.getFoodServiceOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new FoodOrgManagerAllOrdersWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);

@@ -28,15 +28,15 @@ public class WorkQueue {
     }
 
     public void finishWorkRequest(WorkRequest workReq) {
-        workReq.setMessage("Work Request Finished");
+        workReq.setStatus("Work Request Finished");
         workReq.getOrder().setOrderApproved(true);
-        this.workQueue.remove(workReq);
+//        this.workQueue.remove(workReq); //let the record stay, in case the agent needs to set status msg after approve/rej
     }
     
     public void rejectWorkRequest(WorkRequest workReq) {
-        workReq.setMessage("Work Request Rejected");
+        workReq.setStatus("Work Request Rejected");
         workReq.getOrder().setOrderApproved(false);
-        this.workQueue.remove(workReq);
+//        this.workQueue.remove(workReq);
     }
     
     //to add the work request to org's work queue
@@ -45,20 +45,26 @@ public class WorkQueue {
     }
     
     //use customer's order to create work request
-    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
-        WorkRequest wr = new WorkRequest(o,c,s,platform);
+    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+        WorkRequest wr = new WorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
     
-    public AirTicketWorkRequest newAirTicketWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
-        AirTicketWorkRequest wr = new AirTicketWorkRequest(o,c,s,platform);
+    public AirTicketWorkRequest newAirTicketWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+        AirTicketWorkRequest wr = new AirTicketWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
     
-    public FoodServiceWorkRequest newFoodServiceWorkRequest(Order o,Customer c, UserAccount s,Platform platform){
-       FoodServiceWorkRequest wr = new FoodServiceWorkRequest(o,c,s,platform);
+    public FoodServiceWorkRequest newFoodServiceWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       FoodServiceWorkRequest wr = new FoodServiceWorkRequest(o,c,sender,platform);
+        this.workQueue.add(wr);
+        return wr;
+    }
+    
+    public HotelBookingWorkRequest newHotelBookingWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       HotelBookingWorkRequest wr = new HotelBookingWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }

@@ -19,7 +19,7 @@ import UserAccount.UserAccount;
 public class WorkRequest{
     String message; //do we need this?
     UserAccount sender;
-    Order order;
+    Order order; //this is the order initiated by customer, different from when airline send food orders to food supplier
     Customer customer;
     String status;
     private String workrequestID;
@@ -34,9 +34,8 @@ public class WorkRequest{
         this.customer = c;
         this.sender = sender;
         this.platform = platform;
-//        this.receiverOrg = receiverOrg;
+//        this.receiverOrg = receiverOrg; //receiverOrg will be decided in child class
         this.status = "Order Requested";
-        // initialize required objects
     }
 
     public String getMessage() {

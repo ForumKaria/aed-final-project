@@ -289,6 +289,7 @@ public class Platform {
                 if(o instanceof AirlineOrganization){
                     AirTicketWorkRequest workReq =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
                     workReq.setNeedFood(true);
+                    workReq.setIsVegan(false);
 //                    o.getWorkQueue().addWorkRequest(workReq);
                 }else {
                     WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 

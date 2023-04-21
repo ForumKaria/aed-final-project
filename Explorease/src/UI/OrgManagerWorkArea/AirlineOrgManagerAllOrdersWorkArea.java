@@ -7,6 +7,7 @@ package UI.OrgManagerWorkArea;
 import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.FoodServiceProduct;
 import Order.Order;
 import UserAccount.UserAccount;
 import WorkRequest.AirTicketWorkRequest;
@@ -82,6 +83,8 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         rejBtn = new javax.swing.JButton();
         statusTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,14 +180,24 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         Boolean needFood = (Boolean) orderTable.getValueAt(selectedRow, 4);
         Order order = (Order) orderTable.getValueAt(selectedRow, 1);
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        
         if (!needFood){
             JOptionPane.showMessageDialog(null, "No in-flight food ordered");
         }else{
-            FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(order,order.getCustomer(),order.getCustomer().getUserAccount(),this.platform);
-//            adding request to the org's workQueue is handled inside FoodServiceWorkRequest constructor
-//            this.platform.getFoodServiceOrg().getWorkQueue().addWorkRequest(foodwr);
+            //create food request
+            Order foodOrderSentToFS = this.org.getOrderCatalog().createOrder(order.getCustomer());
+            AirTicketWorkRequest airWR  = (AirTicketWorkRequest) wr;
+            FoodServiceProduct foodSelected = (airWR.getIsVegan())? new FoodServiceProduct("Vegan",30):new FoodServiceProduct("Non-veg",40);
+            foodOrderSentToFS.newOrderItem(foodSelected);
+            FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(foodOrderSentToFS,order.getCustomer(),this.ua,this.platform);
+            
+            //link this request with customer's main flight order and request
+            foodwr.setCustomerFlightOrder(order);
+            foodwr.setCustomerFlightRequest(airWR);
+            
             wr.setStatus("Making food reservation from food supplier");
             JOptionPane.showMessageDialog(null, "Food request sent");
+            
             populateOrders();
         }
     }//GEN-LAST:event_orderFoodActionPerformed
@@ -194,8 +207,13 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        this.org.getWorkQueue().finishWorkRequest(wr);
-        populateOrders();
+        if (wr.getStatus().equals("Work Request Finished") || wr.getStatus().equals("Work Request Rejected")){
+            JOptionPane.showMessageDialog(null, "Processing already completed");
+        }else{
+            this.org.getWorkQueue().finishWorkRequest(wr);
+            populateOrders();
+        }
+        
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
@@ -203,8 +221,12 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        this.org.getWorkQueue().rejectWorkRequest(wr);
-        populateOrders();
+        if (wr.getStatus().equals("Work Request Finished") || wr.getStatus().equals("Work Request Rejected")){
+            JOptionPane.showMessageDialog(null, "Processing already completed");
+        }else{
+            this.org.getWorkQueue().rejectWorkRequest(wr);
+            populateOrders();
+        }
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

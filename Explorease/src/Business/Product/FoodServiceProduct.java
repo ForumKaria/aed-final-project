@@ -21,6 +21,12 @@ public class FoodServiceProduct extends Product {
     public FoodServiceProduct getProductDetails() {
         return this;
     }
+
+    public String getMenu() {
+        return menu;
+    }
+    
+    
     
    
 }

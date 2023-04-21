@@ -77,8 +77,8 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         nonStop = new javax.swing.JCheckBox();
         tripTypeCombo = new javax.swing.JComboBox<>();
-        orderFood = new javax.swing.JCheckBox();
         depDate = new com.toedter.calendar.JDateChooser();
+        foodCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -116,7 +116,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(flights);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 890, 420));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 890, 420));
 
         selectBtn.setText("Select");
         selectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,23 +124,23 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 selectBtnActionPerformed(evt);
             }
         });
-        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 210, -1, -1));
+        add(selectBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 180, -1, -1));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/aircraft_16px.png"))); // NOI18N
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 36, 23));
 
         jLabel5.setText("Flight Selected");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 670, -1, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, -1, 20));
 
         jTextField3.setEditable(false);
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 670, 105, -1));
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 640, 105, -1));
 
         jLabel6.setText("Total Price");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 670, 70, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 640, 70, 20));
 
         jTextField4.setEditable(false);
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 670, 80, -1));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 640, 80, -1));
 
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -148,19 +148,19 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 670, 80, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 80, -1));
 
         jLabel7.setText("From");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 670, 35, 20));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 640, 35, 20));
 
         jTextField5.setEditable(false);
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 670, 105, -1));
+        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 640, 105, -1));
 
         jLabel8.setText("To");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, 20, 20));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 640, 20, 20));
 
         jTextField6.setEditable(false);
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 670, 105, -1));
+        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 640, 105, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/airplane_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, 138, 136));
@@ -170,10 +170,21 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         tripTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "One-way", "Round-trip" }));
         add(tripTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 130, -1));
-
-        orderFood.setText("Order in-flight meal");
-        add(orderFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 670, -1, -1));
         add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 150, -1));
+
+        foodCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No in-flight food", "Order vegan meal", "Order non-vegan meal" }));
+        foodCombo.setToolTipText("");
+        foodCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                foodComboItemStateChanged(evt);
+            }
+        });
+        foodCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodComboActionPerformed(evt);
+            }
+        });
+        add(foodCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 640, 140, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -246,13 +257,30 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
         
-        if(orderFood.isSelected()){
+        if(foodCombo.getSelectedItem().equals("Order vegan meal")){
+            airworkReq.setNeedFood(true);
+            airworkReq.setIsVegan(true);
+        }else if(foodCombo.getSelectedItem().equals("Order non-vegan meal")){
             airworkReq.setNeedFood(true);
         }
       
         //no need to add to the org's order list, we just loop workQueue for org data
         JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
+
+    private void foodComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodComboActionPerformed
+
+    private void foodComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_foodComboItemStateChanged
+        // TODO add your handling code here:
+        int foodPrice = (foodCombo.getSelectedItem().equals("Order vegan meal"))? 30: 40;
+        int flightPrice = flightSelected.getPrice();
+        int oneWayPrice = foodPrice+flightPrice;
+        Boolean isOneWay = (tripTypeCombo.getSelectedItem().equals("One-way"))? true:false;
+                
+        jTextField4.setText(String.valueOf((isOneWay)? oneWayPrice: oneWayPrice*2));
+    }//GEN-LAST:event_foodComboItemStateChanged
     
 
 
@@ -262,6 +290,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser depDate;
     private javax.swing.JTextField desCity;
     private javax.swing.JTable flights;
+    private javax.swing.JComboBox<String> foodCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,7 +306,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JCheckBox nonStop;
-    private javax.swing.JCheckBox orderFood;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton selectBtn;
     private javax.swing.JComboBox<String> tripTypeCombo;

@@ -4,10 +4,21 @@
  */
 package WorkRequest;
 
+import Business.Customer.Customer;
+import Business.Platform;
+import Order.Order;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author emi
  */
-public class HotelBookingWorkRequest {
+public class HotelBookingWorkRequest extends WorkRequest{
+    
+    public HotelBookingWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
+        super(o, c, sender, platform);
+        this.receiverOrg = platform.getHotelOrg();
+        this.receiverOrg.getWorkQueue().addWorkRequest(this);
+    }
     
 }

@@ -11,6 +11,7 @@ import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.HotelBookingWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -247,10 +248,10 @@ public class BookHotelJPanel extends javax.swing.JPanel {
             o.newOrderItem(this.roomSelected);
         }
         
-        WorkRequest workReq = o.getOrderWorkQueue().newWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); 
-        this.org.getWorkQueue().addWorkRequest(workReq);
+        HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); 
+//        this.org.getWorkQueue().addWorkRequest(workReq);
         //add the order to org's order list
-        this.org.getOrderCatalog().getOrders().add(o);
+//        this.org.getOrderCatalog().getOrders().add(o);
         JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
 
