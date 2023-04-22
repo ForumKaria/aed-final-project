@@ -4,10 +4,19 @@
  */
 package WorkRequest;
 
+import Business.Customer.Customer;
+import Business.Platform;
+import Order.Order;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author emi
  */
-public class AttractionBookingWorkRequest {
-    
+public class AttractionBookingWorkRequest extends WorkRequest{
+
+    public AttractionBookingWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
+        super(o, c, sender, platform);
+    }
+
 }

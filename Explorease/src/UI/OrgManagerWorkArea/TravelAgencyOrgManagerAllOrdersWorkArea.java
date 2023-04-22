@@ -19,6 +19,8 @@ import UserAccount.UserAccount;
 import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.HotelBookingWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
+import WorkRequest.FoodServiceWorkRequest;
+import WorkRequest.InsuranceWorkRequest;
 import WorkRequest.WorkRequest;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     DefaultTableModel orderTable;
     TripPlanningWorkRequest pTrip;
 
-    public TravelAgencyOrgManagerAllOrdersWorkArea(JPanel container, UserAccount ua, Platform platform) {
+    public TravelAgencyOrgManagerAllOrdersWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;
@@ -57,17 +59,25 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         this.org.getWorkQueue();
         orderTable.setRowCount(0);
         ArrayList<WorkRequest> wra = this.org.getWorkQueue().getWorkQueue();
-        System.out.print(wra.get(0).getCustomer().getPerson().getName());
         if (wra.size() > 0) {
+
             for (WorkRequest wr : wra) {
-                Object[] row = new Object[7];
+                TripPlanningWorkRequest twr = (TripPlanningWorkRequest) wr;
+                Object[] row = new Object[12];
                 row[0] = wr;
-                row[1] = wr.getCustomer().getPerson().getName();
-                row[2] = wr.getOrder().getOrderTotal();
-                row[3] = wr.getStatus();
+                row[1] = wr.getOrder();
+                row[2] = wr.getCustomer().getPerson().getName();
+                row[3] = wr.getOrder().getMainOrderTotal(); //not including other org's price for travel agency revenue
                 row[4] = wr.getOrder().getOrderApproved();
+                //replace row10 with returned plan details
                 row[5] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
                 row[6] = wr.getAssignedTo();
+                row[7] = twr.getNeedInsurance();
+                row[8] = twr.getIsFullCoverage();
+                row[9] = twr.getNeedBooking();
+                row[10] = twr.getConfirmedToBook();
+                row[11] = wr.getStatus();
+
                 orderTable.addRow(row);
             }
         }
@@ -85,10 +95,12 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jScrollPane1 = new javax.swing.JScrollPane();
         queue = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        orderIns = new javax.swing.JButton();
         appBtn = new javax.swing.JButton();
         rejBtn = new javax.swing.JButton();
         statusTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        makeBookingBtn = new javax.swing.JButton();
         assignBtn1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -100,19 +112,26 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
         queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Work Request ID", "Customer", "Price", "Status", "Order Booked", "Order Details", "Assigned To"
+                "WorkRequest ID", "Order ID", "Customer", "Agency Price", "Order Booked", "Order Details", "Assigned To", "Insurance Required", "Full Coverage", "Booking Service Required", "Confirmed To Book", "Status"
             }
         ));
         jScrollPane1.setViewportView(queue);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("WORK QUEUE");
+
+        orderIns.setText("Order Insurance For Customer");
+        orderIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderInsActionPerformed(evt);
+            }
+        });
 
         appBtn.setText("Approve");
         appBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +151,13 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        makeBookingBtn.setText("Make Booking For Customer");
+        makeBookingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makeBookingBtnActionPerformed(evt);
             }
         });
 
@@ -226,6 +252,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(orderIns)
                         .addGap(71, 71, 71)
                         .addComponent(assignBtn1)
                         .addGap(16, 16, 16)
@@ -246,9 +273,38 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rejBtn)))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void orderInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderInsActionPerformed
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        Boolean needInsurance = (Boolean) orderTable.getValueAt(selectedRow, 4);
+        Order order = (Order) orderTable.getValueAt(selectedRow, 1);
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+
+        if (!needInsurance){
+            JOptionPane.showMessageDialog(null, "No insurance required from customer");
+        }else{
+            //create insurance request
+            Order insuranceOrderSentToIns = this.org.getOrderCatalog().createOrder(order.getCustomer());
+            TripPlanningWorkRequest travelAgencyWR  = (TripPlanningWorkRequest) wr;
+            InsuranceProduct insSelected = (travelAgencyWR.getIsFullCoverage())? new InsuranceProduct("Full Coverage", 300):new InsuranceProduct("Partial Coverage", 200);
+            insuranceOrderSentToIns.newOrderItem(insSelected);
+            InsuranceWorkRequest inswr = order.getOrderWorkQueue().newInsuranceWorkRequest(insuranceOrderSentToIns,order.getCustomer(),this.ua,this.platform);
+
+            //link this request with customer's main trip planning order and request
+            inswr.setCustomerTravelAgencyOrder(order);
+            inswr.setCustomerTripPlanningRequest(travelAgencyWR);
+
+            wr.setStatus("Booking insurance from insurance advisor");
+            JOptionPane.showMessageDialog(null, "Insurance request sent");
+
+            populateOrders();
+        }
+    }//GEN-LAST:event_orderInsActionPerformed
 
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:

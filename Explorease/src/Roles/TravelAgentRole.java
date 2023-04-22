@@ -21,8 +21,8 @@ public class TravelAgentRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
-        return new TravelAgencyOrgManagerAllOrdersWorkArea( container,    ua , platform);
+        return new OrgManagerWorkAreaJPanel( container,  enterprise,  ua , platform);
     }
 
-    
+
 }

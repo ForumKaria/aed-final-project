@@ -53,7 +53,7 @@ public class AttractionOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 row[3] = wr.getStatus();
                 row[4] = wr.getOrder().getOrderApproved();
                 row[5] = wr.getOrder().getOrderitems().get(0).getSelectedproduct().toString();
-                row[6] = wr.getAssignedTo();      
+                row[6] = wr.getAssignedTo();
                 orderTable.addRow(row);
             }
         }

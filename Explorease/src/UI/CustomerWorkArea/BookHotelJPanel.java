@@ -60,7 +60,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         initComponents();
         this.platform = platform;
         this.ua = ua;
-        this.org = this.platform.getAirlineOrg();
+        this.org = this.platform.getAirlineOrg(); //hotel
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
@@ -223,11 +223,12 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 //        Date outdate = checkOut.getDate();
 //        int rooms = (int) roomsCombo.getSelectedItem();
 
-        for (Product room : this.org.getProductCatalog().getProducts()) {
+        for (Product room: this.org.getProductCatalog().getProducts()){
             HotelRoomsProduct r = (HotelRoomsProduct) room.getProductDetails();
-            if (r.getCity().equalsIgnoreCase(des) //                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
-                    //                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                    ) {
+            if ( r.getCity().equalsIgnoreCase(des)
+//                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
+//                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
+                    ){
                 searchResult.add(room);
             }
         }
@@ -259,12 +260,12 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 
         Instant checkindate = checkIn.getDate().toInstant();
         Instant checkoutdate = checkOut.getDate().toInstant();
-        Long durationSeconds = Duration.between(checkindate, checkoutdate).getSeconds();
-        jTextField5.setText(String.valueOf((int) TimeUnit.DAYS.convert(durationSeconds, TimeUnit.SECONDS))); //stay duration
+        Long durationSeconds = Duration.between(checkindate,checkoutdate).getSeconds();
+        jTextField5.setText(String.valueOf( (int)TimeUnit.DAYS.convert(durationSeconds,TimeUnit.SECONDS))); //stay duration
 
         jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
         //unit price*rooms*nights
-        jTextField4.setText(String.valueOf(roomSelected.getPrice() * Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText())));
+        jTextField4.setText(String.valueOf(roomSelected.getPrice()*Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText())));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed

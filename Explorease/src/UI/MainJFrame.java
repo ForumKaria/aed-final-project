@@ -14,6 +14,9 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Window;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -26,37 +29,37 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    
+
     private Platform platform;
     private UserAccount userAccount;
     private Enterprise enterprise;
     private Organization organization;
-    
-    public MainJFrame() {
+
+    public MainJFrame() throws ParseException{
         initComponents();
         this.platform = Platform.getInstance();
-        
+
         this.setLocationRelativeTo(null); //center the window in screen
         loginPanel.setBackground(new Color(0, 0, 0, 90));
         logoutPanel.setBackground(new Color(67, 70, 86));
-        
+
         logoutPanel.setVisible(false);
         container.setVisible(false);
-        
+
         registerBtn.setVisible(false); //not using this button for final project, but keep the method written for this panel
-        
+
     }
     public MainJFrame(Platform platform, UserAccount useraccount,Enterprise enterprise,Organization organization) {
         initComponents();
         this.setVisible(true);
-        
+
         this.platform = platform;
         this.userAccount = useraccount;
         this.enterprise = enterprise;
         this.organization = organization;
-            
+
     }
-    
+
     private void switchPanel() {
 
         if (this.userAccount != null && userAccount.getRole() != null) {
@@ -65,10 +68,10 @@ public class MainJFrame extends javax.swing.JFrame {
             greetingLabel.setText(greetings);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
-            
+
         }
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,10 +235,10 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = fieldusername.getText();
         String password = fieldpassword.getText();
-        
+
         VerifyNull checkNull = new VerifyNull();
         boolean nonull = checkNull.checkNullObject(username,password);
-        
+
         if(nonull){
             Boolean hasUserAtTopLevel = this.platform.getUad().accountExists(username, password);
             if(!hasUserAtTopLevel){
@@ -272,7 +275,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 //system level user login
                 this.userAccount = this.platform.getUad().getUserAccount(username, password);
             }
-            
+
             if(this.userAccount!=null){
                 loginPanel.setVisible(false);
                 container.setVisible(true);
@@ -284,7 +287,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 switchPanel();
             }else{
                 //no such user at any level
-                JOptionPane.showMessageDialog(null, "Invalid credentials"); 
+                JOptionPane.showMessageDialog(null, "Invalid credentials");
             }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
@@ -324,11 +327,11 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ParseException{
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -354,7 +357,11 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+                try {
+                    new MainJFrame().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -9,10 +9,12 @@ import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
+import Business.Product.TravelAgencyProduct;
 import Order.Order;
 import UserAccount.UserAccount;
-import WorkRequest.AirTicketWorkRequest;
+import VerifyNull.VerifyNull;
 import WorkRequest.TripPlanningWorkRequest;
+import WorkRequest.AirTicketWorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,16 +37,17 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     DefaultTableModel resultTable;
     Organization org;
     Customer cus;
-    FlightTicketProduct flightSelected;
+
     ArrayList<TripPlanningWorkRequest> plannedTrip;
     TripPlanningWorkRequest trp;
+    TravelAgencyProduct productSelected;
 
     public PlanATripJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;
         this.ua = ua;
-        this.org = this.platform.getAirlineOrg();
+        this.org = this.platform.getTravelAgencyOrg();
         this.resultTable = (DefaultTableModel) plannedTrips.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
 
@@ -87,40 +90,40 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         desCity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        searchBtn = new javax.swing.JButton();
+        planBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         plannedTrips = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         bookBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        getAtt = new javax.swing.JCheckBox();
+        confirmBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         depCity = new javax.swing.JTextField();
         depDate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
+        insurCombo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Time to leave?");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 140, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 200, -1));
 
         jLabel3.setText("Trip Details");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
 
-        searchBtn.setText("Plan My Trip");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+        planBtn.setText("Plan My Trip");
+        planBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
+                planBtnActionPerformed(evt);
             }
         });
-        add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 110, -1));
+        add(planBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 110, -1));
 
         plannedTrips.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,122 +152,136 @@ public class PlanATripJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/planATrip_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
 
-        jCheckBox1.setText("   Get partial insurance coverage for my trip");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        getAtt.setText("Get attraction ticket for my trip");
+        getAtt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                getAttActionPerformed(evt);
             }
         });
-        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+        add(getAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 210, -1));
 
-        jCheckBox2.setText("   Get tourist attraction ticket for my trip");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        confirmBtn.setText("Confirm Budget");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
-        add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, -1, -1));
-
-        jCheckBox3.setText("   Get full insurance coverage for my trip");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-        add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
-
-        jButton1.setText("Confirm Budget");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
+        add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
 
         jLabel4.setText("Where will you departure from?");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, -1));
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 200, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 200, -1));
 
         jLabel10.setText("Destination in mind?");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
+
+        insurCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No insurance selected", "Get full insurance coverage for my trip", "Get partial insurance coverage for my trip" }));
+        add(insurCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 200, -1));
+
+        jLabel1.setText("Belows are not implemented, total budget would be a column to each row");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+    private void planBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
 
-        ArrayList<Product> searchResult = new ArrayList<Product>();
+        this.productSelected = (TravelAgencyProduct) this.org.getProductCatalog().getProducts().get(0);
 
         String dep = depCity.getText();
         String des = desCity.getText();
         Date date = depDate.getDate();
+        Boolean getInsurance = (insurCombo.getSelectedIndex()!=0)? true: false;
+        Boolean getFullCoverage = (insurCombo.getSelectedIndex()==1)? true: false;
+        Boolean getAttractionTicket = getAtt.isSelected();
 
-        for (Product flight : this.org.getProductCatalog().getProducts()) {
-            FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
-            if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des)
-                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
-                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())) {
-                searchResult.add(flight);
-            }
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(dep,des,date);
+
+        if(nonull){
+            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            o.newOrderItem(productSelected);
+            TripPlanningWorkRequest travelAgencyWR = o.getOrderWorkQueue().newTripPlanningWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
+
+            //prepare complimentary product info to plan the trip
+            travelAgencyWR.setDepCity(dep);
+            travelAgencyWR.setDesCity(des);
+            travelAgencyWR.setDepDate(date);
+            travelAgencyWR.setNeedInsurance(getInsurance);
+            travelAgencyWR.setIsFullCoverage(getFullCoverage);
+            travelAgencyWR.setNeedAttractionTicket(getAttractionTicket);
+            travelAgencyWR.setNeedBooking(false);
+
+            JOptionPane.showMessageDialog(null, "Request Sent");
+        }else{
+             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
         }
-
-        if (searchResult.size() > 0) {
-            for (Product flightFound : searchResult) {
-                FlightTicketProduct f = (FlightTicketProduct) flightFound.getProductDetails();
-                Object[] row = new Object[9];
-                row[0] = f;
-                row[1] = f.getAirline();
-                row[2] = f.getDepartureCity();
-                row[3] = f.getDestinationCity();
-                row[4] = new SimpleDateFormat("yyyy-MM-dd").format(f.getDepartureDate());
-                row[5] = f.getDepartureTime();
-                row[6] = f.getFlightDuration();
-                row[7] = (f.getNonStop()) ? "Yes" : "No";
-                row[8] = f.getPrice();
-                resultTable.addRow(row);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Oops...no flight found");
-        }
-
-    }//GEN-LAST:event_searchBtnActionPerformed
+    }//GEN-LAST:event_planBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        //create order for customer and add to customer's order list
-        Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-        //link product with the order
-        o.newOrderItem(this.flightSelected);
-        //add the order to org's order list
-        this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Successfully booked");
-//        TripPlanningWorkRequest airworkReq = o.getOrderWorkQueue().newTripPlanningWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+
+        resultTable.setRowCount(0);
+
+        this.productSelected = (TravelAgencyProduct) this.org.getProductCatalog().getProducts().get(1);
+
+        String dep = depCity.getText();
+        String des = desCity.getText();
+        Date date = depDate.getDate();
+        Boolean getInsurance = (insurCombo.getSelectedIndex()!=0)? true: false;
+        Boolean getFullCoverage = (insurCombo.getSelectedIndex()==1)? true: false;
+        Boolean getAttractionTicket = getAtt.isSelected();
+
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(dep,des,date);
+
+        if(nonull){
+            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            o.newOrderItem(productSelected);
+            TripPlanningWorkRequest travelAgencyWR = o.getOrderWorkQueue().newTripPlanningWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
+
+            //prepare complimentary product info to plan the trip
+            travelAgencyWR.setDepCity(dep);
+            travelAgencyWR.setDesCity(des);
+            travelAgencyWR.setDepDate(date);
+            travelAgencyWR.setNeedInsurance(getInsurance);
+            travelAgencyWR.setIsFullCoverage(getFullCoverage);
+            travelAgencyWR.setNeedAttractionTicket(getAttractionTicket);
+            travelAgencyWR.setNeedBooking(true);
+
+            JOptionPane.showMessageDialog(null, "Request Sent");
+        }else{
+             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
+        }
 
     }//GEN-LAST:event_bookBtnActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void getAttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getAttActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_getAttActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+        //select a row from result table, check if it's a booking request, then set the confirmToBook to true
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookBtn;
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JTextField depCity;
     private com.toedter.calendar.JDateChooser depDate;
     private javax.swing.JTextField desCity;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox getAtt;
+    private javax.swing.JComboBox<String> insurCombo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -274,7 +291,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTable plannedTrips;
-    private javax.swing.JButton searchBtn;
+    private javax.swing.JButton planBtn;
     // End of variables declaration//GEN-END:variables
 
 }

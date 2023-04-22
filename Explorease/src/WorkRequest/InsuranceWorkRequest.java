@@ -15,8 +15,8 @@ import UserAccount.UserAccount;
  */
 public class InsuranceWorkRequest extends WorkRequest{
     Order customerTravelAgencyOrder;
-    TripBookingWorkRequest customerTripBookingRequest;
-    
+    TripPlanningWorkRequest customerTripPlanningRequest;
+
     public InsuranceWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
         super(o, c, sender, platform);
         this.receiverOrg = platform.getInsuranceOrg();
@@ -31,14 +31,16 @@ public class InsuranceWorkRequest extends WorkRequest{
         this.customerTravelAgencyOrder = customerTravelAgencyOrder;
     }
 
-    public TripBookingWorkRequest getCustomerTripBookingRequest() {
-        return customerTripBookingRequest;
+    public TripPlanningWorkRequest getCustomerTripPlanningRequest() {
+        return customerTripPlanningRequest;
     }
 
-    public void setCustomerTripBookingRequest(TripBookingWorkRequest customerTripBookingRequest) {
-        this.customerTripBookingRequest = customerTripBookingRequest;
+    public void setCustomerTripPlanningRequest(TripPlanningWorkRequest customerTripPlanningRequest) {
+        this.customerTripPlanningRequest = customerTripPlanningRequest;
     }
-    
-    
-    
+
+
+
+
+
 }

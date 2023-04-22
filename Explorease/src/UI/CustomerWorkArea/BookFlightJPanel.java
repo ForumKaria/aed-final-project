@@ -168,7 +168,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 180, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 80, -1));
 
         jLabel7.setText("From");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 640, 35, 20));
@@ -268,7 +268,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         if (this.isEmp) {
             trp.addToTripDetails(flightSelected);
             JOptionPane.showMessageDialog(null, "Added to trip details");
-            
+
         } else {
             Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
             //link product with the order

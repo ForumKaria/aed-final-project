@@ -39,7 +39,7 @@ public class Customer {
     public void addToPlannedTrips(TripPlanningWorkRequest plannedTrip) {
         this.plannedTrips.add(plannedTrip);
     }
-    
+
     public Customer(Person person, UserAccount userAccount) {
         this.customerOrderCatalog = new OrderCatalog();
         this.person = person;

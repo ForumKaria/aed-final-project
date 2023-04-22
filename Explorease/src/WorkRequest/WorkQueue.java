@@ -44,7 +44,7 @@ public class WorkQueue {
     public void sendDetailsToCustomer(TripPlanningWorkRequest workReq) {
         Customer c = workReq.getCustomer();
         c.addToPlannedTrips(workReq);
-        
+
         workReq.setStatus("Work Request Finished");
         workReq.getOrder().setOrderApproved(true);
 //        this.workQueue.remove(workReq);
@@ -56,35 +56,48 @@ public class WorkQueue {
     }
 
     //use customer's order to create work request
-    public WorkRequest newWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
-
-        WorkRequest wr = new WorkRequest(o, c, sender, platform);
+    public WorkRequest newWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+        WorkRequest wr = new WorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
 
-    public AirTicketWorkRequest newAirTicketWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
-        AirTicketWorkRequest wr = new AirTicketWorkRequest(o, c, sender, platform);
+    public AirTicketWorkRequest newAirTicketWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+        AirTicketWorkRequest wr = new AirTicketWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
 
-    public TripPlanningWorkRequest newTripPlanningWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
-        TripPlanningWorkRequest wr = new TripPlanningWorkRequest(o, c, sender, platform);
+    public FoodServiceWorkRequest newFoodServiceWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       FoodServiceWorkRequest wr = new FoodServiceWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
 
-    public FoodServiceWorkRequest newFoodServiceWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
-        FoodServiceWorkRequest wr = new FoodServiceWorkRequest(o, c, sender, platform);
+    public HotelBookingWorkRequest newHotelBookingWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       HotelBookingWorkRequest wr = new HotelBookingWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
 
-    public HotelBookingWorkRequest newHotelBookingWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
-        HotelBookingWorkRequest wr = new HotelBookingWorkRequest(o, c, sender, platform);
+    public TripPlanningWorkRequest newTripPlanningWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       TripPlanningWorkRequest wr = new TripPlanningWorkRequest(o,c,sender,platform);
         this.workQueue.add(wr);
         return wr;
     }
+
+    public InsuranceWorkRequest newInsuranceWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       InsuranceWorkRequest wr = new InsuranceWorkRequest(o,c,sender,platform);
+        this.workQueue.add(wr);
+        return wr;
+    }
+
+    public AttractionBookingWorkRequest newAttractionBookingWorkRequest(Order o,Customer c, UserAccount sender,Platform platform){
+       AttractionBookingWorkRequest wr = new AttractionBookingWorkRequest(o,c,sender,platform);
+        this.workQueue.add(wr);
+        return wr;
+    }
+
+
 
 }

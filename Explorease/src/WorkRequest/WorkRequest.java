@@ -16,7 +16,7 @@ import UserAccount.UserAccount;
  * @author emi
  */
 
-// Note - can delete other work requests type and make this class not abstract. 
+// Note - can delete other work requests type and make this class not abstract.
 public class WorkRequest{
     String message; //do we need this? -> no - s
     UserAccount sender;
@@ -44,7 +44,7 @@ public class WorkRequest{
     public void setAssignedTo(String assignedTo) {
         this.assignedTo = assignedTo;
     }
-    
+
     public WorkRequest(Order o,Customer c, UserAccount sender,Platform platform) {
         // auto generate ID
         this.workrequestID = "WORK_REQUEST_" + this.counter++;
@@ -72,7 +72,7 @@ public class WorkRequest{
     public void setSender(UserAccount sender) {
         this.sender = sender;
     }
-    
+
     public Order getOrder() {
         return order;
     }
@@ -125,6 +125,6 @@ public class WorkRequest{
     public String toString(){
         return this.getWorkrequestID();
     }
-    
+
 //    public abstract void determineWorkRequestStatus();
 }
