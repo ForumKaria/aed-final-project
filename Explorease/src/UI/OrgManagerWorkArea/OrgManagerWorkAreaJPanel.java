@@ -53,21 +53,19 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
     }
     
     public void manageProduct(){
-//        if(ua.getUsername().equals("airadmin")){
         if (this.org==this.platform.getAirlineOrg()){
             JPanel manageProductJPanel = new AirlineManagerProductWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
-//        else if(ua.getUsername().equals("hotelorgadmin")){ //changed username cuz hoteladmin is for hotel enterprise
         else if (this.org==this.platform.getHotelOrg()){
             JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
-        //to do: create product panels for below orgs
+        //to do: create product panels for food,travel agency,insurance orgs
         else if (this.org==this.platform.getFoodServiceOrg()){
             JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);

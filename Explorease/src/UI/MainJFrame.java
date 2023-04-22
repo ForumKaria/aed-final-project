@@ -38,11 +38,12 @@ public class MainJFrame extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null); //center the window in screen
         loginPanel.setBackground(new Color(0, 0, 0, 90));
-//        logoutPanel.setBackground(new Color(0, 0, 0, 90));
         logoutPanel.setBackground(new Color(67, 70, 86));
         
         logoutPanel.setVisible(false);
         container.setVisible(false);
+        
+        registerBtn.setVisible(false); //not using this button for final project, but keep the method written for this panel
         
     }
     public MainJFrame(Platform platform, UserAccount useraccount,Enterprise enterprise,Organization organization) {
@@ -205,7 +206,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         loginPanel.add(registerBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 220, 40));
 
-        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 650, 580));
+        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 650, 550));
 
         container.setBackground(new java.awt.Color(255, 255, 255));
         container.setLayout(new java.awt.CardLayout());
