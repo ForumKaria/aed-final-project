@@ -10,6 +10,7 @@ import Business.Platform;
 import Business.Product.AttractionProduct;
 import Business.Product.FlightTicketProduct;
 import Business.Product.HotelRoomsProduct;
+import Business.Product.InsuranceProduct;
 import Business.Product.Product;
 import Order.Order;
 import UI.CustomerWorkArea.BookAttractionTicketJPanel;
@@ -77,7 +78,6 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                 row[9] = twr.getNeedBooking();
                 row[10] = twr.getConfirmedToBook();
                 row[11] = wr.getStatus();
-
                 orderTable.addRow(row);
             }
         }
@@ -95,18 +95,17 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jScrollPane1 = new javax.swing.JScrollPane();
         queue = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        orderIns = new javax.swing.JButton();
+        orderInsurance = new javax.swing.JButton();
         appBtn = new javax.swing.JButton();
         rejBtn = new javax.swing.JButton();
         statusTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        makeBookingBtn = new javax.swing.JButton();
         assignBtn1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        ordBtn = new javax.swing.JButton();
+        placeAllOrdersBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,10 +125,10 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("WORK QUEUE");
 
-        orderIns.setText("Order Insurance For Customer");
-        orderIns.addActionListener(new java.awt.event.ActionListener() {
+        orderInsurance.setText("Order Insurance For Customer");
+        orderInsurance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderInsActionPerformed(evt);
+                orderInsuranceActionPerformed(evt);
             }
         });
 
@@ -151,13 +150,6 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        makeBookingBtn.setText("Make Booking For Customer");
-        makeBookingBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                makeBookingBtnActionPerformed(evt);
             }
         });
 
@@ -197,11 +189,11 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
             }
         });
 
-        ordBtn.setBackground(new java.awt.Color(153, 204, 255));
-        ordBtn.setText("Place Orders For Plan");
-        ordBtn.addActionListener(new java.awt.event.ActionListener() {
+        placeAllOrdersBtn.setBackground(new java.awt.Color(153, 204, 255));
+        placeAllOrdersBtn.setText("Place Orders For Plan");
+        placeAllOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ordBtnActionPerformed(evt);
+                placeAllOrdersBtnActionPerformed(evt);
             }
         });
 
@@ -229,7 +221,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(orderInsurance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(155, 155, 155))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
@@ -237,7 +230,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(ordBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(placeAllOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(appBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
@@ -252,7 +245,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(orderIns)
+                        .addComponent(orderInsurance)
                         .addGap(71, 71, 71)
                         .addComponent(assignBtn1)
                         .addGap(16, 16, 16)
@@ -268,7 +261,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addGap(34, 34, 34)
-                        .addComponent(ordBtn)
+                        .addComponent(placeAllOrdersBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -277,7 +270,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void orderInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderInsActionPerformed
+    private void orderInsuranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderInsuranceActionPerformed
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
@@ -304,7 +297,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
             populateOrders();
         }
-    }//GEN-LAST:event_orderInsActionPerformed
+    }//GEN-LAST:event_orderInsuranceActionPerformed
 
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:
@@ -397,7 +390,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         JOptionPane.showMessageDialog(null, "Work Request selected");
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void ordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordBtnActionPerformed
+    private void placeAllOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeAllOrdersBtnActionPerformed
         // TODO add your handling code here:
         Customer c = this.pTrip.getCustomer();
         for (Product p : this.pTrip.getPlannedTrip()) {
@@ -440,7 +433,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         };
         JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
 
-    }//GEN-LAST:event_ordBtnActionPerformed
+    }//GEN-LAST:event_placeAllOrdersBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -453,7 +446,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton ordBtn;
+    private javax.swing.JButton orderInsurance;
+    private javax.swing.JButton placeAllOrdersBtn;
     private javax.swing.JTable queue;
     private javax.swing.JButton rejBtn;
     private javax.swing.JTextField statusTxt;

@@ -44,7 +44,7 @@
                                   <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="orderIns" max="32767" attributes="0"/>
+                                  <Component id="orderInsurance" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                           </Group>
@@ -54,7 +54,7 @@
                                   <Component id="jButton2" min="-2" pref="147" max="-2" attributes="0"/>
                                   <Component id="statusTxt" min="-2" pref="147" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="ordBtn" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="placeAllOrdersBtn" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
                                       <Component id="appBtn" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
                                       <Component id="rejBtn" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
@@ -78,7 +78,7 @@
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="orderIns" min="-2" max="-2" attributes="0"/>
+                      <Component id="orderInsurance" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="assignBtn1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -94,7 +94,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="ordBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="placeAllOrdersBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="appBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -206,12 +206,12 @@
         <Property name="text" type="java.lang.String" value="WORK QUEUE"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="orderIns">
+    <Component class="javax.swing.JButton" name="orderInsurance">
       <Properties>
         <Property name="text" type="java.lang.String" value="Order Insurance For Customer"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderInsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderInsuranceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="appBtn">
@@ -238,14 +238,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="makeBookingBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Make Booking For Customer"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makeBookingBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="assignBtn1">
@@ -291,7 +283,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ordBtn">
+    <Component class="javax.swing.JButton" name="placeAllOrdersBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -299,7 +291,7 @@
         <Property name="text" type="java.lang.String" value="Place Orders For Plan"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ordBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="placeAllOrdersBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
