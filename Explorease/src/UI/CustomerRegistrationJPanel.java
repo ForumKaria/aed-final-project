@@ -43,6 +43,8 @@ public
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgPanel = new javax.swing.JPanel();
+        bgImageLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         fieldusername = new javax.swing.JTextField();
         fieldPassword = new javax.swing.JTextField();
@@ -56,10 +58,17 @@ public
         jLabel9 = new javax.swing.JLabel();
         fieldPhone = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        bgPanel = new javax.swing.JPanel();
-        bgImageLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1300, 800));
+
+        bgPanel.setMinimumSize(new java.awt.Dimension(1300, 870));
+        bgPanel.setPreferredSize(new java.awt.Dimension(1300, 800));
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,29 +116,25 @@ public
         jLabel1.setText("Welcome Explorers");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 270, 40));
 
-        bgPanel.setLayout(new java.awt.BorderLayout());
-
-        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
-        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mainpage.jpg"))); // NOI18N
-        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 870));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(296, 296, 296)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(473, 473, 473))
+                .addContainerGap(422, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bgPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(127, 127, 127)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
+                .addContainerGap(147, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 812, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
