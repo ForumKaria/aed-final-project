@@ -87,7 +87,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             layout.next(workArea);
         }
         else if (this.org==this.platform.getAttractionOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new AttractionManagerProductWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
@@ -107,7 +107,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
-        //to do: create all orders panels for below orgs
+        //to do: create all orders panels for travelAgency and Insurance org
         else if (this.org==this.platform.getFoodServiceOrg()){
             JPanel manageProductJPanel = new FoodOrgManagerAllOrdersWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
@@ -127,7 +127,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             layout.next(workArea);
         }
         else if (this.org==this.platform.getAttractionOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new AttractionOrgManagerAllOrdersWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);

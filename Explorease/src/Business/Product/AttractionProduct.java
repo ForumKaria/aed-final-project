@@ -36,6 +36,15 @@ public
     public String getCity() {
         return city;
     }
+
+    public void setTicketType(String ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
     
     
 }
