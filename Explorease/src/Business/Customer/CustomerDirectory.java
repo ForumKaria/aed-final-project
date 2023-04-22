@@ -47,4 +47,13 @@ public
         this.customerlist.add(c);
         return c;
     }
+    
+    public Customer findCustomerByUSerName(String un){
+        for (Customer c:customerlist){
+            if (c.getUserAccount().getUsername().equals(un)){
+                return c;
+            }
+        }
+        return null;
+    }
 }

@@ -92,7 +92,7 @@ public class Platform {
         populateProductData();
 
         //create fake orders for the pre-created customer
-        generateFakeOrders(this.getCustomerDirectory().findCustomerById("user12"));
+        generateFakeOrders(this.getCustomerDirectory().findCustomerByUSerName("c"));
     }
 
     public void configureBusiness() {

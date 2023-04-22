@@ -47,7 +47,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     DefaultTableModel orderTable;
     TripPlanningWorkRequest pTrip;
 
-    public TravelAgencyOrgManagerAllOrdersWorkArea(JPanel container, UserAccount ua, Platform platform) {
+    public TravelAgencyOrgManagerAllOrdersWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;
@@ -102,6 +102,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         rejBtn = new javax.swing.JButton();
         statusTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        makeBookingBtn = new javax.swing.JButton();
         assignBtn1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -112,13 +113,13 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
         queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null,null},
-                {null, null, null, null, null, null, null, null, null, null, null,null},
-                {null, null, null, null, null, null, null, null, null, null, null,null},
-                {null, null, null, null, null, null, null, null, null, null, null,null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "WorkRequest ID", "Order ID", "Customer", "Agency Price", "Order Booked", "Order Details","Assigned To","Insurance Required", "Full Coverage", "Booking Service Required", "Confirmed To Book", "Status"
+                "WorkRequest ID", "Order ID", "Customer", "Agency Price", "Order Booked", "Order Details", "Assigned To", "Insurance Required", "Full Coverage", "Booking Service Required", "Confirmed To Book", "Status"
             }
         ));
         jScrollPane1.setViewportView(queue);
@@ -151,6 +152,13 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        makeBookingBtn.setText("Make Booking For Customer");
+        makeBookingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makeBookingBtnActionPerformed(evt);
             }
         });
 
@@ -212,7 +220,6 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(34, 34, 34)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(orderIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(appBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +231,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(orderIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(155, 155, 155))))))
         );
         layout.setVerticalGroup(
@@ -238,7 +246,6 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(orderIns)
-                        .addGap(18, 18, 18)
                         .addGap(71, 71, 71)
                         .addComponent(assignBtn1)
                         .addGap(16, 16, 16)
@@ -257,7 +264,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rejBtn)))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -408,6 +415,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton makeBookingBtn;
     private javax.swing.JButton orderIns;
     private javax.swing.JTable queue;
     private javax.swing.JButton rejBtn;

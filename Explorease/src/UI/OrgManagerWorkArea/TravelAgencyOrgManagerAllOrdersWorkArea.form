@@ -78,7 +78,6 @@
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="orderIns" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="assignBtn1" min="-2" max="-2" attributes="0"/>
@@ -99,7 +98,6 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="rejBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="249" max="32767" attributes="0"/>
           </Group>
@@ -130,7 +128,6 @@
                 <Column editable="true" title="Booking Service Required" type="java.lang.Object"/>
                 <Column editable="true" title="Confirmed To Book" type="java.lang.Object"/>
                 <Column editable="true" title="Status" type="java.lang.Object"/>
-
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -241,7 +238,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
-
     <Component class="javax.swing.JButton" name="makeBookingBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Make Booking For Customer"/>
@@ -291,7 +287,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
-
       </Events>
     </Component>
   </SubComponents>
