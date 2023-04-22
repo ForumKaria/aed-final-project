@@ -55,6 +55,7 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 row[3] = wr.getStatus();
                 FoodServiceProduct fp = (FoodServiceProduct) wr.getOrder().getOrderitems().get(0).getSelectedproduct().getProductDetails();
                 row[4] = fp.getMenu();
+                row[5] = wr.getAssignedTo();
                 orderTable.addRow(row);
             }
         }
@@ -74,18 +75,19 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         appBtn = new javax.swing.JButton();
         rejBtn = new javax.swing.JButton();
+        assignBtn1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Work Request ID", "Customer", "Price", "Food Status", "Order Details"
+                "Work Request ID", "Customer", "Price", "Food Status", "Order Details", "Assigned To"
             }
         ));
         jScrollPane1.setViewportView(queue);
@@ -107,6 +109,14 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             }
         });
 
+        assignBtn1.setBackground(new java.awt.Color(0, 255, 204));
+        assignBtn1.setText("Assign to me");
+        assignBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignBtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +129,8 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(appBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(assignBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(242, 242, 242)
                         .addComponent(jLabel1)))
@@ -130,36 +141,42 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
+                        .addGap(14, 14, 14)
+                        .addComponent(assignBtn1)
+                        .addGap(33, 33, 33)
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rejBtn)))
+                        .addComponent(rejBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(272, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        
-        if (wr.getStatus().equalsIgnoreCase("Order requested")){
-            wr.setStatus("Food service approved");
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+
+            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                wr.setStatus("Food service approved");
 //          this.org.getWorkQueue().finishWorkRequest(wr);
-            FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-            foodwr.getCustomerFlightRequest().setStatus("Food reservation confirmed");
-            populateOrders();
-        }else{
-            JOptionPane.showMessageDialog(null, "Processing already completed");
+                FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
+                foodwr.getCustomerFlightRequest().setStatus("Food reservation confirmed");
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Processing already completed");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Request already assigned");
+
         }
-        
+
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
@@ -167,20 +184,42 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getStatus().equalsIgnoreCase("Order requested")){
-            wr.setStatus("Food service rejected");
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+
+            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                wr.setStatus("Food service rejected");
 //        this.org.getWorkQueue().rejectWorkRequest(wr);
-            FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-            foodwr.getCustomerFlightRequest().setStatus("Food reservation rejected");
-            populateOrders();
-        }else{
-            JOptionPane.showMessageDialog(null, "Already processed");
+                FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
+                foodwr.getCustomerFlightRequest().setStatus("Food reservation rejected");
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Already processed");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Request already assigned");
+
         }
     }//GEN-LAST:event_rejBtnActionPerformed
+
+    private void assignBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtn1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            wr.setAssignedTo(ua.getUsername());
+            populateOrders();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Request already assigned");
+
+        }
+    }//GEN-LAST:event_assignBtn1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton appBtn;
+    private javax.swing.JButton assignBtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable queue;

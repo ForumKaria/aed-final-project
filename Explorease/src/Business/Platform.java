@@ -24,6 +24,7 @@ import static Business.Organization.Organization.OrganizationType.HotelOrg;
 import static Business.Organization.Organization.OrganizationType.InsuranceOrg;
 import static Business.Organization.Organization.OrganizationType.TravelAgencyOrg;
 import Business.Organization.OrganizationDirectory;
+import Business.Organization.TravelAgencyOrganization;
 import Business.Product.AttractionProduct;
 import Business.Product.FlightTicketProduct;
 import Business.Product.FoodServiceProduct;
@@ -48,6 +49,7 @@ import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.FoodServiceWorkRequest;
+import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,7 +91,7 @@ public class Platform {
         populateProductData();
         
         //create fake orders for the pre-created customer
-        generateFakeOrders(this.getCustomerDirectory().findCustomerById("user12"));
+        generateFakeOrders(this.getCustomerDirectory().getCustomerlist().get(0));
     }
 
     public void configureBusiness() {
@@ -120,6 +122,7 @@ public class Platform {
         
         //create org persons for testing, enterprise admin can also create new org admin users from UI
         UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airorgadmin", "airorgadmin", new AirlineAgentRole());
+        UserAccount airOrgAdmin2 = airlineOrg.getUserAccountDirectory().createUserAccount("airorg", "airorg", new AirlineAgentRole());
         UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
         UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
         UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
@@ -277,11 +280,11 @@ public class Platform {
         orgs.add(hotelOrg);
         orgs.add(travelAgencyOrg);
         orgs.add(attractionOrg);
-        
+
         for (Organization o:orgs){
             int productIndex = 0;
             for (int i =0 ;i <2; i++){
-                Order order =c.getCustomerOrderCatalog().createOrder(c);
+                Order order = c.getCustomerOrderCatalog().createOrder(c);
             
                 Product selectP = o.getProductCatalog().getProducts().get(productIndex);
                 productIndex+=1;
@@ -306,7 +309,10 @@ public class Platform {
                     
                     order.setFlightOrderPriceWithFood(order.getOrderTotal());
 
-                }else {
+                }else if(o instanceof TravelAgencyOrganization){
+                TripPlanningWorkRequest trp = (TripPlanningWorkRequest) order.getOrderWorkQueue().newTripPlanningWorkRequest(order, c, c.getUserAccount(), this);
+                }
+                else {
                     WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 
                     o.getWorkQueue().addWorkRequest(workReq);
                 }

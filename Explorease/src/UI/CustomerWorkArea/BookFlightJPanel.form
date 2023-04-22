@@ -234,6 +234,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="bookBtn">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="ff" red="33" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Book"/>
       </Properties>
       <Events>
@@ -241,7 +244,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="880" y="640" width="80" height="-1"/>
+          <AbsoluteConstraints x="880" y="640" width="180" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

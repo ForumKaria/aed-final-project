@@ -5,6 +5,7 @@
 package UI.CustomerWorkArea;
 
 import Business.Customer.Customer;
+import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.HotelRoomsProduct;
@@ -39,6 +40,8 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     Organization org;
     Customer cus;
     HotelRoomsProduct roomSelected;
+    Employee emp;
+    
     public BookHotelJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.platform = platform; 
@@ -47,6 +50,15 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         this.org = this.platform.getHotelOrg();
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
+    }
+
+    public BookHotelJPanel(Platform platform, UserAccount ua) {
+   initComponents();
+        this.platform = platform; 
+        this.ua = ua;
+        this.org = this.platform.getAirlineOrg();
+        this.resultTable = (DefaultTableModel) rooms.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
 
     /**

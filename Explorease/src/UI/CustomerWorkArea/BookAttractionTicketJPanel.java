@@ -5,6 +5,7 @@
 package UI.CustomerWorkArea;
 
 import Business.Customer.Customer;
+import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.AttractionProduct;
@@ -35,14 +36,25 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
     Organization org;
     Customer cus;
     AttractionProduct attrctionSelected;
+    Employee emp;
+
     public BookAttractionTicketJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getAttractionOrg();
         this.resultTable = (DefaultTableModel) att.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
+    }
+
+    public BookAttractionTicketJPanel(Platform platform, UserAccount ua) {
+        initComponents();
+        this.platform = platform;
+        this.ua = ua;
+        this.org = this.platform.getAirlineOrg();
+        this.resultTable = (DefaultTableModel) att.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
 
     /**
@@ -149,20 +161,20 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
-        
+
         ArrayList<Product> searchResult = new ArrayList<Product>();
-        
+
         String des = desCity.getText();
-        
-        for (Product att: this.org.getProductCatalog().getProducts()){
+
+        for (Product att : this.org.getProductCatalog().getProducts()) {
             AttractionProduct ap = (AttractionProduct) att.getProductDetails();
-            if (ap.getCity().equalsIgnoreCase(des)){
+            if (ap.getCity().equalsIgnoreCase(des)) {
                 searchResult.add(att);
             }
         }
-        
-        if(searchResult.size()>0){
-            for (Product attFound: searchResult){
+
+        if (searchResult.size() > 0) {
+            for (Product attFound : searchResult) {
                 AttractionProduct att = (AttractionProduct) attFound.getProductDetails();
                 Object[] row = new Object[4];
                 row[0] = att;
@@ -171,9 +183,9 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 row[3] = att.getPrice();
                 resultTable.addRow(row);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Oops...no ticket found");
-        }    
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -183,7 +195,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.attrctionSelected = (AttractionProduct) resultTable.getValueAt(selectedRow, 0);
         jTextField3.setText(attrctionSelected.getProductId());
         String num = String.valueOf(visitorsCombo.getSelectedItem());
-        jTextField4.setText(String.valueOf(attrctionSelected.getPrice()*Integer.valueOf(num)));
+        jTextField4.setText(String.valueOf(attrctionSelected.getPrice() * Integer.valueOf(num)));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -196,7 +208,6 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.org.getOrderCatalog().getOrders().add(o);
         JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

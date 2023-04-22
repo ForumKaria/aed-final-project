@@ -15,7 +15,6 @@ public
     
     String service;
     static int ctr =1;
-    ArrayList<Product> tripDetails;
     int tripBudget;
     // Constructor
     public TravelAgencyProduct(String service, int price) {
@@ -23,7 +22,6 @@ public
         super("TRAVEL_AGENCY_SERVICE_"+String.valueOf(ctr),price);
         ctr+=1;
         this.service= service;
-        this.tripDetails = new ArrayList<Product>();
     }
     
     // Override abstract method to get product details
@@ -40,13 +38,13 @@ public
         this.service = service;
     }
 
-    public ArrayList<Product> getTripDetails() {
-        return tripDetails;
-    }
-
-    public void setTripDetails(ArrayList<Product> tripDetails) {
-        this.tripDetails = tripDetails;
-    }
+//    public ArrayList<Product> getTripDetails() {
+//        return tripDetails;
+//    }
+//
+//    public void addToTripDetails(Product p) {
+//        this.tripDetails.add(p);
+//    }
 
     public int getTripBudget() {
         return tripBudget;

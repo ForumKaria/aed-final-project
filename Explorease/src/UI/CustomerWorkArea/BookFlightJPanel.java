@@ -5,6 +5,7 @@
 package UI.CustomerWorkArea;
 
 import Business.Customer.Customer;
+import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
@@ -12,6 +13,7 @@ import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
 import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,15 +37,32 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     DefaultTableModel resultTable;
     Organization org;
     Customer cus;
+    Employee emp;
+    Boolean isEmp;
     FlightTicketProduct flightSelected;
+    TripPlanningWorkRequest trp;
+
     public BookFlightJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getAirlineOrg();
+        this.isEmp = false;
         this.resultTable = (DefaultTableModel) flights.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
+    }
+
+    public BookFlightJPanel(Platform platform, UserAccount ua, TripPlanningWorkRequest wr) {
+        initComponents();
+        this.platform = platform;
+        this.ua = ua;
+        this.isEmp = true;
+        this.org = this.platform.getAirlineOrg();
+        this.resultTable = (DefaultTableModel) flights.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+        this.trp = wr;
+        this.bookBtn.setText("Add to Customer Plan");
     }
 
     /**
@@ -142,13 +161,14 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jTextField4.setEditable(false);
         add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 640, 80, -1));
 
+        bookBtn.setBackground(new java.awt.Color(51, 255, 204));
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 80, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 180, -1));
 
         jLabel7.setText("From");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 640, 35, 20));
@@ -190,29 +210,29 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
-        
+
         ArrayList<Product> searchResult = new ArrayList<Product>();
-        
+
         String dep = depCity.getText();
         String des = desCity.getText();
         Date date = depDate.getDate();
-        
-        for (Product flight: this.org.getProductCatalog().getProducts()){
+
+        for (Product flight : this.org.getProductCatalog().getProducts()) {
             FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
-            if(!nonStop.isSelected()){
-                if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())){
+            if (!nonStop.isSelected()) {
+                if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())) {
                     searchResult.add(flight);
                 }
-            }else{
+            } else {
                 if (f.getDepartureCity().equalsIgnoreCase(dep) && f.getDestinationCity().equalsIgnoreCase(des) && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                        && f.getNonStop()){
+                        && f.getNonStop()) {
                     searchResult.add(flight);
                 }
             }
         }
-        
-        if(searchResult.size()>0){
-            for (Product flightFound: searchResult){
+
+        if (searchResult.size() > 0) {
+            for (Product flightFound : searchResult) {
                 FlightTicketProduct f = (FlightTicketProduct) flightFound.getProductDetails();
                 Object[] row = new Object[9];
                 row[0] = f;
@@ -222,13 +242,13 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 row[4] = new SimpleDateFormat("yyyy-MM-dd").format(f.getDepartureDate());
                 row[5] = f.getDepartureTime();
                 row[6] = f.getFlightDuration();
-                row[7] = (f.getNonStop())? "Yes": "No";
+                row[7] = (f.getNonStop()) ? "Yes" : "No";
                 row[8] = f.getPrice();
                 resultTable.addRow(row);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Oops...no flight found");
-        }    
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -239,36 +259,42 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jTextField3.setText(flightSelected.getProductId());
         jTextField5.setText(flightSelected.getDepartureCity());
         jTextField6.setText(flightSelected.getDestinationCity());
-        jTextField4.setText(String.valueOf((tripTypeCombo.getSelectedItem().equals("One-way"))? flightSelected.getPrice():flightSelected.getPrice()*2));
+        jTextField4.setText(String.valueOf((tripTypeCombo.getSelectedItem().equals("One-way")) ? flightSelected.getPrice() : flightSelected.getPrice() * 2));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
         //create order for customer and add to customer's order list
-        Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-        //link product with the order
-        if (tripTypeCombo.getSelectedItem().equals("One-way")){
-            o.newOrderItem(this.flightSelected);
-        }else {
-            //just to get the total price right for the order
-            o.newOrderItem(this.flightSelected);
-            o.newOrderItem(this.flightSelected);
-        }
+        if (this.isEmp) {
+            trp.addToTripDetails(flightSelected);
+            JOptionPane.showMessageDialog(null, "Added to trip details");
+            
+        } else {
+            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            //link product with the order
+            if (tripTypeCombo.getSelectedItem().equals("One-way")) {
+                o.newOrderItem(this.flightSelected);
+            } else {
+                //just to get the total price right for the order
+                o.newOrderItem(this.flightSelected);
+                o.newOrderItem(this.flightSelected);
 
-        AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
-        
-        //prepare food info to send to airline org
-        if(foodCombo.getSelectedItem().equals("Order vegan meal")){
-            airworkReq.setNeedFood(true);
-            airworkReq.setIsVegan(true);
-        }else if(foodCombo.getSelectedItem().equals("Order non-vegan meal")){
-            airworkReq.setNeedFood(true);
+            }
+            AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+
+            //prepare food info to send to airline org
+            if (foodCombo.getSelectedItem().equals("Order vegan meal")) {
+                airworkReq.setNeedFood(true);
+                airworkReq.setIsVegan(true);
+            } else if (foodCombo.getSelectedItem().equals("Order non-vegan meal")) {
+                airworkReq.setNeedFood(true);
+            }
+
+            o.setFlightOrderPriceWithFood(Integer.valueOf(jTextField4.getText())); //only works for orders created from UI
+
+            //no need to add to the org's order list, we just loop workQueue for org data
+            JOptionPane.showMessageDialog(null, "Booking request sent");
         }
-        
-        o.setFlightOrderPriceWithFood(Integer.valueOf(jTextField4.getText())); //only works for orders created from UI
-      
-        //no need to add to the org's order list, we just loop workQueue for org data
-        JOptionPane.showMessageDialog(null, "Booking request sent");
     }//GEN-LAST:event_bookBtnActionPerformed
 
     private void foodComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodComboActionPerformed
@@ -277,15 +303,14 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
     private void foodComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_foodComboItemStateChanged
         // TODO add your handling code here:
-        int foodPrice = (foodCombo.getSelectedItem().equals("Order vegan meal"))? 30: 40;
+        int foodPrice = (foodCombo.getSelectedItem().equals("Order vegan meal")) ? 30 : 40;
         int flightPrice = flightSelected.getPrice();
-        int oneWayPrice = foodPrice+flightPrice;
-        Boolean isOneWay = (tripTypeCombo.getSelectedItem().equals("One-way"))? true:false;
-        int totalPrice = (isOneWay)? oneWayPrice: oneWayPrice*2;
-        
+        int oneWayPrice = foodPrice + flightPrice;
+        Boolean isOneWay = (tripTypeCombo.getSelectedItem().equals("One-way")) ? true : false;
+        int totalPrice = (isOneWay) ? oneWayPrice : oneWayPrice * 2;
+
         jTextField4.setText(String.valueOf(totalPrice));
     }//GEN-LAST:event_foodComboItemStateChanged
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,12 +4,25 @@
  */
 package UI.OrgManagerWorkArea;
 
+import Business.Customer.Customer;
 import Business.Employee.Employee;
+import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.Product;
+import Business.Product.TravelAgencyProduct;
+import Order.Order;
+import UI.CustomerWorkArea.BookAttractionTicketJPanel;
+import UI.CustomerWorkArea.BookFlightJPanel;
+import UI.CustomerWorkArea.BookHotelJPanel;
 import UserAccount.UserAccount;
+import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emi
  */
-public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
+public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form AirlineOrgManagerAllOrdersWorkArea
@@ -28,15 +41,15 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
     JPanel container;
     Organization org;
     DefaultTableModel orderTable;
+    TripPlanningWorkRequest pTrip;
 
-    public HotelOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
+    public TravelAgencyOrgManagerAllOrdersWorkArea(JPanel container, UserAccount ua, Platform platform) {
         initComponents();
         this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.orderTable = (DefaultTableModel) queue.getModel();
-
         populateOrders();
     }
 
@@ -44,6 +57,7 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         this.org.getWorkQueue();
         orderTable.setRowCount(0);
         ArrayList<WorkRequest> wra = this.org.getWorkQueue().getWorkQueue();
+        System.out.print(wra.get(0).getCustomer().getPerson().getName());
         if (wra.size() > 0) {
             for (WorkRequest wr : wra) {
                 Object[] row = new Object[7];
@@ -76,6 +90,10 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         statusTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         assignBtn1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -109,7 +127,7 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Set Status");
+        jButton1.setText("Book Flights For Customer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -124,6 +142,34 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setText("Set Status");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Book Hotel For Customer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Book Attractions For Customer");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Select Work Request to Work on");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,18 +178,33 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 .addGap(152, 152, 152)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(statusTxt)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(appBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rejBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(assignBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(242, 242, 242)
-                        .addComponent(jLabel1)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(179, 179, 179))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addComponent(assignBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(appBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(155, 155, 155))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,11 +218,19 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addComponent(assignBtn1)
-                        .addGap(74, 74, 74)
-                        .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton5)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(74, 74, 74)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4)
+                        .addGap(29, 29, 29)
+                        .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
                         .addComponent(appBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rejBtn)))
@@ -175,12 +244,10 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
-
-            this.org.getWorkQueue().finishWorkRequest(wr);
+            this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
             populateOrders();
         } else {
             JOptionPane.showMessageDialog(null, "Request already assigned");
-
         }
     }//GEN-LAST:event_appBtnActionPerformed
 
@@ -204,14 +271,13 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            wr.setStatus(statusTxt.getText());
-            populateOrders();
-        } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
-
-        }
+        JPanel bookFlightJPanel = new BookFlightJPanel(platform, ua,pTrip);
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setLayout(new BorderLayout());
+        frame.add(bookFlightJPanel, BorderLayout.CENTER);
+        frame.setSize(1400, 870);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void assignBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtn1ActionPerformed
@@ -222,18 +288,52 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             wr.setAssignedTo(ua.getUsername());
             populateOrders();
-
         } else {
             JOptionPane.showMessageDialog(null, "Request already assigned");
-
         }
     }//GEN-LAST:event_assignBtn1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua);
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setLayout(new BorderLayout());
+        frame.add(bookHotelJPanel, BorderLayout.CENTER);
+        frame.setSize(1400, 870);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua);
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setLayout(new BorderLayout());
+        frame.add(bookAttJPanel, BorderLayout.CENTER);
+        frame.setSize(1400, 870);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton appBtn;
     private javax.swing.JButton assignBtn1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable queue;

@@ -8,6 +8,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Platform;
 import UI.OrgManagerWorkArea.OrgManagerWorkAreaJPanel;
+import UI.OrgManagerWorkArea.TravelAgencyOrgManagerAllOrdersWorkArea;
 import UI.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import UserAccount.UserAccount;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class TravelAgentRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel container, UserAccount ua, Platform platform, Enterprise enterprise, Organization organization) {
-        return new OrgManagerWorkAreaJPanel( container,  enterprise,  ua , platform);
+        return new TravelAgencyOrgManagerAllOrdersWorkArea( container,    ua , platform);
     }
 
     
