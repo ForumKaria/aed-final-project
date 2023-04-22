@@ -13,6 +13,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import WorkRequest.TripPlanningWorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,8 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
     Customer cus;
     AttractionProduct attrctionSelected;
     Employee emp;
+    Boolean isEmp;
+    TripPlanningWorkRequest trp;
 
     public BookAttractionTicketJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
@@ -55,6 +58,18 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.org = this.platform.getAirlineOrg();
         this.resultTable = (DefaultTableModel) att.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+    }
+
+    public BookAttractionTicketJPanel(Platform platform, UserAccount ua, TripPlanningWorkRequest wr) {
+        initComponents();
+        this.platform = platform;
+        this.ua = ua;
+        this.isEmp = true;
+        this.org = this.platform.getAirlineOrg();
+        this.resultTable = (DefaultTableModel) att.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+        this.trp = wr;
+        this.bookBtn.setText("Add to Customer Plan");
     }
 
     /**
@@ -200,13 +215,18 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        //create order for customer and add to customer's order list
-        Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-        //link product with the order
-        o.newOrderItem(this.attrctionSelected);
-        //add the order to org's order list
-        this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Booking request sent");
+        if (this.isEmp) {
+            trp.addToTripDetails(attrctionSelected);
+            JOptionPane.showMessageDialog(null, "Added to trip details");
+        } else {
+            //create order for customer and add to customer's order list
+            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            //link product with the order
+            o.newOrderItem(this.attrctionSelected);
+            //add the order to org's order list
+            this.org.getOrderCatalog().getOrders().add(o);
+            JOptionPane.showMessageDialog(null, "Booking request sent");
+        }
     }//GEN-LAST:event_bookBtnActionPerformed
 
 

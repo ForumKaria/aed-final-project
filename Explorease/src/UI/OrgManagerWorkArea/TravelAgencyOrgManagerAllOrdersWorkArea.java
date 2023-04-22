@@ -5,22 +5,22 @@
 package UI.OrgManagerWorkArea;
 
 import Business.Customer.Customer;
-import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.AttractionProduct;
+import Business.Product.FlightTicketProduct;
+import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
-import Business.Product.TravelAgencyProduct;
 import Order.Order;
 import UI.CustomerWorkArea.BookAttractionTicketJPanel;
 import UI.CustomerWorkArea.BookFlightJPanel;
 import UI.CustomerWorkArea.BookHotelJPanel;
 import UserAccount.UserAccount;
 import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.HotelBookingWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -94,6 +94,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        ordBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -170,6 +171,14 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
             }
         });
 
+        ordBtn.setBackground(new java.awt.Color(153, 204, 255));
+        ordBtn.setText("Place Orders For Plan");
+        ordBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,18 +194,9 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addComponent(assignBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(34, 34, 34)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(appBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(43, 43, 43)
+                                .addComponent(assignBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 185, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -204,7 +204,17 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(155, 155, 155))))))
+                                .addGap(155, 155, 155))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(ordBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(appBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rejBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,13 +236,15 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(statusTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(appBtn)
+                        .addGap(34, 34, 34)
+                        .addComponent(ordBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(appBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rejBtn)))
                 .addContainerGap(290, Short.MAX_VALUE))
         );
@@ -246,6 +258,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
             populateOrders();
+            JOptionPane.showMessageDialog(null, "Sent Details to Customer");
         } else {
             JOptionPane.showMessageDialog(null, "Request already assigned");
         }
@@ -260,6 +273,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
             this.org.getWorkQueue().rejectWorkRequest(wr);
             populateOrders();
+            JOptionPane.showMessageDialog(null, "Did not send details to Customer");
+
         } else {
             JOptionPane.showMessageDialog(null, "Request already assigned");
 
@@ -272,7 +287,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
 
-        JPanel bookFlightJPanel = new BookFlightJPanel(platform, ua,pTrip);
+        JPanel bookFlightJPanel = new BookFlightJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
@@ -299,7 +314,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua);
+        JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
@@ -309,7 +324,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua);
+        JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
@@ -323,7 +338,53 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
+        JOptionPane.showMessageDialog(null, "Work Request selected");
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void ordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordBtnActionPerformed
+        // TODO add your handling code here:
+        Customer c = this.pTrip.getCustomer();
+        for (Product p : this.pTrip.getPlannedTrip()) {
+            if (p.getProductDetails().getClass().getSimpleName().contains("Flight")) {
+                FlightTicketProduct atp = (FlightTicketProduct) p.getProductDetails();
+                Order o = c.getCustomerOrderCatalog().createOrder(c);
+                o.newOrderItem(atp);
+//            } else {
+//                //just to get the total price right for the order
+//                o.newOrderItem(this.flightSelected);
+//                o.newOrderItem(this.flightSelected);
+//
+//            }
+                AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, c, c.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+
+                //prepare food info to send to airline org
+//            if (foodCombo.getSelectedItem().equals("Order vegan meal")) {
+//                airworkReq.setNeedFood(true);
+//                airworkReq.setIsVegan(true);
+//            } else if (foodCombo.getSelectedItem().equals("Order non-vegan meal")) {
+//                airworkReq.setNeedFood(true);
+//            }
+//            o.setFlightOrderPriceWithFood(Integer.valueOf(jTextField4.getText())); //only works for orders created from UI
+                //no need to add to the org's order list, we just loop workQueue for org data
+            } else if (p.getProductDetails().getClass().getSimpleName().contains("Hotel")) {
+                //create order for customer and add to customer's order list
+                Order o = c.getCustomerOrderCatalog().createOrder(c);
+                //link product with the order
+                HotelRoomsProduct hp = (HotelRoomsProduct) p.getProductDetails();
+                o.newOrderItem(hp);
+                HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, c, c.getUserAccount(), this.platform);
+            } else if (p.getProductDetails().getClass().getSimpleName().contains("Attraction")) {
+                Order o = c.getCustomerOrderCatalog().createOrder(c);
+                //link product with the order
+                AttractionProduct ap = (AttractionProduct) p.getProductDetails();
+                o.newOrderItem(ap);
+                //add the order to org's order list
+                this.org.getOrderCatalog().getOrders().add(o);
+            }
+        };
+        JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
+
+    }//GEN-LAST:event_ordBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -336,6 +397,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton ordBtn;
     private javax.swing.JTable queue;
     private javax.swing.JButton rejBtn;
     private javax.swing.JTextField statusTxt;

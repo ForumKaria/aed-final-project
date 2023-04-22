@@ -8,11 +8,13 @@ import Business.Customer.Customer;
 import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.FlightTicketProduct;
 import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
 import WorkRequest.HotelBookingWorkRequest;
+import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -41,10 +43,12 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     Customer cus;
     HotelRoomsProduct roomSelected;
     Employee emp;
-    
+    Boolean isEmp;
+    TripPlanningWorkRequest trp;
+
     public BookHotelJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getHotelOrg();
@@ -53,12 +57,25 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     }
 
     public BookHotelJPanel(Platform platform, UserAccount ua) {
-   initComponents();
-        this.platform = platform; 
+        initComponents();
+        this.platform = platform;
         this.ua = ua;
         this.org = this.platform.getAirlineOrg();
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+    }
+
+    public BookHotelJPanel(Platform platform, UserAccount ua, TripPlanningWorkRequest wr) {
+        initComponents();
+        this.platform = platform;
+        this.ua = ua;
+        this.isEmp = true;
+        this.org = this.platform.getAirlineOrg();
+        this.resultTable = (DefaultTableModel) rooms.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+        this.trp = wr;
+        this.bookBtn.setText("Add to Customer Plan");
+
     }
 
     /**
@@ -198,26 +215,25 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
-        
+
         ArrayList<Product> searchResult = new ArrayList<Product>();
-        
+
         String des = desCity.getText();
 //        Date indate = checkIn.getDate();
 //        Date outdate = checkOut.getDate();
 //        int rooms = (int) roomsCombo.getSelectedItem();
-        
-        for (Product room: this.org.getProductCatalog().getProducts()){
+
+        for (Product room : this.org.getProductCatalog().getProducts()) {
             HotelRoomsProduct r = (HotelRoomsProduct) room.getProductDetails();
-            if ( r.getCity().equalsIgnoreCase(des) 
-//                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
-//                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                    ){
+            if (r.getCity().equalsIgnoreCase(des) //                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
+                    //                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
+                    ) {
                 searchResult.add(room);
             }
         }
-        
-        if(searchResult.size()>0){
-            for (Product roomFound: searchResult){
+
+        if (searchResult.size() > 0) {
+            for (Product roomFound : searchResult) {
                 HotelRoomsProduct r = (HotelRoomsProduct) roomFound.getProductDetails();
                 Object[] row = new Object[4];
                 row[0] = r;
@@ -228,9 +244,9 @@ public class BookHotelJPanel extends javax.swing.JPanel {
                 row[3] = r.getPrice();
                 resultTable.addRow(row);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Oops...no hotel found");
-        }    
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -238,39 +254,44 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = rooms.getSelectedRow();
         this.roomSelected = (HotelRoomsProduct) resultTable.getValueAt(selectedRow, 0);
-        
+
         jTextField3.setText(roomSelected.getProductId());
-        
+
         Instant checkindate = checkIn.getDate().toInstant();
         Instant checkoutdate = checkOut.getDate().toInstant();
-        Long durationSeconds = Duration.between(checkindate,checkoutdate).getSeconds();
-        jTextField5.setText(String.valueOf( (int)TimeUnit.DAYS.convert(durationSeconds,TimeUnit.SECONDS))); //stay duration
-        
+        Long durationSeconds = Duration.between(checkindate, checkoutdate).getSeconds();
+        jTextField5.setText(String.valueOf((int) TimeUnit.DAYS.convert(durationSeconds, TimeUnit.SECONDS))); //stay duration
+
         jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
         //unit price*rooms*nights
-        jTextField4.setText(String.valueOf(roomSelected.getPrice()*Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText()))); 
+        jTextField4.setText(String.valueOf(roomSelected.getPrice() * Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText())));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        //create order for customer and add to customer's order list
-        Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-        //link product with the order
-        for (int i=0; i< Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText()); i++){
-            o.newOrderItem(this.roomSelected);
-        }
-        
-        HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); 
+        if (this.isEmp) {
+            trp.addToTripDetails(roomSelected);
+            JOptionPane.showMessageDialog(null, "Added to trip details");
+
+        } else {
+            //create order for customer and add to customer's order list
+            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            //link product with the order
+            for (int i = 0; i < Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText()); i++) {
+                o.newOrderItem(this.roomSelected);
+            }
+
+            HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
 //        this.org.getWorkQueue().addWorkRequest(workReq);
-        //add the order to org's order list
+            //add the order to org's order list
 //        this.org.getOrderCatalog().getOrders().add(o);
-        JOptionPane.showMessageDialog(null, "Booking request sent");
+            JOptionPane.showMessageDialog(null, "Booking request sent");
+        }
     }//GEN-LAST:event_bookBtnActionPerformed
 
     private void roomsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_roomsComboActionPerformed
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
