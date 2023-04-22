@@ -6,6 +6,8 @@ package Order;
 
 import Business.Customer.Customer;
 import Business.Product.Product;
+import WorkRequest.WorkQueue;
+import WorkRequest.WorkRequest;
 import java.util.ArrayList;
 
 /**
@@ -18,14 +20,34 @@ public class Order {
     ArrayList<OrderItem> orderitems;
     Customer customer;
     String status;
+    Boolean orderApproved;
+    WorkQueue orderWorkQueue;
+    int flightOrderPriceWithFood;
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Order.counter = counter;
+    }
+
+    public Boolean getOrderApproved() {
+        return orderApproved;
+    }
+
+    public void setOrderApproved(Boolean orderApproved) {
+        this.orderApproved = orderApproved;
+    }
     
     public Order(Customer c) {
         this.orderId = "ORDER" + this.counter++;
         
         orderitems = new ArrayList<OrderItem>();
         customer = c;
-        //customer.addCustomerOrder(this); //we link the order to the customer
         status = "in process";
+        this.orderApproved = false;
+        this.orderWorkQueue = new WorkQueue();
     }
     
     public OrderItem newOrderItem(Product p) {
@@ -33,14 +55,36 @@ public class Order {
         orderitems.add(oi);
         return oi;
     }
-    //order total is the sumer of the order item totals
+    //modification for use cases where flight order has food request attached to it
     public int getOrderTotal() {
+        int sum = 0;
+        for (WorkRequest wr: this.orderWorkQueue.getWorkQueue()){
+            Order or= wr.getOrder();
+            for (OrderItem oi : or.getOrderitems()) {
+                sum = sum + oi.getOrderItemTotal();
+            }
+        }
+        
+        return sum;
+    }
+    
+    public int getMainOrderTotal(){
         int sum = 0;
         for (OrderItem oi : orderitems) {
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
-    } 
+    }
+    
+    public void setFlightOrderPriceWithFood(int p){
+        this.flightOrderPriceWithFood = p;
+    }
+
+    public int getFlightOrderPriceWithFood() {
+        return flightOrderPriceWithFood;
+    }
+    
+    
 
     public
     String getOrderId() {
@@ -81,5 +125,15 @@ public class Order {
     void setStatus(String status) {
         this.status = status;
     }
+
+    public WorkQueue getOrderWorkQueue() {
+        return orderWorkQueue;
+    }
+    
+    @Override
+    public String toString(){
+        return this.orderId;
+    }
+    
     
 }

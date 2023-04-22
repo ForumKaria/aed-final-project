@@ -15,6 +15,7 @@ import static Business.Enterprise.Enterprise.EnterpriseType.Transportation;
 import static Business.Enterprise.Enterprise.EnterpriseType.TravelAgency;
 import Business.Enterprise.EnterpriseDirectory;
 import Business.Enterprise.TransportationEnterprise;
+import Business.Organization.AirlineOrganization;
 import Business.Organization.Organization;
 import static Business.Organization.Organization.OrganizationType.AirlineOrg;
 import static Business.Organization.Organization.OrganizationType.AttractionOrg;
@@ -31,15 +32,23 @@ import Business.Product.InsuranceProduct;
 import Business.Product.Product;
 import Business.Product.ProductCatalog;
 import Business.Product.TravelAgencyProduct;
+import Order.Order;
 import Order.OrderReport;
 import Person.Person;
 import Person.PersonDirectory;
 import Roles.CustomerRole;
 import Roles.EnterpriseAdminRole;
-import Roles.OrganizationManagerRole;
+import Roles.AirlineAgentRole;
+import Roles.AttractionOfficerRole;
+import Roles.FoodServiceSupplierRole;
+import Roles.InsuranceAdvisorRole;
 import Roles.SystemAdminRole;
+import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.FoodServiceWorkRequest;
+import WorkRequest.WorkRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,9 +85,11 @@ public class Platform {
         this.enterpriseDirectory = new EnterpriseDirectory();
         this.masterOrderReport = new OrderReport();
         
-//        this.flightFoodProducts = new ArrayList<FoodServiceProduct>();
         configureBusiness();
-        populateData();
+        populateProductData();
+        
+        //create fake orders for the pre-created customer
+        generateFakeOrders(this.getCustomerDirectory().findCustomerById("user12"));
     }
 
     public void configureBusiness() {
@@ -107,16 +118,22 @@ public class Platform {
         insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
         
-        //create one org manager for airline first
-        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airadmin", "airadmin", new OrganizationManagerRole());
+        //create org persons for testing, enterprise admin can also create new org admin users from UI
+        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airorgadmin", "airorgadmin", new AirlineAgentRole());
+        UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
+        UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
+        UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
+        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insuranceorgadmin", "insuranceorgadmin", new InsuranceAdvisorRole());
+        UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
         
         //create a customer for testing
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
         Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
         Customer c = this.getCustomerDirectory().createCustomer(p,cus);
+        
        }
 
-    public void populateData() {
+    public void populateProductData() {
         try {
             // PopulateData  
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
@@ -142,6 +159,25 @@ public class Platform {
             flightProducts.addProduct(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:15 AM", "03:00 hrs", true, 150, 25));
             flightProducts.addProduct(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "1:45 PM", "02:30 hrs", true, 125, 40));
             flightProducts.addProduct(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "10:30 AM", "04:00 hrs", true, 225, 80));
+            flightProducts.addProduct(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "9:00 AM", "06:00 hrs", true, 255, 100));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "11:30 AM", "03:30 hrs", false, 160, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "3:00 PM", "03:00 hrs", true, 210, 75));
+            flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "10:00 AM", "02:00 hrs", true, 110, 30));
+            flightProducts.addProduct(new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "10:00 AM", "01:30 hrs", true, 90, 20));
+            flightProducts.addProduct(new FlightTicketProduct("Los Angeles", "New York", "Delta Airlines", sdf.parse("2023-05-06"), "11:30 AM", "05:30 hrs", true, 400, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Miami", "Chicago", "American Airlines", sdf.parse("2023-05-07"), "8:45 AM", "03:30 hrs", true, 178, 40));
+            flightProducts.addProduct(new FlightTicketProduct("Denver", "Houston", "Southwest Airlines", sdf.parse("2023-05-08"), "12:00 PM", "03:00 hrs", false, 185, 60));
+            flightProducts.addProduct(new FlightTicketProduct("Seattle", "San Francisco", "Alaska Airlines", sdf.parse("2023-05-09"), "6:30 PM", "02:00 hrs", true, 180, 15));
+            flightProducts.addProduct(new FlightTicketProduct("Washington DC", "Boston", "United Airlines", sdf.parse("2023-05-10"), "11:15 AM", "01:30 hrs", true, 190, 25));
+            flightProducts.addProduct(new FlightTicketProduct("New York", "San Francisco", "American Airlines", sdf.parse("2023-05-11"), "7:40 AM", "07:00 hrs", true, 420, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Los Angeles", "Miami", "Delta Airlines", sdf.parse("2023-05-12"), "6:45 AM", "05:30 hrs", false, 277, 45));
+            flightProducts.addProduct(new FlightTicketProduct("Houston", "Seattle", "United Airlines", sdf.parse("2023-05-13"), "12:00 AM", "05:00 hrs", true, 235, 70));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Denver", "Southwest Airlines", sdf.parse("2023-05-14"), "12:00 PM", "02:30 hrs", true, 150, 30));
+            flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Boston", "JetBlue Airways", sdf.parse("2023-05-15"), "11:00 PM", "06:00 hrs", true, 300, 20));
+            flightProducts.addProduct(new FlightTicketProduct("Washington DC", "Los Angeles", "United Airlines", sdf.parse("2023-05-16"), "6:30 AM", "06:00 hrs", true, 300, 60));
+            flightProducts.addProduct(new FlightTicketProduct("Boston", "Miami", "American Airlines", sdf.parse("2023-05-17"), "11:25 AM", "03:00 hrs", true, 155, 25));
+            flightProducts.addProduct(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "5:45 PM", "02:30 hrs", true, 225, 40));
+            flightProducts.addProduct(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "11:30 AM", "04:00 hrs", true, 250, 80));
 
             // In Flight food Product 
             ProductCatalog flightFoodProducts = foodServiceOrg.getProductCatalog();
@@ -171,13 +207,34 @@ public class Platform {
             hotelProducts.addProduct(new HotelRoomsProduct("San Diego", "Deluxe Twin", 225, 8));
             hotelProducts.addProduct(new HotelRoomsProduct("San Francisco", "Standard Twin", 125, 8));
             hotelProducts.addProduct(new HotelRoomsProduct("Seattle", "Standard Double", 200, 7));
-            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 250, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 240, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Atlanta", "Standard Double", 250, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("Austin", "Standard Double", 275, 24));
+            hotelProducts.addProduct(new HotelRoomsProduct("Boston", "Deluxe Single", 115, 30));
+            hotelProducts.addProduct(new HotelRoomsProduct("Chicago", "Standard Single", 140, 4));
+            hotelProducts.addProduct(new HotelRoomsProduct("Denver", "Deluxe Suite", 315, 15));
+            hotelProducts.addProduct(new HotelRoomsProduct("Houston", "Executive Suite", 510, 14));
+            hotelProducts.addProduct(new HotelRoomsProduct("Las Vegas", "King Suite", 330, 14));
+            hotelProducts.addProduct(new HotelRoomsProduct("Los Angeles", "Deluxe Suite", 460, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Miami", "King Suite", 360, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Nashville", "Standard Single", 70, 22));
+            hotelProducts.addProduct(new HotelRoomsProduct("New Orleans", "Deluxe Suite", 300, 12));
+            hotelProducts.addProduct(new HotelRoomsProduct("New York", "Standard Double", 200, 13));
+            hotelProducts.addProduct(new HotelRoomsProduct("Orlando", "Standard Single", 150, 11));
+            hotelProducts.addProduct(new HotelRoomsProduct("Philadelphia", "King Suite", 424, 16));
+            hotelProducts.addProduct(new HotelRoomsProduct("Phoenix", "Standard Twin", 121, 10));
+            hotelProducts.addProduct(new HotelRoomsProduct("Portland", "Executive Suite", 540, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Antonio", "Deluxe Single", 310, 9));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Diego", "Deluxe Twin", 220, 8));
+            hotelProducts.addProduct(new HotelRoomsProduct("San Francisco", "Standard Twin", 165, 8));
+            hotelProducts.addProduct(new HotelRoomsProduct("Seattle", "Standard Double", 220, 7));
+            hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 260, 4));
 
             //travel agency products
             
             ProductCatalog travelAgencyProducts = travelAgencyOrg.getProductCatalog();
-            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Consulting", 200));
-            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Booking", 300));
+            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Consulting", 50));
+            travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Booking", 100));
             
             //insurance products
             
@@ -187,15 +244,77 @@ public class Platform {
             
             //Attraction products
             ProductCatalog attractionProducts = attractionOrg.getProductCatalog();
-            attractionProducts.addProduct(new AttractionProduct("Park Ticket", 120));
-            attractionProducts.addProduct(new AttractionProduct("Museum Ticket", 100));
-            attractionProducts.addProduct(new AttractionProduct("Adventure Ticket", 200));
-            
-            System.out.println("All products Created");
+            attractionProducts.addProduct(new AttractionProduct("Boston","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Boston","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Boston","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("New York","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("New York","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("New York","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Los Angeles","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Orlando","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Chicago","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Seattle","Adventure Ticket", 200));
+
             
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void generateFakeOrders(Customer c){
+        //create two orders for each of the four orgs
+ 
+        ArrayList<Organization> orgs = new ArrayList<Organization>();
+        orgs.add(airlineOrg);
+        orgs.add(hotelOrg);
+        orgs.add(travelAgencyOrg);
+        orgs.add(attractionOrg);
+        
+        for (Organization o:orgs){
+            int productIndex = 0;
+            for (int i =0 ;i <2; i++){
+                Order order =c.getCustomerOrderCatalog().createOrder(c);
+            
+                Product selectP = o.getProductCatalog().getProducts().get(productIndex);
+                productIndex+=1;
+                order.newOrderItem(selectP);
+                
+                if(o instanceof AirlineOrganization){
+                    AirTicketWorkRequest airWR =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
+                    airWR.setNeedFood(true);
+                    airWR.setIsVegan(false);
+                    
+                    Order foodOrderSentToFS = o.getOrderCatalog().createOrder(order.getCustomer());
+   
+                    FoodServiceProduct foodSelected = (airWR.getIsVegan())? new FoodServiceProduct("Vegan",30):new FoodServiceProduct("Non-veg",40);
+                    foodOrderSentToFS.newOrderItem(foodSelected);
+                    FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(foodOrderSentToFS,order.getCustomer(),this.getAirlineOrg().getUserAccountDirectory().findByUserName("airorgadmin"),this);
+            
+                    //link this request with customer's main flight order and request
+                    foodwr.setCustomerFlightOrder(order);
+                    foodwr.setCustomerFlightRequest(airWR);
+            
+                    airWR.setStatus("Making food reservation from food supplier");
+                    
+                    order.setFlightOrderPriceWithFood(order.getOrderTotal());
+
+                }else {
+                    WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 
+                    o.getWorkQueue().addWorkRequest(workReq);
+                }
+                //add the order to org's order list
+                o.getOrderCatalog().getOrders().add(order);
+            }
+        }
+   
     }
     
     public Organization findOrgByUserAccount(String username, String password){

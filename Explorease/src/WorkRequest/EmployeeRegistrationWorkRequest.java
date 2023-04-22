@@ -9,5 +9,5 @@ package WorkRequest;
  * @author emi
  */
 public class EmployeeRegistrationWorkRequest {
-    
+    //not implementing for final project
 }

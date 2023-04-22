@@ -1,4 +1,4 @@
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
@@ -263,6 +263,7 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         f.setDepartureCity(depCity.getText());
         f.setAirline(airline.getText());
         airline.setText(f.getAirline());
+        populateFlights();
         // Others to add
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -271,6 +272,7 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         int selectedRow = flights.getSelectedRow();
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
         this.org.getProductCatalog().getProducts().remove(f);
+        populateFlights();
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

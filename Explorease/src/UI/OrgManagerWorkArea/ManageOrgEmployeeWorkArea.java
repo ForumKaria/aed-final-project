@@ -1,4 +1,4 @@
-package UI.ManagerWorkArea;
+package UI.OrgManagerWorkArea;
 
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
@@ -15,10 +15,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 15512
  */
-public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
+public class ManageOrgEmployeeWorkArea extends javax.swing.JPanel {
 
     /**
-     * Creates new form AirlineManagerEmployeeWorkArea
+     * Creates new form ManageOrgEmployeeWorkArea
      */
     Platform platform;
     Organization org;
@@ -28,7 +28,7 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
     DefaultTableModel approveTable;
     Employee selectedEmp;
 
-    public AirlineManagerEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public ManageOrgEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.ua = ua;
@@ -47,7 +47,6 @@ public class AirlineManagerEmployeeWorkArea extends javax.swing.JPanel {
             for (Employee emp : empList) {
                 if (emp.getApproved()) {
                     Object[] row = new Object[4];
-
                     row[0] = emp;
                     row[1] = emp.getPerson().getName();
                     row[2] = emp.getUserAccount().getUsername();
