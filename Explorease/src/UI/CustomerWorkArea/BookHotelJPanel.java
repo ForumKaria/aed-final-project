@@ -5,6 +5,7 @@
 package UI.CustomerWorkArea;
 
 import Business.Customer.Customer;
+import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.HotelRoomsProduct;
@@ -39,14 +40,25 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     Organization org;
     Customer cus;
     HotelRoomsProduct roomSelected;
+    Employee emp;
+
     public BookHotelJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getHotelOrg();
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
+    }
+
+    public BookHotelJPanel(Platform platform, UserAccount ua) {
+   initComponents();
+        this.platform = platform;
+        this.ua = ua;
+        this.org = this.platform.getAirlineOrg(); //hotel
+        this.resultTable = (DefaultTableModel) rooms.getModel();
+        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
 
     /**
@@ -186,24 +198,24 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
-        
+
         ArrayList<Product> searchResult = new ArrayList<Product>();
-        
+
         String des = desCity.getText();
 //        Date indate = checkIn.getDate();
 //        Date outdate = checkOut.getDate();
 //        int rooms = (int) roomsCombo.getSelectedItem();
-        
+
         for (Product room: this.org.getProductCatalog().getProducts()){
             HotelRoomsProduct r = (HotelRoomsProduct) room.getProductDetails();
-            if ( r.getCity().equalsIgnoreCase(des) 
+            if ( r.getCity().equalsIgnoreCase(des)
 //                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
 //                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
                     ){
                 searchResult.add(room);
             }
         }
-        
+
         if(searchResult.size()>0){
             for (Product roomFound: searchResult){
                 HotelRoomsProduct r = (HotelRoomsProduct) roomFound.getProductDetails();
@@ -218,7 +230,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
             }
         }else{
             JOptionPane.showMessageDialog(null, "Oops...no hotel found");
-        }    
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -226,17 +238,17 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = rooms.getSelectedRow();
         this.roomSelected = (HotelRoomsProduct) resultTable.getValueAt(selectedRow, 0);
-        
+
         jTextField3.setText(roomSelected.getProductId());
-        
+
         Instant checkindate = checkIn.getDate().toInstant();
         Instant checkoutdate = checkOut.getDate().toInstant();
         Long durationSeconds = Duration.between(checkindate,checkoutdate).getSeconds();
         jTextField5.setText(String.valueOf( (int)TimeUnit.DAYS.convert(durationSeconds,TimeUnit.SECONDS))); //stay duration
-        
+
         jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
         //unit price*rooms*nights
-        jTextField4.setText(String.valueOf(roomSelected.getPrice()*Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText()))); 
+        jTextField4.setText(String.valueOf(roomSelected.getPrice()*Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText())));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -247,8 +259,8 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         for (int i=0; i< Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText()); i++){
             o.newOrderItem(this.roomSelected);
         }
-        
-        HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); 
+
+        HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
 //        this.org.getWorkQueue().addWorkRequest(workReq);
         //add the order to org's order list
 //        this.org.getOrderCatalog().getOrders().add(o);
@@ -258,7 +270,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
     private void roomsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_roomsComboActionPerformed
-    
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

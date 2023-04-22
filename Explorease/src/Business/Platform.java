@@ -76,7 +76,7 @@ public class Platform {
     Organization travelAgencyOrg;
     Organization insuranceOrg;
     Organization attractionOrg;
-    
+
     public static Platform getInstance() throws ParseException{
         return new Platform();
     }
@@ -87,10 +87,10 @@ public class Platform {
         this.personDirectory = new PersonDirectory();
         this.enterpriseDirectory = new EnterpriseDirectory();
         this.masterOrderReport = new OrderReport();
-        
+
         configureBusiness();
         populateProductData();
-        
+
         //create fake orders for the pre-created customer
         generateFakeOrders(this.getCustomerDirectory().findCustomerById("user12"));
     }
@@ -113,32 +113,33 @@ public class Platform {
         UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attractionadmin", "attractionadmin", new EnterpriseAdminRole());
 
         //create the 6 orgs
-        
+
         airlineOrg = transportation.getOrganizationDirectory().createOrganization(AirlineOrg);
         foodServiceOrg = transportation.getOrganizationDirectory().createOrganization(FoodServiceOrg);
         hotelOrg = hotel.getOrganizationDirectory().createOrganization(HotelOrg);
         travelAgencyOrg = travelAgency.getOrganizationDirectory().createOrganization(TravelAgencyOrg);
         insuranceOrg = travelAgency.getOrganizationDirectory().createOrganization(InsuranceOrg);
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
-        
+
         //create org persons for testing, enterprise admin can also create new org admin users from UI
         UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airorgadmin", "airorgadmin", new AirlineAgentRole());
+        UserAccount airOrgAdmin2 = airlineOrg.getUserAccountDirectory().createUserAccount("airorg", "airorg", new AirlineAgentRole());
         UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
         UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
         UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
         UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insuranceorgadmin", "insuranceorgadmin", new InsuranceAdvisorRole());
         UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
-        
+
         //create a customer for testing
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
         Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
         Customer c = this.getCustomerDirectory().createCustomer(p,cus);
-        
+
        }
 
     public void populateProductData() {
         try {
-            // PopulateData  
+            // PopulateData
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 
             //flights data
@@ -182,13 +183,13 @@ public class Platform {
             flightProducts.addProduct(new FlightTicketProduct("Denver", "Chicago", "United Airlines", sdf.parse("2023-05-18"), "5:45 PM", "02:30 hrs", true, 225, 40));
             flightProducts.addProduct(new FlightTicketProduct("Seattle", "Houston", "Delta Airlines", sdf.parse("2023-05-19"), "11:30 AM", "04:00 hrs", true, 250, 80));
 
-            // In Flight food Product 
+            // In Flight food Product
             ProductCatalog flightFoodProducts = foodServiceOrg.getProductCatalog();
             flightFoodProducts.addProduct(new FoodServiceProduct("Vegan", 30));
             flightFoodProducts.addProduct(new FoodServiceProduct("Non-veg", 40));
 
             // Hotel Room Products
-            
+
             ProductCatalog hotelProducts = hotelOrg.getProductCatalog();
             hotelProducts.addProduct(new HotelRoomsProduct("Atlanta", "Standard Double", 150, 10));
             hotelProducts.addProduct(new HotelRoomsProduct("Austin", "Standard Double", 175, 20));
@@ -234,17 +235,17 @@ public class Platform {
             hotelProducts.addProduct(new HotelRoomsProduct("Washington DC", "Deluxe Twin", 260, 4));
 
             //travel agency products
-            
+
             ProductCatalog travelAgencyProducts = travelAgencyOrg.getProductCatalog();
             travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Consulting", 50));
             travelAgencyProducts.addProduct(new TravelAgencyProduct("Trip Booking", 100));
-            
+
             //insurance products
-            
+
             ProductCatalog insuranceProducts = insuranceOrg.getProductCatalog();
             insuranceProducts.addProduct(new InsuranceProduct("Full Coverage", 300));
             insuranceProducts.addProduct(new InsuranceProduct("Partial Coverage", 200));
-            
+
             //Attraction products
             ProductCatalog attractionProducts = attractionOrg.getProductCatalog();
             attractionProducts.addProduct(new AttractionProduct("Boston","Theme Park Ticket", 120));
@@ -266,91 +267,91 @@ public class Platform {
             attractionProducts.addProduct(new AttractionProduct("Seattle","Museum Ticket", 100));
             attractionProducts.addProduct(new AttractionProduct("Seattle","Adventure Ticket", 200));
 
-            
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-    
+
     public void generateFakeOrders(Customer c) throws ParseException{
         //create two orders for each of the four orgs
- 
+
         ArrayList<Organization> orgs = new ArrayList<Organization>();
         orgs.add(airlineOrg);
         orgs.add(hotelOrg);
         orgs.add(travelAgencyOrg);
         orgs.add(attractionOrg);
-        
+
         for (Organization o:orgs){
             int productIndex = 0;
             for (int i =0 ;i <2; i++){
                 Order order =c.getCustomerOrderCatalog().createOrder(c);
-            
+
                 Product selectP = o.getProductCatalog().getProducts().get(productIndex);
                 productIndex+=1;
                 order.newOrderItem(selectP);
-                
+
                 if(o instanceof AirlineOrganization){
-                    AirTicketWorkRequest airWR =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this); 
+                    AirTicketWorkRequest airWR =  (AirTicketWorkRequest) order.getOrderWorkQueue().newAirTicketWorkRequest(order, c, c.getUserAccount(), this);
                     airWR.setNeedFood(true);
                     airWR.setIsVegan(false);
-                    
+
                     Order foodOrderSentToFS = o.getOrderCatalog().createOrder(order.getCustomer());
-   
+
                     FoodServiceProduct foodSelected = (airWR.getIsVegan())? new FoodServiceProduct("Vegan",30):new FoodServiceProduct("Non-veg",40);
                     foodOrderSentToFS.newOrderItem(foodSelected);
                     FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(foodOrderSentToFS,order.getCustomer(),this.getAirlineOrg().getUserAccountDirectory().findByUserName("airorgadmin"),this);
-            
+
                     //link this request with customer's main flight order and request
                     foodwr.setCustomerFlightOrder(order);
                     foodwr.setCustomerFlightRequest(airWR);
-            
+
                     airWR.setStatus("Making food reservation from food supplier");
-                    
+
                     order.setFlightOrderPriceWithFood(order.getOrderTotal());
 
                 }else if(o instanceof TravelAgencyOrganization){
-                    TripPlanningWorkRequest tripWR =  (TripPlanningWorkRequest) order.getOrderWorkQueue().newTripPlanningWorkRequest(order, c, c.getUserAccount(), this); 
-                    tripWR.setNeedBooking(true); 
+                    TripPlanningWorkRequest tripWR =  (TripPlanningWorkRequest) order.getOrderWorkQueue().newTripPlanningWorkRequest(order, c, c.getUserAccount(), this);
+                    tripWR.setNeedBooking(true);
                     tripWR.setNeedAttractionTicket(false);
                     tripWR.setNeedInsurance(true);
                     tripWR.setIsFullCoverage(true);
                     tripWR.setDepCity("Chicago");
                     tripWR.setDesCity("Miami");
 //                    try{
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         tripWR.setDepDate(sdf.parse("2023-05-02"));
 //                    } catch (ParseException e) {
 //                        e.printStackTrace();
 //                    }
-                    
-                    
+
+
                     //create insurance request
                     Order insuranceOrderSentToIns = o.getOrderCatalog().createOrder(order.getCustomer());
-                    
+
                     InsuranceProduct insSelected = (tripWR.getIsFullCoverage())? new InsuranceProduct("Full Coverage", 300):new InsuranceProduct("Partial Coverage", 200);
                     insuranceOrderSentToIns.newOrderItem(insSelected);
                     InsuranceWorkRequest inswr = order.getOrderWorkQueue().newInsuranceWorkRequest(insuranceOrderSentToIns,order.getCustomer(),this.getTravelAgencyOrg().getUserAccountDirectory().findByUserName("travelorgadmin"),this);
-            
+
                     //link this request with customer's main trip planning order and request
                     inswr.setCustomerTravelAgencyOrder(order);
                     inswr.setCustomerTripPlanningRequest(tripWR);
-            
+
                     tripWR.setStatus("Making insurance request from insurance advisor");
-                    
+
                     order.setFlightOrderPriceWithFood(order.getOrderTotal());
                 }
                 else {
-                    WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this); 
+                    WorkRequest workReq = order.getOrderWorkQueue().newWorkRequest(order, c, c.getUserAccount(), this);
                     o.getWorkQueue().addWorkRequest(workReq);
                 }
                 //add the order to org's order list
                 o.getOrderCatalog().getOrders().add(order);
             }
         }
-   
+
     }
-    
+
     public Organization findOrgByUserAccount(String username, String password){
         for (Enterprise en: this.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization org: en.getOrganizationDirectory().getOrganizationList()){
@@ -361,18 +362,18 @@ public class Platform {
                     }
             }
         }
-        return null;  
+        return null;
     }
-    
+
     public Enterprise findEnterpriseByUseraccount(String username, String password){
         for (Enterprise en: this.getEnterpriseDirectory().getEnterpriseList()){
-            
+
                 Boolean hasUserAtEntLevel = en.getUserAccountDirectory().accountExists(username, password);
                     if(hasUserAtEntLevel){
                         return en;
             }
         }
-        return null;  
+        return null;
     }
 
     public UserAccountDirectory getUad() {
@@ -418,6 +419,6 @@ public class Platform {
     public Organization getAttractionOrg() {
         return attractionOrg;
     }
-    
-    
+
+
 }

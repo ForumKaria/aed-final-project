@@ -30,7 +30,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
     JPanel container;
     Enterprise enterprise;
     Organization org;
-    
+
     public OrgManagerWorkAreaJPanel(JPanel container, Enterprise enterprise, UserAccount ua ,Platform platform) {
         initComponents();
         this.setVisible(true);
@@ -42,8 +42,8 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         manageOrders();
 
     }
-    
-    
+
+
     public void manageEmployee(){
         //to do: delete manage employee panel, org emloyees will be visible to its enterprise admin
         JPanel manageEmployeeJPanel = new ManageOrgEmployeeWorkArea(platform,container,  ua);
@@ -51,7 +51,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }
-    
+
     public void manageProduct(){
         if (this.org==this.platform.getAirlineOrg()){
             JPanel manageProductJPanel = new AirlineManagerProductWorkArea( platform,  container,  ua);
@@ -91,7 +91,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             layout.next(workArea);
         }
     }
-    
+
     public void manageOrders(){
         if (this.org==this.platform.getAirlineOrg()){
             JPanel manageOrderJPanel = new AirlineOrgManagerAllOrdersWorkArea( platform,  container,  ua);
@@ -105,7 +105,7 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
-        
+
         else if (this.org==this.platform.getFoodServiceOrg()){
             JPanel manageProductJPanel = new FoodOrgManagerAllOrdersWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);

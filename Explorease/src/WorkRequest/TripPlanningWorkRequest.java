@@ -6,9 +6,11 @@ package WorkRequest;
 
 import Business.Customer.Customer;
 import Business.Platform;
+import Business.Product.Product;
+import java.util.Date;
 import Order.Order;
 import UserAccount.UserAccount;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +25,17 @@ public class TripPlanningWorkRequest extends WorkRequest{
     Boolean needAttractionTicket = false;
     Boolean needBooking = false;
     Boolean confirmedToBook = false;
-    
+
+    ArrayList<Product> plannedTrip = new ArrayList<Product>();
+
+    public ArrayList<Product> getPlannedTrip() {
+        return plannedTrip;
+    }
+
+    public void addToTripDetails(Product p) {
+        this.plannedTrip.add(p);
+    }
+
     public TripPlanningWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
         super(o, c, sender, platform);
         this.receiverOrg = platform.getTravelAgencyOrg();
@@ -93,13 +105,13 @@ public class TripPlanningWorkRequest extends WorkRequest{
     public void setConfirmedToBook(Boolean confirmedToBook) {
         this.confirmedToBook = confirmedToBook;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 }

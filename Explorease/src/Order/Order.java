@@ -39,17 +39,17 @@ public class Order {
     public void setOrderApproved(Boolean orderApproved) {
         this.orderApproved = orderApproved;
     }
-    
+
     public Order(Customer c) {
         this.orderId = "ORDER" + this.counter++;
-        
+
         orderitems = new ArrayList<OrderItem>();
         customer = c;
         status = "in process";
         this.orderApproved = false;
         this.orderWorkQueue = new WorkQueue();
     }
-    
+
     public OrderItem newOrderItem(Product p) {
         OrderItem oi = new OrderItem(p);
         orderitems.add(oi);
@@ -63,10 +63,10 @@ public class Order {
             for (OrderItem oi : or.getOrderitems()) {
                 sum = sum + oi.getOrderItemTotal();
             }
-        } 
+        }
         return sum;
     }
-    
+
     public int getMainOrderTotal(){
         int sum = 0;
         for (OrderItem oi : orderitems) {
@@ -74,7 +74,7 @@ public class Order {
         }
         return sum;
     }
-    
+
     public void setFlightOrderPriceWithFood(int p){
         this.flightOrderPriceWithFood = p;
     }
@@ -82,8 +82,8 @@ public class Order {
     public int getFlightOrderPriceWithFood() {
         return flightOrderPriceWithFood;
     }
-    
-    
+
+
 
     public
     String getOrderId() {
@@ -128,11 +128,11 @@ public class Order {
     public WorkQueue getOrderWorkQueue() {
         return orderWorkQueue;
     }
-    
+
     @Override
     public String toString(){
         return this.orderId;
     }
-    
-    
+
+
 }

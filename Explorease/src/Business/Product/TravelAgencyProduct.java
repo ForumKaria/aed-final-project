@@ -12,20 +12,20 @@ import java.util.ArrayList;
  */
 public
         class TravelAgencyProduct extends Product {
-    
+
     String service;
     static int ctr =1;
     ArrayList<Product> tripDetails;
     int tripBudget;
     // Constructor
     public TravelAgencyProduct(String service, int price) {
-        
+
         super("TRAVEL_AGENCY_SERVICE_"+String.valueOf(ctr),price);
         ctr+=1;
         this.service= service;
         this.tripDetails = new ArrayList<Product>();
     }
-    
+
     // Override abstract method to get product details
     @Override
     public TravelAgencyProduct getProductDetails() {
@@ -56,10 +56,10 @@ public
     public void setTripBudget(int tripBudget) {
         this.tripBudget = tripBudget;
     }
-    
-    
-    
-    
-    
-   
+
+
+
+
+
+
 }

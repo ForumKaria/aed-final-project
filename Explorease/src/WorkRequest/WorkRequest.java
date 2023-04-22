@@ -7,6 +7,7 @@ package WorkRequest;
 import Business.Customer.Customer;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
 
@@ -15,9 +16,9 @@ import UserAccount.UserAccount;
  * @author emi
  */
 
-// Note - can delete other work requests type and make this class not abstract. 
+// Note - can delete other work requests type and make this class not abstract.
 public class WorkRequest{
-    String message; //do we need this?
+    String message; //do we need this? -> no - s
     UserAccount sender;
     Order order; //this is the order initiated by customer, different from when airline send food orders to food supplier
     Customer customer;
@@ -26,7 +27,24 @@ public class WorkRequest{
     private static int counter = 1;
     Organization receiverOrg;
     Platform platform;
-    
+    String assignedTo;
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
     public WorkRequest(Order o,Customer c, UserAccount sender,Platform platform) {
         // auto generate ID
         this.workrequestID = "WORK_REQUEST_" + this.counter++;
@@ -36,6 +54,7 @@ public class WorkRequest{
         this.platform = platform;
 //        this.receiverOrg = receiverOrg; //receiverOrg will be decided in child class
         this.status = "Order Requested";
+        this.assignedTo = "None";
     }
 
     public String getMessage() {
@@ -53,7 +72,7 @@ public class WorkRequest{
     public void setSender(UserAccount sender) {
         this.sender = sender;
     }
-    
+
     public Order getOrder() {
         return order;
     }
@@ -106,6 +125,6 @@ public class WorkRequest{
     public String toString(){
         return this.getWorkrequestID();
     }
-    
+
 //    public abstract void determineWorkRequestStatus();
 }

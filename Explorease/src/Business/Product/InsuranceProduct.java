@@ -10,17 +10,17 @@ package Business.Product;
  */
 public
         class InsuranceProduct extends Product {
-    
+
     String insurancePlan;
     static int ctr =1;
     // Constructor
     public InsuranceProduct(String insurancePlan, int price) {
-        
+
         super("INSURANCE_PLAN_"+String.valueOf(ctr),price);
         ctr+=1;
         this.insurancePlan= insurancePlan;
     }
-    
+
     // Override abstract method to get product details
     @Override
     public InsuranceProduct getProductDetails() {
@@ -34,8 +34,8 @@ public
     public void setInsurancePlan(String insurancePlan) {
         this.insurancePlan = insurancePlan;
     }
-    
-    
-    
-   
+
+
+
+
 }

@@ -16,7 +16,7 @@ import UserAccount.UserAccount;
 public class InsuranceWorkRequest extends WorkRequest{
     Order customerTravelAgencyOrder;
     TripPlanningWorkRequest customerTripPlanningRequest;
-    
+
     public InsuranceWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
         super(o, c, sender, platform);
         this.receiverOrg = platform.getInsuranceOrg();
@@ -40,7 +40,7 @@ public class InsuranceWorkRequest extends WorkRequest{
     }
 
 
-    
-    
-    
+
+
+
 }

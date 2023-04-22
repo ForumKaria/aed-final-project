@@ -14,9 +14,9 @@ import UserAccount.UserAccount;
  * @author emi
  */
 public class AttractionBookingWorkRequest extends WorkRequest{
-    
+
     public AttractionBookingWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
         super(o, c, sender, platform);
     }
-    
+
 }
