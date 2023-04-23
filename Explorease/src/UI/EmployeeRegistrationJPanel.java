@@ -22,7 +22,7 @@ import Roles.Role;
 import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
-import VerifyNull.VerifyNull;
+import Validation.VerifyNull;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;

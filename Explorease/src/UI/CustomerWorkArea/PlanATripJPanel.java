@@ -14,7 +14,7 @@ import Business.Product.Product;
 import Business.Product.TravelAgencyProduct;
 import Order.Order;
 import UserAccount.UserAccount;
-import VerifyNull.VerifyNull;
+import Validation.VerifyNull;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.WorkRequest;

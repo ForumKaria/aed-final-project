@@ -9,7 +9,7 @@ import Business.Organization.Organization;
 import Business.Platform;
 import Roles.SystemAdminRole;
 import UserAccount.UserAccount;
-import VerifyNull.VerifyNull;
+import Validation.VerifyNull;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;

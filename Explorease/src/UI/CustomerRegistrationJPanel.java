@@ -10,7 +10,8 @@ import Person.Person;
 import Roles.CustomerRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
-import VerifyNull.VerifyNull;
+import Validation.FormatValidate;
+import Validation.VerifyNull;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -23,6 +24,11 @@ public
     private Platform platform;
     private UserAccount ua;
     
+    private FormatValidate formatValid;
+    private boolean nameValid = false; //no special character
+    private boolean emailValid = false; //normal email format
+    private boolean phoneValid = false; //10 digits
+    
     /**
      * Creates new form RegistrationJPanel
      */
@@ -32,6 +38,8 @@ public
         
         this.platform = platform;
         jPanel1.setBackground(new Color(0,0,0,90));
+        
+        formatValid = new FormatValidate();
     }
 
     /**
@@ -80,6 +88,11 @@ public
         jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 120, 30));
 
         fieldname.setForeground(new java.awt.Color(255, 255, 255));
+        fieldname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldnameFocusLost(evt);
+            }
+        });
         jPanel1.add(fieldname, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 120, 30));
 
         registerBtn.setText("Register");
@@ -103,12 +116,22 @@ public
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, 20));
 
         filedEmail.setForeground(new java.awt.Color(255, 255, 255));
+        filedEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                filedEmailFocusLost(evt);
+            }
+        });
         jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 120, 30));
 
         jLabel9.setText("Phone:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, 30));
 
         fieldPhone.setForeground(new java.awt.Color(255, 255, 255));
+        fieldPhone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldPhoneFocusLost(evt);
+            }
+        });
         jPanel1.add(fieldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 120, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -125,7 +148,7 @@ public
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(422, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(bgPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE))
+                .addComponent(bgPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,20 +177,49 @@ public
         VerifyNull checkNull = new VerifyNull();
         boolean nonull = checkNull.checkNullObject(userName,pass,name, email, phone);
         if(nonull){
+            //check input format
+            if (!nameValid){
+                JOptionPane.showMessageDialog(null,"Check name format");
+            }else if(!emailValid){
+                JOptionPane.showMessageDialog(null,"Check email format");
+            }else if(!phoneValid){
+                JOptionPane.showMessageDialog(null,"Check phone format");
+            }
             //check user account unique
-        if(!uad.checkUserNameUnique(userName)) {
-            JOptionPane.showMessageDialog(null, "Credentials are taken. Try again!");
-        }
-        //create user account
-        else {
+            else if(!uad.checkUserNameUnique(userName)) {
+                JOptionPane.showMessageDialog(null, "Credentials are taken. Try again!");
+            }
+            //create user account
+            else {
                 UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
                 Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
                 JOptionPane.showMessageDialog(null, "Registered Successfully");
-        }
+            }
         }
         
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void fieldnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldnameFocusLost
+        // TODO add your handling code here:
+        if(formatValid.validateName(fieldname.getText())){
+            this.nameValid = true;
+        }
+    }//GEN-LAST:event_fieldnameFocusLost
+
+    private void filedEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_filedEmailFocusLost
+        // TODO add your handling code here:
+        if(formatValid.validateEmail(filedEmail.getText())){
+            this.emailValid = true;
+        }
+    }//GEN-LAST:event_filedEmailFocusLost
+
+    private void fieldPhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldPhoneFocusLost
+        // TODO add your handling code here:
+        if(formatValid.validatePhone(fieldPhone.getText())){
+            this.phoneValid = true;
+        }
+    }//GEN-LAST:event_fieldPhoneFocusLost
        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
