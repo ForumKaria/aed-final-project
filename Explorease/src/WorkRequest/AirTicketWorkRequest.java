@@ -17,6 +17,7 @@ import UserAccount.UserAccount;
 public class AirTicketWorkRequest extends WorkRequest{
     Boolean needFood = false;
     Boolean isVegan = false;
+    Boolean isRooundTrip = false;
     
     public AirTicketWorkRequest(Order o, Customer c, UserAccount sender,Platform platform) {
         super(o, c, sender,platform);
@@ -38,6 +39,14 @@ public class AirTicketWorkRequest extends WorkRequest{
 
     public void setIsVegan(Boolean isVegan) {
         this.isVegan = isVegan;
+    }
+
+    public Boolean getIsRooundTrip() {
+        return isRooundTrip;
+    }
+
+    public void setIsRooundTrip(Boolean isRooundTrip) {
+        this.isRooundTrip = isRooundTrip;
     }
     
     

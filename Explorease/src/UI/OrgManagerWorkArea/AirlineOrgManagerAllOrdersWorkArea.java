@@ -218,7 +218,15 @@ public class AirlineOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 Order foodOrderSentToFS = this.org.getOrderCatalog().createOrder(order.getCustomer());
                 AirTicketWorkRequest airWR = (AirTicketWorkRequest) wr;
                 FoodServiceProduct foodSelected = (airWR.getIsVegan()) ? new FoodServiceProduct("Vegan", 30) : new FoodServiceProduct("Non-veg", 40);
-                foodOrderSentToFS.newOrderItem(foodSelected);
+                
+                //for round trip, add two food order items 
+                if(airWR.getIsRooundTrip()){
+                    foodOrderSentToFS.newOrderItem(foodSelected);
+                    foodOrderSentToFS.newOrderItem(foodSelected);
+                }else{
+                    foodOrderSentToFS.newOrderItem(foodSelected);
+                }
+                
                 FoodServiceWorkRequest foodwr = order.getOrderWorkQueue().newFoodServiceWorkRequest(foodOrderSentToFS, order.getCustomer(), this.ua, this.platform);
 
                 //link this request with customer's main flight order and request

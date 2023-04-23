@@ -55,7 +55,8 @@ public class Order {
         orderitems.add(oi);
         return oi;
     }
-    //modification for use cases where flight order has food request attached to it
+    //for orgs that have attached services (air & travel agency), this will return total price from main org and also from sub org
+    //for orgs that do not have attched services(like hotel), this will return clean revenue for that org
     public int getOrderTotal() {
         int sum = 0;
         for (WorkRequest wr: this.orderWorkQueue.getWorkQueue()){
@@ -66,7 +67,8 @@ public class Order {
         }
         return sum;
     }
-
+    
+    //like if customer books flight with food, this method will return the revenue for flight, not including food
     public int getMainOrderTotal(){
         int sum = 0;
         for (OrderItem oi : orderitems) {

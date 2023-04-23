@@ -146,7 +146,7 @@ public class Platform {
             ProductCatalog flightProducts = airlineOrg.getProductCatalog();
             flightProducts.addProduct(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
             flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50));
-            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-04-02"), "10:30 AM", "03:30 hrs", false, 135, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-04-08"), "10:30 AM", "03:30 hrs", false, 135, 50));
             flightProducts.addProduct(new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "1:00 PM", "03:00 hrs", true, 200, 75));
             flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "11:00 AM", "02:00 hrs", true, 100, 30));
             flightProducts.addProduct(new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "9:00 AM", "01:30 hrs", true, 80, 20));
@@ -267,6 +267,9 @@ public class Platform {
             attractionProducts.addProduct(new AttractionProduct("Seattle","Theme Park Ticket", 120));
             attractionProducts.addProduct(new AttractionProduct("Seattle","Museum Ticket", 100));
             attractionProducts.addProduct(new AttractionProduct("Seattle","Adventure Ticket", 200));
+            attractionProducts.addProduct(new AttractionProduct("Miami","Theme Park Ticket", 120));
+            attractionProducts.addProduct(new AttractionProduct("Miami","Museum Ticket", 100));
+            attractionProducts.addProduct(new AttractionProduct("Miami","Adventure Ticket", 200));
 
 
         } catch (ParseException e) {

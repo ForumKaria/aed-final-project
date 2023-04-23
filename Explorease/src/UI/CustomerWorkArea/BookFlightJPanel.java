@@ -270,6 +270,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
         } else {
             Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+            
+            AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+
             //link product with the order
             if (tripTypeCombo.getSelectedItem().equals("One-way")) {
                 o.newOrderItem(this.flightSelected);
@@ -277,10 +280,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 //just to get the total price right for the order
                 o.newOrderItem(this.flightSelected);
                 o.newOrderItem(this.flightSelected);
+                
+                airworkReq.setIsRooundTrip(true);
 
             }
-            AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
-
+            
             //prepare food info to send to airline org
             if (foodCombo.getSelectedItem().equals("Order vegan meal")) {
                 airworkReq.setNeedFood(true);

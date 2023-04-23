@@ -51,6 +51,9 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 Object[] row = new Object[6];
                 row[0] = wr;
                 row[1] = wr.getCustomer().getPerson().getName();
+                
+                FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
+                Boolean roundTrip = foodwr.getCustomerFlightRequest().getIsRooundTrip();
                 row[2] = wr.getOrder().getMainOrderTotal(); //only showing the food price
                 row[3] = wr.getStatus();
                 FoodServiceProduct fp = (FoodServiceProduct) wr.getOrder().getOrderitems().get(0).getSelectedproduct().getProductDetails();
