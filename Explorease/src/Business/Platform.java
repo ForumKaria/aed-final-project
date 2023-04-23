@@ -126,7 +126,7 @@ public class Platform {
         UserAccount airOrgAdmin2 = airlineOrg.getUserAccountDirectory().createUserAccount("airorg", "airorg", new AirlineAgentRole());
         UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
         UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
-        UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
+        UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("t", "t", new TravelAgentRole());
         UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insorgadmin", "insorgadmin", new InsuranceAdvisorRole());
         UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
 

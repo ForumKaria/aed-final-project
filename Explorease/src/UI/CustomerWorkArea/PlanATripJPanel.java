@@ -7,7 +7,9 @@ package UI.CustomerWorkArea;
 import Business.Customer.Customer;
 import Business.Organization.Organization;
 import Business.Platform;
+import Business.Product.AttractionProduct;
 import Business.Product.FlightTicketProduct;
+import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import Business.Product.TravelAgencyProduct;
 import Order.Order;
@@ -57,24 +59,42 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
     private void populatePlannedTrips() {
         if (plannedTrip.size() > 0) {
-            for (TripPlanningWorkRequest flightFound : plannedTrip) {
+            for (TripPlanningWorkRequest tpWorkRequest : plannedTrip) {
+                if(tpWorkRequest.getPlannedTrip().size()>0){
+                    Object[] row = new Object[10];
 
-                Object[] row = new Object[9];
-
-                ArrayList<Product> f = flightFound.getPlannedTrip();
-                for (Product p : f) {
-                    FlightTicketProduct ff = (FlightTicketProduct) p.getProductDetails();
-                    row[0] = ff;
-                    row[1] = ff.getAirline();
-                    row[2] = ff.getDepartureCity();
-                    row[3] = ff.getDestinationCity();
-                    row[4] = new SimpleDateFormat("yyyy-MM-dd").format(ff.getDepartureDate());
-                    row[5] = ff.getDepartureTime();
-                    row[6] = ff.getFlightDuration();
-                    row[7] = (ff.getNonStop()) ? "Yes" : "No";
-                    row[8] = ff.getPrice();
+                    ArrayList<Product> proudcts = tpWorkRequest.getPlannedTrip();
+                    for (Product p : proudcts) {
+                        if(p!=null){
+                            //check product type
+                            if ( p.getProductDetails() instanceof FlightTicketProduct){
+                                FlightTicketProduct ff = (FlightTicketProduct) p.getProductDetails();
+                                row[0] = ff;
+                                row[1] = ff.getAirline();
+                                row[2] = ff.getDepartureCity();
+                                row[3] = ff.getDestinationCity();
+                                row[4] = new SimpleDateFormat("yyyy-MM-dd").format(ff.getDepartureDate());
+                                row[5] = ff.getPrice(); //onw way price
+                            }
+                            if (p.getProductDetails() instanceof HotelRoomsProduct){
+                                HotelRoomsProduct hotelP = (HotelRoomsProduct) p.getProductDetails();
+                                row[6] = hotelP.getProductId(); //hotel product id
+                                row[7] = hotelP.getPrice(); //hotel price, default to 1 night
+                            }
+                            if (p.getProductDetails() instanceof AttractionProduct){
+                                AttractionProduct attP = (AttractionProduct) p.getProductDetails();
+                                row[8] = attP.getTicketType();
+                                row[9] = attP.getPrice(); 
+                            }
+                            
+                            
+                        }
+                    
+                    }
+                    resultTable.addRow(row);
+                
                 }
-                resultTable.addRow(row);
+                
             }
         }
     }
@@ -127,16 +147,19 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
         plannedTrips.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Destination", "Departure Date", "Flight ID", "Flight Price", "Hotel ID", "Hotel Price", "Attraction Ticket", "Attraction Price", "Indurance Price"
+                "Flight ID", "Airline", "Departure Date", "Destination", "Date", "Flight Price", "Hotel ID", "Hotel Price", "Attraction Ticket", "Attraction Price"
             }
         ));
         jScrollPane2.setViewportView(plannedTrips);
+        if (plannedTrips.getColumnModel().getColumnCount() > 0) {
+            plannedTrips.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 940, 100));
 
@@ -152,7 +175,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 110, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/planATrip_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
@@ -220,7 +243,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Request Sent");
         }else{
-             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
+//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip"); //pop up msg already written in check null method
         }
     }//GEN-LAST:event_planBtnActionPerformed
 
@@ -257,7 +280,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Request Sent");
         }else{
-             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
+//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
         }
 
     }//GEN-LAST:event_bookBtnActionPerformed

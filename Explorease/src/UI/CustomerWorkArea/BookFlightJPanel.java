@@ -161,7 +161,6 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jTextField4.setEditable(false);
         add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 640, 80, -1));
 
-        bookBtn.setBackground(new java.awt.Color(51, 255, 204));
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

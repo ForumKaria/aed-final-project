@@ -46,7 +46,8 @@ public class FlightTicketProduct extends Product {
 
     @Override
     public String toString() {
-        return "FlightTicketProduct{" + "departureCity=" + departureCity + ", destinationCity=" + destinationCity + ", airline=" + airline + ", departureDate=" + departureDate + ", departureTime=" + departureTime + ", flightDuration=" + flightDuration + ", nonStop=" + nonStop + ", numberOfSeatsAvailable=" + numberOfSeatsAvailable + '}';
+        return this.getProductId();
+//        return "FlightTicketProduct{" + "departureCity=" + departureCity + ", destinationCity=" + destinationCity + ", airline=" + airline + ", departureDate=" + departureDate + ", departureTime=" + departureTime + ", flightDuration=" + flightDuration + ", nonStop=" + nonStop + ", numberOfSeatsAvailable=" + numberOfSeatsAvailable + '}';
     }
 
     public void setDepartureCity(String departureCity) {
