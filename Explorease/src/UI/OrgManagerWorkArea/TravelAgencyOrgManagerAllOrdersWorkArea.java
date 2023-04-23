@@ -48,7 +48,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
     DefaultTableModel orderTable;
     TripPlanningWorkRequest pTrip;
 
-    public TravelAgencyOrgManagerAllOrdersWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public TravelAgencyOrgManagerAllOrdersWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.container = container;
@@ -277,15 +277,15 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         this.pTrip = (TripPlanningWorkRequest) wr;
         Boolean needInsurance = this.pTrip.getNeedInsurance();
 
-        if (!needInsurance){
+        if (!needInsurance) {
             JOptionPane.showMessageDialog(null, "No insurance required from customer");
-        }else{
+        } else {
             //create insurance request
             Order insuranceOrderSentToIns = this.org.getOrderCatalog().createOrder(order.getCustomer());
-            TripPlanningWorkRequest travelAgencyWR  = (TripPlanningWorkRequest) wr;
-            InsuranceProduct insSelected = (travelAgencyWR.getIsFullCoverage())? new InsuranceProduct("Full Coverage", 300):new InsuranceProduct("Partial Coverage", 200);
+            TripPlanningWorkRequest travelAgencyWR = (TripPlanningWorkRequest) wr;
+            InsuranceProduct insSelected = (travelAgencyWR.getIsFullCoverage()) ? new InsuranceProduct("Full Coverage", 300) : new InsuranceProduct("Partial Coverage", 200);
             insuranceOrderSentToIns.newOrderItem(insSelected);
-            InsuranceWorkRequest inswr = order.getOrderWorkQueue().newInsuranceWorkRequest(insuranceOrderSentToIns,order.getCustomer(),this.ua,this.platform);
+            InsuranceWorkRequest inswr = order.getOrderWorkQueue().newInsuranceWorkRequest(insuranceOrderSentToIns, order.getCustomer(), this.ua, this.platform);
 
             //link this request with customer's main trip planning order and request
             inswr.setCustomerTravelAgencyOrder(order);
@@ -304,19 +304,19 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
-        
-        if(this.pTrip.getStatus().equalsIgnoreCase("Work Request Rejected")){
+
+        if (this.pTrip.getStatus().equalsIgnoreCase("Work Request Rejected")) {
             JOptionPane.showMessageDialog(null, "Can not approve rejected request");
-        }else{
+        } else {
             if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
-            this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
-            populateOrders();
-            JOptionPane.showMessageDialog(null, "Sent Details to Customer");
+                this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
+                populateOrders();
+                JOptionPane.showMessageDialog(null, "Sent Details to Customer");
             } else {
                 JOptionPane.showMessageDialog(null, "Request already assigned");
             }
         }
-        
+
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
@@ -325,22 +325,22 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
-        
-        if(this.pTrip.getStatus().equalsIgnoreCase("Details sent to customer")){
+
+        if (this.pTrip.getStatus().equalsIgnoreCase("Details sent to customer")) {
             JOptionPane.showMessageDialog(null, "Can not reject approved request");
-        }else{
+        } else {
             if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            this.org.getWorkQueue().rejectWorkRequest(wr);
-            populateOrders();
-            JOptionPane.showMessageDialog(null, "Request rejected");
+                this.org.getWorkQueue().rejectWorkRequest(wr);
+                populateOrders();
+                JOptionPane.showMessageDialog(null, "Request rejected");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Request already assigned");
 
             }
         }
-        
+
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -349,7 +349,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
-        
+
         JPanel bookFlightJPanel = new BookFlightJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
@@ -363,7 +363,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        
+
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             wr.setAssignedTo(ua.getUsername());
             populateOrders();
@@ -386,14 +386,17 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        this.pTrip = (TripPlanningWorkRequest) wr;
-        
-        JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua, pTrip);
-        JFrame frame = new JFrame();
-        frame.setVisible(true);
-        frame.setLayout(new BorderLayout());
-        frame.add(bookHotelJPanel, BorderLayout.CENTER);
-        frame.setSize(1100, 870);
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            this.pTrip = (TripPlanningWorkRequest) wr;
+            JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua, pTrip);
+            JFrame frame = new JFrame();
+            frame.setVisible(true);
+            frame.setLayout(new BorderLayout());
+            frame.add(bookHotelJPanel, BorderLayout.CENTER);
+            frame.setSize(1100, 870);
+        } else {
+            JOptionPane.showMessageDialog(null, "Not assigned to you");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -402,18 +405,22 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
-        
-        if(this.pTrip.getNeedAttractionTicket()){
-            JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
-            JFrame frame = new JFrame();
-            frame.setVisible(true);
-            frame.setLayout(new BorderLayout());
-            frame.add(bookAttJPanel, BorderLayout.CENTER);
-            frame.setSize(1100, 870);
-        }else{
-            JOptionPane.showMessageDialog(null, "No attraction ticket required from customer");
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+
+            if (this.pTrip.getNeedAttractionTicket()) {
+                JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
+                JFrame frame = new JFrame();
+                frame.setVisible(true);
+                frame.setLayout(new BorderLayout());
+                frame.add(bookAttJPanel, BorderLayout.CENTER);
+                frame.setSize(1100, 870);
+            } else {
+                JOptionPane.showMessageDialog(null, "No attraction ticket required from customer");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Not assigned to you");
         }
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -421,68 +428,72 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        this.pTrip = (TripPlanningWorkRequest) wr;
-        JOptionPane.showMessageDialog(null, "Work Request selected");
+        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            this.pTrip = (TripPlanningWorkRequest) wr;
+            JOptionPane.showMessageDialog(null, "Work Request selected");
+        } else {
+            JOptionPane.showMessageDialog(null, "Not assigned to you");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void placeAllOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeAllOrdersBtnActionPerformed
         // TODO add your handling code here:
-        try{
-        int selectedRow;
-        selectedRow = queue.getSelectedRow();
-        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        this.pTrip = (TripPlanningWorkRequest) wr;
-        
-        Customer c = this.pTrip.getCustomer();
-        //check if the customer  has confirmed budget
-        if(!this.pTrip.getConfirmedToBook()){
-            JOptionPane.showMessageDialog(null,"Wait for customer to confirm trip");
-        }else{
-        for (Product p : this.pTrip.getPlannedTrip()) {
+        try {
+            int selectedRow;
+            selectedRow = queue.getSelectedRow();
+            WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+            this.pTrip = (TripPlanningWorkRequest) wr;
+
+            Customer c = this.pTrip.getCustomer();
+            //check if the customer  has confirmed budget
+            if (!this.pTrip.getConfirmedToBook()) {
+                JOptionPane.showMessageDialog(null, "Wait for customer to confirm trip");
+            } else {
+                for (Product p : this.pTrip.getPlannedTrip()) {
 //            if (p.getProductDetails().getClass().getSimpleName().contains("Flight")) {
-            if(p.getProductDetails() instanceof FlightTicketProduct){
-                FlightTicketProduct atp = (FlightTicketProduct) p.getProductDetails();
-                Order o = c.getCustomerOrderCatalog().createOrder(c);
-                o.newOrderItem(atp);
+                    if (p.getProductDetails() instanceof FlightTicketProduct) {
+                        FlightTicketProduct atp = (FlightTicketProduct) p.getProductDetails();
+                        Order o = c.getCustomerOrderCatalog().createOrder(c);
+                        o.newOrderItem(atp);
 //            } else {
 //                //just to get the total price right for the order
 //                o.newOrderItem(this.flightSelected);
 //                o.newOrderItem(this.flightSelected);
 //
 //            }
-                AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, c, ua, this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+                        AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, c, ua, this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
 
-                //prepare food info to send to airline org
+                        //prepare food info to send to airline org
 //            if (foodCombo.getSelectedItem().equals("Order vegan meal")) {
 //                airworkReq.setNeedFood(true);
 //                airworkReq.setIsVegan(true);
 //            } else if (foodCombo.getSelectedItem().equals("Order non-vegan meal")) {
 //                airworkReq.setNeedFood(true);
 //            }
-                o.setFlightOrderPriceWithFood(o.getMainOrderTotal()); //no food option for order placed by travel agency 
-                //no need to add to the org's order list, we just loop workQueue for org data
-            } else if(p.getProductDetails() instanceof HotelRoomsProduct){
+                        o.setFlightOrderPriceWithFood(o.getMainOrderTotal()); //no food option for order placed by travel agency 
+                        //no need to add to the org's order list, we just loop workQueue for org data
+                    } else if (p.getProductDetails() instanceof HotelRoomsProduct) {
 //                if (p.getProductDetails().getClass().getSimpleName().contains("Hotel")) {
-                //create order for customer and add to customer's order list
-                Order o = c.getCustomerOrderCatalog().createOrder(c);
-                //link product with the order
-                HotelRoomsProduct hp = (HotelRoomsProduct) p.getProductDetails();
-                o.newOrderItem(hp);
-                HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, c, ua, this.platform);
-            } else if(p.getProductDetails() instanceof AttractionProduct){
+                        //create order for customer and add to customer's order list
+                        Order o = c.getCustomerOrderCatalog().createOrder(c);
+                        //link product with the order
+                        HotelRoomsProduct hp = (HotelRoomsProduct) p.getProductDetails();
+                        o.newOrderItem(hp);
+                        HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, c, ua, this.platform);
+                    } else if (p.getProductDetails() instanceof AttractionProduct) {
 //                if (p.getProductDetails().getClass().getSimpleName().contains("Attraction")) {
-                Order o = c.getCustomerOrderCatalog().createOrder(c);
-                //link product with the order
-                AttractionProduct ap = (AttractionProduct) p.getProductDetails();
-                o.newOrderItem(ap);
-                AttractionBookingWorkRequest workReq = o.getOrderWorkQueue().newAttractionBookingWorkRequest(o, c, ua, this.platform);
-                //add the order to org's order list
+                        Order o = c.getCustomerOrderCatalog().createOrder(c);
+                        //link product with the order
+                        AttractionProduct ap = (AttractionProduct) p.getProductDetails();
+                        o.newOrderItem(ap);
+                        AttractionBookingWorkRequest workReq = o.getOrderWorkQueue().newAttractionBookingWorkRequest(o, c, ua, this.platform);
+                        //add the order to org's order list
 //                this.org.getOrderCatalog().getOrders().add(o);
+                    }
+                };
+                JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
             }
-        };
-        JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
-        }
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Index out of bounds exception occurred: " + e.getMessage());
         }
     }//GEN-LAST:event_placeAllOrdersBtnActionPerformed

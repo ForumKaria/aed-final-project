@@ -70,6 +70,8 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
         this.trp = wr;
         this.bookBtn.setText("Add to Customer Plan");
+        this.desCity.setText(wr.getDesCity());
+        this.depDate.setDate(wr.getDepDate());
     }
 
     /**

@@ -75,6 +75,8 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
         this.trp = wr;
         this.bookBtn.setText("Add to Customer Plan");
+        this.desCity.setText(wr.getDesCity());
+        this.checkIn.setDate(wr.getDepDate());
 
     }
 

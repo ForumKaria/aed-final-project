@@ -46,6 +46,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     TravelAgencyProduct productSelected;
 
     public PlanATripJPanel(JPanel container, Platform platform, UserAccount ua) {
+        
         initComponents();
         this.platform = platform;
         this.container = container;
@@ -133,9 +134,9 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         confirmBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         depCity = new javax.swing.JTextField();
-        depDate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         insurCombo = new javax.swing.JComboBox<>();
+        depDate = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -193,7 +194,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 110, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 110, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/planATrip_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
@@ -217,21 +218,21 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         jLabel4.setText("Where will you departure from?");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
         add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 200, -1));
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 200, -1));
 
         jLabel10.setText("Destination in mind?");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
 
         insurCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No insurance selected", "Get full insurance coverage for my trip", "Get partial insurance coverage for my trip" }));
         add(insurCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 200, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 200, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void planBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planBtnActionPerformed
         // TODO add your handling code here:
         resultTable.setRowCount(0);
-
+        
         this.productSelected = (TravelAgencyProduct) this.org.getProductCatalog().getProducts().get(0);
-
+            
         String dep = depCity.getText();
         String des = desCity.getText();
         Date date = depDate.getDate();

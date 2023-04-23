@@ -63,6 +63,10 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
         this.trp = wr;
         this.bookBtn.setText("Add to Customer Plan");
+        this.depCity.setText(wr.getDepCity());
+        this.depDate.setDate(wr.getDepDate());
+        this.desCity.setText(wr.getDesCity());
+//        this..setText(wr.getDepCity());
     }
 
     /**

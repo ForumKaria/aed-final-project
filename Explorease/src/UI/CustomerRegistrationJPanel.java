@@ -13,33 +13,50 @@ import UserAccount.UserAccountDirectory;
 import Validation.FormatValidate;
 import Validation.VerifyNull;
 import java.awt.Color;
+import java.net.Authenticator;
+import javax.mail.PasswordAuthentication;
+import java.util.Properties;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
  * @author forumkaria
  */
-public
-        class CustomerRegistrationJPanel extends javax.swing.JPanel {
+public class CustomerRegistrationJPanel extends javax.swing.JPanel {
+
     private Platform platform;
     private UserAccount ua;
+<<<<<<< Updated upstream
     
     private FormatValidate formatValid;
     private boolean nameValid = false; //no special character
     private boolean emailValid = false; //normal email format
     private boolean phoneValid = false; //10 digits
     
+=======
+
+>>>>>>> Stashed changes
     /**
      * Creates new form RegistrationJPanel
      */
-    public
-            CustomerRegistrationJPanel(Platform platform) {
+    public CustomerRegistrationJPanel(Platform platform) {
         initComponents();
-        
+
         this.platform = platform;
+<<<<<<< Updated upstream
         jPanel1.setBackground(new Color(0,0,0,90));
         
         formatValid = new FormatValidate();
+=======
+        jPanel1.setBackground(new Color(0, 0, 0, 90));
+>>>>>>> Stashed changes
     }
 
     /**
@@ -160,6 +177,48 @@ public
                 .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 812, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+public static void sendEmail(String to, String subject, String body) {
+        // Sender email configuration
+        String senderEmail = "exploreease.noreply@gmail.com";
+        String senderPassword = "Password12#34";
+
+        // Recipient email configuration
+        String recipientEmail = to;
+
+        // Email server configuration
+        String host = "smtp.gmail.com";
+        int port = 587;
+
+        // Set properties
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
+
+        // Create session
+         // Create session
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+
+        try {
+            InternetAddress fromAddress = new InternetAddress(senderEmail);
+            InternetAddress toAddress = new InternetAddress(recipientEmail);
+
+            Message message = new MimeMessage(session);
+            message.setFrom(fromAddress);
+            message.setRecipient(Message.RecipientType.TO, toAddress);
+            message.setSubject(subject);
+            message.setText(body);
+            Transport.send(message);
+
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         // TODO add your handling code here:
@@ -171,10 +230,10 @@ public
         String name = fieldname.getText();
         String email = filedEmail.getText();
         String phone = fieldPhone.getText();
-        
-       
+
         //check null fields
         VerifyNull checkNull = new VerifyNull();
+<<<<<<< Updated upstream
         boolean nonull = checkNull.checkNullObject(userName,pass,name, email, phone);
         if(nonull){
             //check input format
@@ -192,11 +251,23 @@ public
             //create user account
             else {
                 UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
+=======
+        boolean nonull = checkNull.checkNullObject(userName, pass, name, email, phone);
+        if (nonull) {
+            //check user account unique
+            if (!uad.checkUserNameUnique(userName)) {
+                JOptionPane.showMessageDialog(null, "Credentials are taken. Try again!");
+            } //create user account
+            else {
+                UserAccount user = uad.createUserAccount(userName, pass, new CustomerRole());
+>>>>>>> Stashed changes
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
-                Customer c = this.platform.getCustomerDirectory().createCustomer(p,user);
+                Customer c = this.platform.getCustomerDirectory().createCustomer(p, user);
+                sendEmail("saakethlogs@gmail.com","Welcome to ExploreEase !!","We are glad to welcome you into our One Stop Solution for all your Travel plans. Happy Travelling with Ease! \n - ExploreEase Team");
                 JOptionPane.showMessageDialog(null, "Registered Successfully");
             }
         }
+<<<<<<< Updated upstream
         
     }//GEN-LAST:event_registerBtnActionPerformed
 
@@ -221,6 +292,11 @@ public
         }
     }//GEN-LAST:event_fieldPhoneFocusLost
        
+=======
+
+    }//GEN-LAST:event_registerBtnActionPerformed
+
+>>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgImageLabel;
