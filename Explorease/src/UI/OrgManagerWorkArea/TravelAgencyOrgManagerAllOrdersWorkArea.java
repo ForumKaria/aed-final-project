@@ -291,7 +291,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
             inswr.setCustomerTravelAgencyOrder(order);
             inswr.setCustomerTripPlanningRequest(travelAgencyWR);
 
-            wr.setStatus("Booking insurance from insurance advisor");
+            wr.setStatus("Making insurance request from insurance advisor");
             JOptionPane.showMessageDialog(null, "Insurance request sent");
 
             populateOrders();
@@ -305,13 +305,18 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
         
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+        if(this.pTrip.getStatus().equalsIgnoreCase("Work Request Rejected")){
+            JOptionPane.showMessageDialog(null, "Can not approve rejected request");
+        }else{
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
             populateOrders();
             JOptionPane.showMessageDialog(null, "Sent Details to Customer");
-        } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+            }
         }
+        
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
@@ -321,16 +326,21 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
         
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+        if(this.pTrip.getStatus().equalsIgnoreCase("Details sent to customer")){
+            JOptionPane.showMessageDialog(null, "Can not reject approved request");
+        }else{
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
             this.org.getWorkQueue().rejectWorkRequest(wr);
             populateOrders();
             JOptionPane.showMessageDialog(null, "Request rejected");
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
 
+            }
         }
+        
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -364,6 +374,11 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        wr.setStatus(statusTxt.getText());
+        populateOrders();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -388,12 +403,17 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
         this.pTrip = (TripPlanningWorkRequest) wr;
         
-        JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
-        JFrame frame = new JFrame();
-        frame.setVisible(true);
-        frame.setLayout(new BorderLayout());
-        frame.add(bookAttJPanel, BorderLayout.CENTER);
-        frame.setSize(1100, 870);
+        if(this.pTrip.getNeedAttractionTicket()){
+            JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
+            JFrame frame = new JFrame();
+            frame.setVisible(true);
+            frame.setLayout(new BorderLayout());
+            frame.add(bookAttJPanel, BorderLayout.CENTER);
+            frame.setSize(1100, 870);
+        }else{
+            JOptionPane.showMessageDialog(null, "No attraction ticket required from customer");
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
