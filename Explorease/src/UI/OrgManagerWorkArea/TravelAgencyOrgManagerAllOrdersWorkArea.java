@@ -25,6 +25,7 @@ import WorkRequest.FoodServiceWorkRequest;
 import WorkRequest.InsuranceWorkRequest;
 import WorkRequest.WorkRequest;
 import java.awt.BorderLayout;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -271,9 +272,10 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
-        Boolean needInsurance = (Boolean) orderTable.getValueAt(selectedRow, 4);
         Order order = (Order) orderTable.getValueAt(selectedRow, 1);
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        Boolean needInsurance = this.pTrip.getNeedInsurance();
 
         if (!needInsurance){
             JOptionPane.showMessageDialog(null, "No insurance required from customer");
@@ -301,6 +303,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             this.org.getWorkQueue().sendDetailsToCustomer(pTrip);
             populateOrders();
@@ -315,6 +319,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
             this.org.getWorkQueue().rejectWorkRequest(wr);
@@ -332,7 +338,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         JPanel bookFlightJPanel = new BookFlightJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
@@ -346,6 +353,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        
         if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
             wr.setAssignedTo(ua.getUsername());
             populateOrders();
@@ -360,6 +368,11 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         JPanel bookHotelJPanel = new BookHotelJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
@@ -370,6 +383,11 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         JPanel bookAttJPanel = new BookAttractionTicketJPanel(platform, ua, pTrip);
         JFrame frame = new JFrame();
         frame.setVisible(true);
@@ -389,7 +407,17 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 
     private void placeAllOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeAllOrdersBtnActionPerformed
         // TODO add your handling code here:
+        try{
+        int selectedRow;
+        selectedRow = queue.getSelectedRow();
+        WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+        this.pTrip = (TripPlanningWorkRequest) wr;
+        
         Customer c = this.pTrip.getCustomer();
+        //check if the customer  has confirmed budget
+        if(!this.pTrip.getConfirmedToBook()){
+            JOptionPane.showMessageDialog(null,"Wait for customer to confirm trip");
+        }else{
         for (Product p : this.pTrip.getPlannedTrip()) {
 //            if (p.getProductDetails().getClass().getSimpleName().contains("Flight")) {
             if(p.getProductDetails() instanceof FlightTicketProduct){
@@ -433,7 +461,10 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
             }
         };
         JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
-
+        }
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Index out of bounds exception occurred: " + e.getMessage());
+        }
     }//GEN-LAST:event_placeAllOrdersBtnActionPerformed
 
 

@@ -17,6 +17,8 @@ public class AttractionBookingWorkRequest extends WorkRequest{
 
     public AttractionBookingWorkRequest(Order o, Customer c, UserAccount sender, Platform platform) {
         super(o, c, sender, platform);
+        this.receiverOrg = platform.getAttractionOrg();
+        this.receiverOrg.getWorkQueue().addWorkRequest(this);
     }
 
 }

@@ -17,6 +17,7 @@ import UserAccount.UserAccount;
 import VerifyNull.VerifyNull;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.WorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +56,8 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
         this.plannedTrip = this.cus.getPlannedTrips(); // array list of products to populate in table
         populatePlannedTrips();
+        
+        bookBtn.setVisible(false);
     }
 
     private void populatePlannedTrips() {
@@ -62,39 +65,47 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         if (plannedTrip.size() > 0) {
             for (TripPlanningWorkRequest tpWorkRequest : plannedTrip) {
                 if(tpWorkRequest.getPlannedTrip().size()>0){
-                    Object[] row = new Object[10];
-
+                    Object[] row = new Object[11];
+                    row[0] = tpWorkRequest;
                     ArrayList<Product> proudcts = tpWorkRequest.getPlannedTrip();
                     for (Product p : proudcts) {
                         if(p!=null){
+                            
+//                            row[0] = tpWorkRequest;
                             //check product type
                             if ( p.getProductDetails() instanceof FlightTicketProduct){
                                 FlightTicketProduct ff = (FlightTicketProduct) p.getProductDetails();
-                                row[0] = ff;
-                                row[1] = ff.getAirline();
-                                row[2] = ff.getDepartureCity();
-                                row[3] = ff.getDestinationCity();
-                                row[4] = new SimpleDateFormat("yyyy-MM-dd").format(ff.getDepartureDate());
-                                row[5] = ff.getPrice(); //onw way price
+                                row[1] = ff.getProductId();
+                                row[2] = ff.getAirline();
+                                row[3] = ff.getDepartureCity();
+                                row[4] = ff.getDestinationCity();
+                                row[5] = new SimpleDateFormat("yyyy-MM-dd").format(ff.getDepartureDate());
+                                row[6] = ff.getPrice(); //onw way price
+//                                System.out.println("added a flight");
                             }
                             if (p.getProductDetails() instanceof HotelRoomsProduct){
                                 HotelRoomsProduct hotelP = (HotelRoomsProduct) p.getProductDetails();
-                                row[6] = hotelP.getProductId(); //hotel product id
-                                row[7] = hotelP.getPrice(); //hotel price, default to 1 night
+                                row[7] = hotelP.getProductId(); //hotel product id
+                                row[8] = hotelP.getPrice(); //hotel price, default to 1 night
+//                                System.out.println("added a hotel");
                             }
                             if (p.getProductDetails() instanceof AttractionProduct){
                                 AttractionProduct attP = (AttractionProduct) p.getProductDetails();
-                                row[8] = attP.getTicketType();
-                                row[9] = attP.getPrice(); 
+                                row[9] = attP.getTicketType();
+                                row[10] = attP.getPrice(); 
+//                                System.out.println("added a att");
                             }
                             
                             
                         }
-                    
+                        
+                        
                     }
                     resultTable.addRow(row);
+//                    System.out.println("added one row");
                 
                 }
+                
                 
             }
         }
@@ -125,7 +136,6 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         depDate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         insurCombo = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -148,19 +158,21 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
         plannedTrips.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Flight ID", "Airline", "Departure Date", "Destination", "Date", "Flight Price", "Hotel ID", "Hotel Price", "Attraction Ticket", "Attraction Price"
+                "WorkRequest ID", "Flight ID", "Airline", "Departure Date", "Destination", "Date", "Flight Price", "Hotel ID", "Hotel Price", "Attraction Ticket", "Attraction Price"
             }
         ));
+        plannedTrips.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plannedTripsMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(plannedTrips);
-        if (plannedTrips.getColumnModel().getColumnCount() > 0) {
-            plannedTrips.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 940, 240));
 
@@ -168,6 +180,11 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, 20));
 
         jTextField4.setEditable(false);
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
         add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 105, -1));
 
         bookBtn.setText("Book My Trip");
@@ -207,9 +224,6 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
         insurCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No insurance selected", "Get full insurance coverage for my trip", "Get partial insurance coverage for my trip" }));
         add(insurCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 200, -1));
-
-        jLabel1.setText("Belows are not implemented, total budget would be a column to each row");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void planBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planBtnActionPerformed
@@ -293,7 +307,31 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
         //select a row from result table, check if it's a booking request, then set the confirmToBook to true
+        int selectedRow;
+        selectedRow = plannedTrips.getSelectedRow();
+        WorkRequest wr = (WorkRequest) plannedTrips.getValueAt(selectedRow, 0);
+        this.trp = (TripPlanningWorkRequest) wr;
+        this.trp.setConfirmedToBook(true);
+        JOptionPane.showMessageDialog(null, "Confirmed to make bookings");
     }//GEN-LAST:event_confirmBtnActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+
+        
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void plannedTripsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plannedTripsMouseClicked
+        // TODO add your handling code here:
+        int selectedRow;
+        selectedRow = plannedTrips.getSelectedRow();
+        int flightPrice = (int) plannedTrips.getValueAt(selectedRow, 6);
+        int hotelPrice = (int) plannedTrips.getValueAt(selectedRow, 8);
+        int attPrice = (int) plannedTrips.getValueAt(selectedRow, 10);
+        
+        int totalbudget = flightPrice + hotelPrice + attPrice;
+        jTextField4.setText(String.valueOf(totalbudget));
+    }//GEN-LAST:event_plannedTripsMouseClicked
 
 
 
@@ -305,7 +343,6 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField desCity;
     private javax.swing.JCheckBox getAtt;
     private javax.swing.JComboBox<String> insurCombo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

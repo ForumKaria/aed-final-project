@@ -45,8 +45,8 @@ public class WorkQueue {
         Customer c = workReq.getCustomer();
         c.addToPlannedTrips(workReq);
 
-        workReq.setStatus("Work Request Finished");
-        workReq.getOrder().setOrderApproved(true);
+        workReq.setStatus("Details sent to customer"); //not finished, may need to book
+//        workReq.getOrder().setOrderApproved(true);
 //        this.workQueue.remove(workReq);
     }
 

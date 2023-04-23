@@ -122,13 +122,13 @@ public class Platform {
         attractionOrg = attraction.getOrganizationDirectory().createOrganization(AttractionOrg);
 
         //create org persons for testing, enterprise admin can also create new org admin users from UI
-        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("airorgadmin", "airorgadmin", new AirlineAgentRole());
+        UserAccount airOrgAdmin = airlineOrg.getUserAccountDirectory().createUserAccount("air", "air", new AirlineAgentRole());
         UserAccount airOrgAdmin2 = airlineOrg.getUserAccountDirectory().createUserAccount("airorg", "airorg", new AirlineAgentRole());
-        UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
-        UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
+        UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotel", "hotel", new AirlineAgentRole());
+        UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("food", "food", new FoodServiceSupplierRole());
         UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("t", "t", new TravelAgentRole());
-        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insorgadmin", "insorgadmin", new InsuranceAdvisorRole());
-        UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
+        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("ins", "ins", new InsuranceAdvisorRole());
+        UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("att", "att", new AttractionOfficerRole());
 
         //create a customer for testing
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
@@ -146,6 +146,7 @@ public class Platform {
             ProductCatalog flightProducts = airlineOrg.getProductCatalog();
             flightProducts.addProduct(new FlightTicketProduct("New York", "Los Angeles", "American Airlines", sdf.parse("2023-05-01"), "8:00 AM", "06:00 hrs", true, 250, 100));
             flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-05-02"), "10:30 AM", "03:30 hrs", false, 150, 50));
+            flightProducts.addProduct(new FlightTicketProduct("Chicago", "Miami", "Delta Airlines", sdf.parse("2023-04-02"), "10:30 AM", "03:30 hrs", false, 135, 50));
             flightProducts.addProduct(new FlightTicketProduct("Houston", "Denver", "United Airlines", sdf.parse("2023-05-03"), "1:00 PM", "03:00 hrs", true, 200, 75));
             flightProducts.addProduct(new FlightTicketProduct("San Francisco", "Seattle", "Alaska Airlines", sdf.parse("2023-05-04"), "11:00 AM", "02:00 hrs", true, 100, 30));
             flightProducts.addProduct(new FlightTicketProduct("Boston", "Washington DC", "JetBlue Airways", sdf.parse("2023-05-05"), "9:00 AM", "01:30 hrs", true, 80, 20));
