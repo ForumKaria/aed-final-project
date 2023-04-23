@@ -4,9 +4,16 @@
  */
 package UI.SystemAdminWorkArea;
 
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.EnterpriseDirectory;
 import Business.Platform;
 import UserAccount.UserAccount;
+import UserAccount.UserAccountDirectory;
+import WorkRequest.TripPlanningWorkRequest;
+import WorkRequest.WorkRequest;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +27,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     Platform platform;
     UserAccount ua;
     JPanel container;
+    DefaultTableModel entTable;
     
     public ManageEnterpriseJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
@@ -28,8 +36,25 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
+        this.entTable = (DefaultTableModel) ent.getModel();
+        populateTable();
     }
 
+    public void populateTable() {
+        entTable.setRowCount(0);
+        ArrayList<Enterprise> en = this.platform.getEnterpriseDirectory().getEnterpriseList();
+        if (en.size() > 0) {
+            for ( Enterprise e: en) {
+                UserAccount uad = e.getUserAccountDirectory().getUseraccountList().get(0);
+                Object[] row = new Object[4];
+                row[0] = e.getEnterpriseId();
+                row[1] = uad.getAccountId();
+                row[2] = uad.getUsername();
+                row[3] = uad.getPassword(); 
+                entTable.addRow(row);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,13 +65,13 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ent = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,10 +79,10 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Enterprise", "Admin Id", "Username", "Password"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,7 +104,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ent;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

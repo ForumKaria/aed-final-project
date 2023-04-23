@@ -147,36 +147,47 @@ public class InsuranceOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        
-        if (wr.getStatus().equalsIgnoreCase("Order requested")){
-            wr.setStatus("Insurance approved");
+
+            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                wr.setStatus("Insurance approved");
 //          this.org.getWorkQueue().finishWorkRequest(wr);
-            InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
-            foodwr.getCustomerTripPlanningRequest().setStatus("Insurance confirmed");
-            populateOrders();
-        }else{
-            JOptionPane.showMessageDialog(null, "Processing already completed");
+                InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
+                foodwr.getCustomerTripPlanningRequest().setStatus("Insurance confirmed");
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Processing already completed");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
         }
-        
+
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
         // TODO add your handling code here:'
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getStatus().equalsIgnoreCase("Order requested")){
-            wr.setStatus("Insurance rejected");
+            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                wr.setStatus("Insurance rejected");
 //        this.org.getWorkQueue().rejectWorkRequest(wr);
-            InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
-            foodwr.getCustomerTripPlanningRequest().setStatus("Insurance rejected");
-            populateOrders();
-        }else{
-            JOptionPane.showMessageDialog(null, "Already processed");
+                InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
+                foodwr.getCustomerTripPlanningRequest().setStatus("Insurance rejected");
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Already processed");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
         }
     }//GEN-LAST:event_rejBtnActionPerformed
 

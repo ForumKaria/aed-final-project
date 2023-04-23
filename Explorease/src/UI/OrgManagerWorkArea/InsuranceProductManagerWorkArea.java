@@ -10,6 +10,7 @@ import Business.Product.InsuranceProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,32 +18,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author forumkaria
  */
-public
-        class InsuranceProductManagerWorkArea extends javax.swing.JPanel {
+public class InsuranceProductManagerWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form InsuranceProductManagerWorkArea
      */
-    
     Platform platform;
     UserAccount ua;
     JPanel container;
     Organization org;
     DefaultTableModel prodTable;
-    
-    public
-            InsuranceProductManagerWorkArea(Platform platform,JPanel container, UserAccount ua) {
+
+    public InsuranceProductManagerWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
-        
-        this.platform = platform; 
+
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.prodTable = (DefaultTableModel) products.getModel();
         populateInsurancePlans();
     }
-            
-            public void populateInsurancePlans() {
+
+    public void populateInsurancePlans() {
         prodTable.setRowCount(0);
 
         ArrayList<Product> insurancePlans = this.org.getProductCatalog().getProducts();
@@ -221,9 +219,15 @@ public
     private void removeFoodBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFoodBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         InsuranceProduct f = (InsuranceProduct) prodTable.getValueAt(selectedRow, 0);
-        this.org.getProductCatalog().getProducts().remove(f);
-        populateInsurancePlans();
+            this.org.getProductCatalog().getProducts().remove(f);
+            populateInsurancePlans();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
     }//GEN-LAST:event_removeFoodBtnActionPerformed
 
     private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
@@ -233,9 +237,15 @@ public
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         InsuranceProduct f = (InsuranceProduct) prodTable.getValueAt(selectedRow, 0);
-        plan.setText(f.getInsurancePlan());
-        price.setText(String.valueOf(f.getPrice()));
+            plan.setText(f.getInsurancePlan());
+            price.setText(String.valueOf(f.getPrice()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
     }//GEN-LAST:event_selectActionPerformed
 
     private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
@@ -245,11 +255,17 @@ public
     private void updateFoodBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFoodBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         InsuranceProduct f = (InsuranceProduct) prodTable.getValueAt(selectedRow, 0);
 
         f.setInsurancePlan(plan.getText());
         f.setPrice(Integer.valueOf(price.getText()));
         populateInsurancePlans();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
     }//GEN-LAST:event_updateFoodBtnActionPerformed
 
 

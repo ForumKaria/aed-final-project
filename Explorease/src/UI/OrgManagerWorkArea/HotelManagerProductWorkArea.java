@@ -1,4 +1,5 @@
 package UI.OrgManagerWorkArea;
+
 import Business.Organization.Organization;
 import Business.Platform;
 import Business.Product.FlightTicketProduct;
@@ -6,8 +7,10 @@ import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 15512
@@ -17,16 +20,15 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form AirlineManagerWorkArea
      */
-    
     Platform platform;
     UserAccount ua;
     JPanel container;
     Organization org;
     DefaultTableModel prodTable;
 
-    public HotelManagerProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public HotelManagerProductWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
@@ -34,7 +36,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         populateRooms();
     }
 
-     public void populateRooms() {
+    public void populateRooms() {
         prodTable.setRowCount(0);
 
         ArrayList<Product> flights = this.org.getProductCatalog().getProducts();
@@ -51,7 +53,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
             }
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,31 +207,50 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
+        if (selectedRow > -1) {
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
-        depCity.setText(f.getDepartureCity());
-        airline.setText(f.getAirline());
-        departureDate.setDate(f.getDepartureDate());
-        desCity.setText(f.getDestinationCity());                                
+            depCity.setText(f.getDepartureCity());
+            airline.setText(f.getAirline());
+            departureDate.setDate(f.getDepartureDate());
+            desCity.setText(f.getDestinationCity());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
+
     }//GEN-LAST:event_selectActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
+        if (selectedRow > -1) {
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
-        
-        f.setDepartureCity(depCity.getText());
-        f.setAirline(airline.getText());
-        airline.setText(f.getAirline());
-        populateRooms();
+
+            f.setDepartureCity(depCity.getText());
+            f.setAirline(airline.getText());
+            airline.setText(f.getAirline());
+            populateRooms();
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+        }
+
         // Others to add
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
+        if (selectedRow > -1) {
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
-        this.org.getProductCatalog().getProducts().remove(f);
-        populateRooms();
+            this.org.getProductCatalog().getProducts().remove(f);
+            populateRooms();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

@@ -8,6 +8,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,7 +29,7 @@ public class ManageOrgEmployeeWorkArea extends javax.swing.JPanel {
     DefaultTableModel approveTable;
     Employee selectedEmp;
 
-    public ManageOrgEmployeeWorkArea(Platform platform,JPanel container, UserAccount ua) {
+    public ManageOrgEmployeeWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
         this.platform = platform;
         this.ua = ua;
@@ -241,53 +242,88 @@ public class ManageOrgEmployeeWorkArea extends javax.swing.JPanel {
     private void appBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = approveEmployeeTable.getSelectedRow();
+        if (selectedRow > -1) {
         Employee emp = (Employee) approveTable.getValueAt(selectedRow, 0);
-        emp.setApproved(true);
-        populateEmployees();
-        populateNewEmployees();
+            emp.setApproved(true);
+            populateEmployees();
+            populateNewEmployees();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Employee!");
+
+        }
+
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = approveEmployeeTable.getSelectedRow();
+        if (selectedRow > -1) {
         Employee emp = (Employee) approveTable.getValueAt(selectedRow, 0);
-        this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
-        //need to delete the user account too
-        this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
-        populateNewEmployees();
+            this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
+            //need to delete the user account too
+            this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
+            populateNewEmployees();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Employeet!");
+
+        }
+
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = currentEmployees.getSelectedRow();
+        if (selectedRow > -1) {
         Employee emp = (Employee) curEmployeeTable.getValueAt(selectedRow, 0);
-        name.setText(emp.getPerson().getName());
-        username.setText(emp.getUserAccount().getUsername());
-        password.setText(emp.getUserAccount().getPassword());
-        selectedEmp = emp;
+            name.setText(emp.getPerson().getName());
+            username.setText(emp.getUserAccount().getUsername());
+            password.setText(emp.getUserAccount().getPassword());
+            selectedEmp = emp;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Employee!");
+
+        }
+
     }//GEN-LAST:event_selectActionPerformed
 
     private void remBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = currentEmployees.getSelectedRow();
+        if (selectedRow > -1) {
         Employee emp = (Employee) curEmployeeTable.getValueAt(selectedRow, 0);
-        this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
-        //need to delete the user account too
-        this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
-        populateEmployees();
-        clearTextFields();
+            this.org.getEmployeeDirectory().getEmployeelist().remove(emp);
+            //need to delete the user account too
+            this.org.getUserAccountDirectory().getUseraccountList().remove(emp.getUserAccount());
+            populateEmployees();
+            clearTextFields();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Employee!");
+
+        }
+
     }//GEN-LAST:event_remBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        selectedEmp.getPerson().setName(name.getText());
-        selectedEmp.getUserAccount().setUsername(username.getText());
-        selectedEmp.getUserAccount().setPassword(password.getText());
-        populateEmployees();
-        clearTextFields();
+        if (selectedEmp != null) {
+            selectedEmp.getPerson().setName(name.getText());
+            selectedEmp.getUserAccount().setUsername(username.getText());
+            selectedEmp.getUserAccount().setPassword(password.getText());
+            populateEmployees();
+            clearTextFields();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Employee!");
+
+        }
+
     }//GEN-LAST:event_updateBtnActionPerformed
-    
-    public void clearTextFields(){
+
+    public void clearTextFields() {
         name.setText("");
         username.setText("");
         password.setText("");

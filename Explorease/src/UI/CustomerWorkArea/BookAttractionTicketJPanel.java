@@ -86,7 +86,6 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         desCity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        depDate = new com.toedter.calendar.JDateChooser();
         searchBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         att = new javax.swing.JTable();
@@ -99,6 +98,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         visitorsCombo = new javax.swing.JComboBox<>();
+        depDate = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1100, 800));
@@ -110,9 +110,6 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Date");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
-
-        depDate.setDateFormatString("yyyy-MM-dd");
-        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 158, -1));
 
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +170,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
 
         visitorsCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         add(visitorsCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 90, -1));
+        add(depDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -217,17 +215,23 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        if (this.isEmp) {
-            trp.addToTripDetails(attrctionSelected);
-            JOptionPane.showMessageDialog(null, "Added to trip details");
+
+        if (this.attrctionSelected != null) {
+            if (this.isEmp) {
+                trp.addToTripDetails(attrctionSelected);
+                JOptionPane.showMessageDialog(null, "Added to trip details");
+            } else {
+                //create order for customer and add to customer's order list
+                Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+                //link product with the order
+                o.newOrderItem(this.attrctionSelected);
+                //add the order to org's order list
+                this.org.getOrderCatalog().getOrders().add(o);
+                JOptionPane.showMessageDialog(null, "Booking request sent");
+            }
         } else {
-            //create order for customer and add to customer's order list
-            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-            //link product with the order
-            o.newOrderItem(this.attrctionSelected);
-            //add the order to org's order list
-            this.org.getOrderCatalog().getOrders().add(o);
-            JOptionPane.showMessageDialog(null, "Booking request sent");
+            JOptionPane.showMessageDialog(null, "Select a product!");
+
         }
     }//GEN-LAST:event_bookBtnActionPerformed
 

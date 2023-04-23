@@ -225,12 +225,11 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 //        Date outdate = checkOut.getDate();
 //        int rooms = (int) roomsCombo.getSelectedItem();
 
-        for (Product room: this.org.getProductCatalog().getProducts()){
+        for (Product room : this.org.getProductCatalog().getProducts()) {
             HotelRoomsProduct r = (HotelRoomsProduct) room.getProductDetails();
-            if ( r.getCity().equalsIgnoreCase(des)
-//                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
-//                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
-                    ){
+            if (r.getCity().equalsIgnoreCase(des) //                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
+                    //                            equals(date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
+                    ) {
                 searchResult.add(room);
             }
         }
@@ -262,33 +261,38 @@ public class BookHotelJPanel extends javax.swing.JPanel {
 
         Instant checkindate = checkIn.getDate().toInstant();
         Instant checkoutdate = checkOut.getDate().toInstant();
-        Long durationSeconds = Duration.between(checkindate,checkoutdate).getSeconds();
-        jTextField5.setText(String.valueOf( (int)TimeUnit.DAYS.convert(durationSeconds,TimeUnit.SECONDS))); //stay duration
+        Long durationSeconds = Duration.between(checkindate, checkoutdate).getSeconds();
+        jTextField5.setText(String.valueOf((int) TimeUnit.DAYS.convert(durationSeconds, TimeUnit.SECONDS))); //stay duration
 
         jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
         //unit price*rooms*nights
-        jTextField4.setText(String.valueOf(roomSelected.getPrice()*Integer.valueOf(jTextField5.getText())*Integer.valueOf(jTextField7.getText())));
+        jTextField4.setText(String.valueOf(roomSelected.getPrice() * Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText())));
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        if (this.isEmp) {
-            trp.addToTripDetails(roomSelected);
-            JOptionPane.showMessageDialog(null, "Added to trip details");
+        if (this.roomSelected != null) {
+            if (this.isEmp) {
+                trp.addToTripDetails(roomSelected);
+                JOptionPane.showMessageDialog(null, "Added to trip details");
 
-        } else {
-            //create order for customer and add to customer's order list
-            Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
-            //link product with the order
-            for (int i = 0; i < Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText()); i++) {
-                o.newOrderItem(this.roomSelected);
-            }
+            } else {
+                //create order for customer and add to customer's order list
+                Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
+                //link product with the order
+                for (int i = 0; i < Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText()); i++) {
+                    o.newOrderItem(this.roomSelected);
+                }
 
-            HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
+                HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform);
 //        this.org.getWorkQueue().addWorkRequest(workReq);
-            //add the order to org's order list
+                //add the order to org's order list
 //        this.org.getOrderCatalog().getOrders().add(o);
-            JOptionPane.showMessageDialog(null, "Booking request sent");
+                JOptionPane.showMessageDialog(null, "Booking request sent");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a product!");
+
         }
     }//GEN-LAST:event_bookBtnActionPerformed
 

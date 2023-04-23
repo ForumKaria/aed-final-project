@@ -10,6 +10,7 @@ import Business.Product.Product;
 import Business.Product.TravelAgencyProduct;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,31 +18,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author forumkaria
  */
-public
-        class TravelAgencyProductWorkArea extends javax.swing.JPanel {
+public class TravelAgencyProductWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form TravelAgencyProductWorkArea
      */
-    
     Platform platform;
     UserAccount ua;
     JPanel container;
     Organization org;
     DefaultTableModel prodTable;
-    
-    public
-            TravelAgencyProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
+
+    public TravelAgencyProductWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.prodTable = (DefaultTableModel) products.getModel();
         populateService();
     }
-            
-        public void populateService() {
+
+    public void populateService() {
         prodTable.setRowCount(0);
 
         ArrayList<Product> travelServices = this.org.getProductCatalog().getProducts();
@@ -209,9 +207,15 @@ public
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         TravelAgencyProduct f = (TravelAgencyProduct) prodTable.getValueAt(selectedRow, 0);
-        service.setText(f.getService());
-        price.setText(String.valueOf(f.getPrice()));
+            service.setText(f.getService());
+            price.setText(String.valueOf(f.getPrice()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Product!");
+
+        }
     }//GEN-LAST:event_selectActionPerformed
 
     private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
@@ -221,11 +225,17 @@ public
     private void updateFoodBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFoodBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         TravelAgencyProduct f = (TravelAgencyProduct) prodTable.getValueAt(selectedRow, 0);
 
-        f.setService(service.getText());
-        f.setPrice(Integer.valueOf(price.getText()));
-        populateService();
+            f.setService(service.getText());
+            f.setPrice(Integer.valueOf(price.getText()));
+            populateService();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Product!");
+
+        }
     }//GEN-LAST:event_updateFoodBtnActionPerformed
 
 

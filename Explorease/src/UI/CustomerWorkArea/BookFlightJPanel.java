@@ -268,6 +268,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
         //create order for customer and add to customer's order list
+        if(this.flightSelected!=null){
         if (this.isEmp) {
             trp.addToTripDetails(flightSelected);
             JOptionPane.showMessageDialog(null, "Added to trip details");
@@ -301,6 +302,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
             //no need to add to the org's order list, we just loop workQueue for org data
             JOptionPane.showMessageDialog(null, "Booking request sent");
+        }} else {
+            JOptionPane.showMessageDialog(null, "Select a product!");
+
         }
     }//GEN-LAST:event_bookBtnActionPerformed
 

@@ -10,6 +10,7 @@ import Business.Product.FoodServiceProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,31 +18,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author forumkaria
  */
-public
-        class FoodManagerProductWorkArea extends javax.swing.JPanel {
+public class FoodManagerProductWorkArea extends javax.swing.JPanel {
 
     /**
      * Creates new form FoodManagerProductWorkArea
      */
-    
     Platform platform;
     UserAccount ua;
     JPanel container;
     Organization org;
     DefaultTableModel prodTable;
-    
-    public
-            FoodManagerProductWorkArea(Platform platform,JPanel container, UserAccount ua) {
+
+    public FoodManagerProductWorkArea(Platform platform, JPanel container, UserAccount ua) {
         initComponents();
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
         this.org = platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.prodTable = (DefaultTableModel) products.getModel();
         populateFoodService();
     }
-            
-            public void populateFoodService() {
+
+    public void populateFoodService() {
         prodTable.setRowCount(0);
 
         ArrayList<Product> foodServices = this.org.getProductCatalog().getProducts();
@@ -193,9 +191,16 @@ public
     private void removeFoodBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFoodBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         FoodServiceProduct f = (FoodServiceProduct) prodTable.getValueAt(selectedRow, 0);
-        this.org.getProductCatalog().getProducts().remove(f);
-        populateFoodService();
+            this.org.getProductCatalog().getProducts().remove(f);
+            populateFoodService();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
+
     }//GEN-LAST:event_removeFoodBtnActionPerformed
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
@@ -206,8 +211,15 @@ public
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
         FoodServiceProduct f = (FoodServiceProduct) prodTable.getValueAt(selectedRow, 0);
-        menu.setText(f.getMenu());
-        price.setText(String.valueOf(f.getPrice()));
+        if (selectedRow > -1) {
+            menu.setText(f.getMenu());
+            price.setText(String.valueOf(f.getPrice()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
+
     }//GEN-LAST:event_selectActionPerformed
 
     private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
@@ -217,11 +229,18 @@ public
     private void updateFoodBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFoodBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = products.getSelectedRow();
+        if (selectedRow > -1) {
         FoodServiceProduct f = (FoodServiceProduct) prodTable.getValueAt(selectedRow, 0);
 
-        f.setMenu(menu.getText());
-        f.setPrice(Integer.valueOf(price.getText()));
-        populateFoodService();
+            f.setMenu(menu.getText());
+            f.setPrice(Integer.valueOf(price.getText()));
+            populateFoodService();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
+
+        }
+
     }//GEN-LAST:event_updateFoodBtnActionPerformed
 
 

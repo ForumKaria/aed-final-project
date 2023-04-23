@@ -51,7 +51,7 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
                 Object[] row = new Object[6];
                 row[0] = wr;
                 row[1] = wr.getCustomer().getPerson().getName();
-                
+
                 FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
                 Boolean roundTrip = foodwr.getCustomerFlightRequest().getIsRooundTrip();
                 row[2] = wr.getOrder().getMainOrderTotal(); //only showing the food price
@@ -163,22 +163,29 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
 
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
-                wr.setStatus("Food service approved");
+                if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                    wr.setStatus("Food service approved");
 //          this.org.getWorkQueue().finishWorkRequest(wr);
-                FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-                foodwr.getCustomerFlightRequest().setStatus("Food reservation confirmed");
-                populateOrders();
+                    FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
+                    foodwr.getCustomerFlightRequest().setStatus("Food reservation confirmed");
+                    populateOrders();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Processing already completed");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Processing already completed");
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
             }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
+
 
     }//GEN-LAST:event_appBtnActionPerformed
 
@@ -186,37 +193,51 @@ public class FoodOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:'
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            if (wr.getStatus().equalsIgnoreCase("Order requested")) {
-                wr.setStatus("Food service rejected");
+                if (wr.getStatus().equalsIgnoreCase("Order requested")) {
+                    wr.setStatus("Food service rejected");
 //        this.org.getWorkQueue().rejectWorkRequest(wr);
-                FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-                foodwr.getCustomerFlightRequest().setStatus("Food reservation rejected");
-                populateOrders();
+                    FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
+                    foodwr.getCustomerFlightRequest().setStatus("Food reservation rejected");
+                    populateOrders();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Already processed");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Already processed");
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
             }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
+
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void assignBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtn1ActionPerformed
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
-            wr.setAssignedTo(ua.getUsername());
-            populateOrders();
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+                wr.setAssignedTo(ua.getUsername());
+                populateOrders();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
+            }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
+
     }//GEN-LAST:event_assignBtn1ActionPerformed
 
 

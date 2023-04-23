@@ -259,7 +259,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Request Sent");
         }else{
-//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip"); //pop up msg already written in check null method
+             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip"); //pop up msg already written in check null method
         }
     }//GEN-LAST:event_planBtnActionPerformed
 
@@ -296,7 +296,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Request Sent");
         }else{
-//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
+             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
         }
 
     }//GEN-LAST:event_bookBtnActionPerformed
@@ -311,9 +311,14 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         int selectedRow;
         selectedRow = plannedTrips.getSelectedRow();
         WorkRequest wr = (WorkRequest) plannedTrips.getValueAt(selectedRow, 0);
+        if(wr!=null){
         this.trp = (TripPlanningWorkRequest) wr;
         this.trp.setConfirmedToBook(true);
         JOptionPane.showMessageDialog(null, "Confirmed to make bookings");
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a plan!");
+
+        }
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed

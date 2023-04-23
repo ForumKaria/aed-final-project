@@ -173,43 +173,58 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            this.org.getWorkQueue().finishWorkRequest(wr);
-            populateOrders();
+                this.org.getWorkQueue().finishWorkRequest(wr);
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
-
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
         }
+
     }//GEN-LAST:event_appBtnActionPerformed
 
     private void rejBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejBtnActionPerformed
         // TODO add your handling code here:'
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            this.org.getWorkQueue().rejectWorkRequest(wr);
-            populateOrders();
+                this.org.getWorkQueue().rejectWorkRequest(wr);
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
+
     }//GEN-LAST:event_rejBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
 
-            wr.setStatus(statusTxt.getText());
-            populateOrders();
+                wr.setStatus(statusTxt.getText());
+                populateOrders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -218,13 +233,18 @@ public class HotelOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = queue.getSelectedRow();
+        if (selectedRow > -1) {
         WorkRequest wr = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
-        if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
-            wr.setAssignedTo(ua.getUsername());
-            populateOrders();
+            if (wr.getAssignedTo().equals("None") || wr.getAssignedTo().equals(ua.getUsername())) {
+                wr.setAssignedTo(ua.getUsername());
+                populateOrders();
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already assigned");
+
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Request already assigned");
+            JOptionPane.showMessageDialog(null, "Select a Work request!");
 
         }
     }//GEN-LAST:event_assignBtn1ActionPerformed

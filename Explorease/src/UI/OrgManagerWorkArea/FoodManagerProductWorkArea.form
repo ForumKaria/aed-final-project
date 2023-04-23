@@ -122,9 +122,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="removeFoodBtn">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Remove Food Service"/>
           </Properties>
           <Events>
@@ -148,9 +145,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="select">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Select Food Service"/>
           </Properties>
           <Events>
@@ -212,9 +206,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="updateFoodBtn">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Update Food Service"/>
           </Properties>
           <Events>

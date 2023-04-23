@@ -6,7 +6,6 @@ package UI.EnterpriseAdminWorkArea;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import UI.SystemAdminWorkArea.*;
 import Business.Platform;
 import Person.Person;
 import Roles.AirlineAgentRole;
@@ -16,7 +15,8 @@ import Roles.HotelManagerRole;
 import Roles.InsuranceAdvisorRole;
 import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
-import java.util.ArrayList;
+import UserAccount.UserAccountDirectory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,48 +35,45 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     Enterprise en;
     DefaultTableModel tableModel;
 
-    
     public ManageOrganizationJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
         this.setVisible(true);
-        
-        this.platform = platform; 
+        this.platform = platform;
         this.container = container;
         this.ua = ua;
-        this.en= this.platform.findEnterpriseByUseraccount(this.ua.getUsername(), this.ua.getPassword());
+        this.en = this.platform.findEnterpriseByUseraccount(this.ua.getUsername(), this.ua.getPassword());
         this.tableModel = (DefaultTableModel) jTable.getModel();
         populateDropdown();
         populateTable();
     }
-    
-    public void populateDropdown(){
-       
-        if(this.en!=null){
-            for(Organization o : en.getOrganizationDirectory().getOrganizationList()){
+
+    public void populateDropdown() {
+
+        if (this.en != null) {
+            for (Organization o : en.getOrganizationDirectory().getOrganizationList()) {
                 jComboBox1.addItem(o.getClass().getSimpleName());
             }
         }
     }
-    
-    public void populateTable(){
+
+    public void populateTable() {
         tableModel.setRowCount(0);
-      
-        for(Organization o: this.en.getOrganizationDirectory().getOrganizationList()){
-            if(o.getUserAccountDirectory().getUseraccountList().size()>0){
-                for(UserAccount orgUA: o.getUserAccountDirectory().getUseraccountList()){
-                
+
+        for (Organization o : this.en.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getUserAccountDirectory().getUseraccountList().size() > 0) {
+                for (UserAccount orgUA : o.getUserAccountDirectory().getUseraccountList()) {
+
                     Object[] row = new Object[4];
                     row[0] = this.en.getClass().getSimpleName();
                     row[1] = o.getClass().getSimpleName();
                     row[2] = orgUA.getUsername();
                     row[3] = orgUA.getPassword();
-    
+
                     tableModel.addRow(row);
+                }
             }
-           }
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -265,78 +262,109 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private void deleteOrgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgnBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable.getSelectedRow();
+        if (selectedRow > -1) {
         String orgName = (String) jTable.getValueAt(selectedRow, 1);
         Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
-        this.en.getOrganizationDirectory().getOrganizationList().remove(o);
-        
-        populateTable();
-        
+            this.en.getOrganizationDirectory().getOrganizationList().remove(o);
+
+            populateTable();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select an Organization!");
+
+        }
+
     }//GEN-LAST:event_deleteOrgnBtnActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void addOrgnManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrgnManagerBtnActionPerformed
         // TODO add your handling code here:
-        Organization orgSelected  = this.en.getOrganizationDirectory().findOrganizationByType((String) jComboBox1.getSelectedItem());
-        String user = username.getText();
-        String pass = password.getText();
-        UserAccount userCreated;
-        if(orgSelected == this.platform.getAirlineOrg()){
-            userCreated = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount(user, pass, new AirlineAgentRole());
-        }else if(orgSelected == this.platform.getHotelOrg()){
-            userCreated = this.platform.getHotelOrg().getUserAccountDirectory().createUserAccount(user, pass, new HotelManagerRole());
-        }else if(orgSelected == this.platform.getFoodServiceOrg()){
-            userCreated = this.platform.getFoodServiceOrg().getUserAccountDirectory().createUserAccount(user, pass, new FoodServiceSupplierRole());
-        }else if(orgSelected == this.platform.getInsuranceOrg()){
-            userCreated = this.platform.getInsuranceOrg().getUserAccountDirectory().createUserAccount(user, pass, new InsuranceAdvisorRole());
-        }else if(orgSelected == this.platform.getTravelAgencyOrg()){
-            userCreated = this.platform.getTravelAgencyOrg().getUserAccountDirectory().createUserAccount(user, pass, new TravelAgentRole());
-        }else {
-            userCreated = this.platform.getAttractionOrg().getUserAccountDirectory().createUserAccount(user, pass, new AttractionOfficerRole());
+        Organization orgSelected = this.en.getOrganizationDirectory().findOrganizationByType((String) jComboBox1.getSelectedItem());
+        if (orgSelected != null) {
+            String user = username.getText();
+            String pass = password.getText();
+            UserAccount userCreated = orgSelected.getUserAccountDirectory().findById(user);
+            if (this.en.getOrganizationDirectory().checkUsernameUniqueAcrossOrgs(user) && user.length()>0 && pass.length()>0  ) {
+                if (orgSelected == this.platform.getAirlineOrg()) {
+                    userCreated = this.platform.getAirlineOrg().getUserAccountDirectory().createUserAccount(user, pass, new AirlineAgentRole());
+                } else if (orgSelected == this.platform.getHotelOrg()) {
+                    userCreated = this.platform.getHotelOrg().getUserAccountDirectory().createUserAccount(user, pass, new HotelManagerRole());
+
+                } else if (orgSelected == this.platform.getFoodServiceOrg()) {
+
+                    userCreated = this.platform.getFoodServiceOrg().getUserAccountDirectory().createUserAccount(user, pass, new FoodServiceSupplierRole());
+
+                } else if (orgSelected == this.platform.getInsuranceOrg()) {
+                    userCreated = this.platform.getInsuranceOrg().getUserAccountDirectory().createUserAccount(user, pass, new InsuranceAdvisorRole());
+
+                } else if (orgSelected == this.platform.getTravelAgencyOrg()) {
+
+                    userCreated = this.platform.getTravelAgencyOrg().getUserAccountDirectory().createUserAccount(user, pass, new TravelAgentRole());
+
+                } else {
+                    userCreated = this.platform.getAttractionOrg().getUserAccountDirectory().createUserAccount(user, pass, new AttractionOfficerRole());
+
+                }
+                Person orgManagerPerson = this.platform.getPersonDirectory().createPerson(userCreated.getAccountId(), managerName.getText());
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Username taken!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Select an Employee!");
+
         }
-        
-        Person orgManagerPerson = this.platform.getPersonDirectory().createPerson(userCreated.getAccountId(), managerName.getText());
-        
-        populateTable();
-        
-        
+
+
     }//GEN-LAST:event_addOrgnManagerBtnActionPerformed
 
     private void updateOrgnManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOrgnManagerBtnActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRow = jTable.getSelectedRow();
-        
+
+        if (selectedRow > -1) {
         String orgName = (String) jTable.getValueAt(selectedRow, 1);
         String username = (String) jTable.getValueAt(selectedRow, 2);
-        
+
         Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
         UserAccount uaSelected = o.getUserAccountDirectory().findByUserName(username);
-        uaSelected.setPassword(updatePass.getText());
-        
-        populateTable();
-        
-        
+            uaSelected.setPassword(updatePass.getText());
+
+            populateTable();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select an Employee!");
+
+        }
+
     }//GEN-LAST:event_updateOrgnManagerBtnActionPerformed
 
     private void deleteOrgManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgManagerActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRow = jTable.getSelectedRow();
-        
+
+        if (selectedRow > -1) {
         String orgName = (String) jTable.getValueAt(selectedRow, 1);
         String username = (String) jTable.getValueAt(selectedRow, 2);
-        
+
         Organization o = this.en.getOrganizationDirectory().findOrganizationByType(orgName);
         UserAccount uaSelected = o.getUserAccountDirectory().findByUserName(username);
         o.getUserAccountDirectory().getUseraccountList().remove(uaSelected);
-        
-        populateTable();
-        
+
+            populateTable();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select an Organization!");
+
+        }
+
     }//GEN-LAST:event_deleteOrgManagerActionPerformed
 
 
