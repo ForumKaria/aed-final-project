@@ -33,16 +33,12 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 
     private Platform platform;
     private UserAccount ua;
-<<<<<<< Updated upstream
     
     private FormatValidate formatValid;
     private boolean nameValid = false; //no special character
     private boolean emailValid = false; //normal email format
     private boolean phoneValid = false; //10 digits
     
-=======
-
->>>>>>> Stashed changes
     /**
      * Creates new form RegistrationJPanel
      */
@@ -50,13 +46,9 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         initComponents();
 
         this.platform = platform;
-<<<<<<< Updated upstream
         jPanel1.setBackground(new Color(0,0,0,90));
         
         formatValid = new FormatValidate();
-=======
-        jPanel1.setBackground(new Color(0, 0, 0, 90));
->>>>>>> Stashed changes
     }
 
     /**
@@ -233,7 +225,6 @@ public static void sendEmail(String to, String subject, String body) {
 
         //check null fields
         VerifyNull checkNull = new VerifyNull();
-<<<<<<< Updated upstream
         boolean nonull = checkNull.checkNullObject(userName,pass,name, email, phone);
         if(nonull){
             //check input format
@@ -251,23 +242,12 @@ public static void sendEmail(String to, String subject, String body) {
             //create user account
             else {
                 UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
-=======
-        boolean nonull = checkNull.checkNullObject(userName, pass, name, email, phone);
-        if (nonull) {
-            //check user account unique
-            if (!uad.checkUserNameUnique(userName)) {
-                JOptionPane.showMessageDialog(null, "Credentials are taken. Try again!");
-            } //create user account
-            else {
-                UserAccount user = uad.createUserAccount(userName, pass, new CustomerRole());
->>>>>>> Stashed changes
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
                 Customer c = this.platform.getCustomerDirectory().createCustomer(p, user);
                 sendEmail("saakethlogs@gmail.com","Welcome to ExploreEase !!","We are glad to welcome you into our One Stop Solution for all your Travel plans. Happy Travelling with Ease! \n - ExploreEase Team");
                 JOptionPane.showMessageDialog(null, "Registered Successfully");
             }
         }
-<<<<<<< Updated upstream
         
     }//GEN-LAST:event_registerBtnActionPerformed
 
@@ -292,11 +272,6 @@ public static void sendEmail(String to, String subject, String body) {
         }
     }//GEN-LAST:event_fieldPhoneFocusLost
        
-=======
-
-    }//GEN-LAST:event_registerBtnActionPerformed
-
->>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgImageLabel;
