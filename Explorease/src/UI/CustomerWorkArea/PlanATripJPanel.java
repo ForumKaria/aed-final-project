@@ -58,6 +58,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     }
 
     private void populatePlannedTrips() {
+        resultTable.setRowCount(0);
         if (plannedTrip.size() > 0) {
             for (TripPlanningWorkRequest tpWorkRequest : plannedTrip) {
                 if(tpWorkRequest.getPlannedTrip().size()>0){
@@ -161,7 +162,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
             plannedTrips.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 940, 100));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 940, 240));
 
         jLabel6.setText("Total Budget");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, 20));

@@ -18,6 +18,7 @@ import UI.CustomerWorkArea.BookFlightJPanel;
 import UI.CustomerWorkArea.BookHotelJPanel;
 import UserAccount.UserAccount;
 import WorkRequest.AirTicketWorkRequest;
+import WorkRequest.AttractionBookingWorkRequest;
 import WorkRequest.HotelBookingWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.FoodServiceWorkRequest;
@@ -390,7 +391,8 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
         // TODO add your handling code here:
         Customer c = this.pTrip.getCustomer();
         for (Product p : this.pTrip.getPlannedTrip()) {
-            if (p.getProductDetails().getClass().getSimpleName().contains("Flight")) {
+//            if (p.getProductDetails().getClass().getSimpleName().contains("Flight")) {
+            if(p.getProductDetails() instanceof FlightTicketProduct){
                 FlightTicketProduct atp = (FlightTicketProduct) p.getProductDetails();
                 Order o = c.getCustomerOrderCatalog().createOrder(c);
                 o.newOrderItem(atp);
@@ -400,7 +402,7 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 //                o.newOrderItem(this.flightSelected);
 //
 //            }
-                AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, c, c.getUserAccount(), this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
+                AirTicketWorkRequest airworkReq = o.getOrderWorkQueue().newAirTicketWorkRequest(o, c, ua, this.platform); //this WR would be the main WR(initiated bycustomer) attached to the order
 
                 //prepare food info to send to airline org
 //            if (foodCombo.getSelectedItem().equals("Order vegan meal")) {
@@ -409,22 +411,25 @@ public class TravelAgencyOrgManagerAllOrdersWorkArea extends javax.swing.JPanel 
 //            } else if (foodCombo.getSelectedItem().equals("Order non-vegan meal")) {
 //                airworkReq.setNeedFood(true);
 //            }
-//            o.setFlightOrderPriceWithFood(Integer.valueOf(jTextField4.getText())); //only works for orders created from UI
+                o.setFlightOrderPriceWithFood(o.getMainOrderTotal()); //no food option for order placed by travel agency 
                 //no need to add to the org's order list, we just loop workQueue for org data
-            } else if (p.getProductDetails().getClass().getSimpleName().contains("Hotel")) {
+            } else if(p.getProductDetails() instanceof HotelRoomsProduct){
+//                if (p.getProductDetails().getClass().getSimpleName().contains("Hotel")) {
                 //create order for customer and add to customer's order list
                 Order o = c.getCustomerOrderCatalog().createOrder(c);
                 //link product with the order
                 HotelRoomsProduct hp = (HotelRoomsProduct) p.getProductDetails();
                 o.newOrderItem(hp);
-                HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, c, c.getUserAccount(), this.platform);
-            } else if (p.getProductDetails().getClass().getSimpleName().contains("Attraction")) {
+                HotelBookingWorkRequest workReq = o.getOrderWorkQueue().newHotelBookingWorkRequest(o, c, ua, this.platform);
+            } else if(p.getProductDetails() instanceof AttractionProduct){
+//                if (p.getProductDetails().getClass().getSimpleName().contains("Attraction")) {
                 Order o = c.getCustomerOrderCatalog().createOrder(c);
                 //link product with the order
                 AttractionProduct ap = (AttractionProduct) p.getProductDetails();
                 o.newOrderItem(ap);
+                AttractionBookingWorkRequest workReq = o.getOrderWorkQueue().newAttractionBookingWorkRequest(o, c, ua, this.platform);
                 //add the order to org's order list
-                this.org.getOrderCatalog().getOrders().add(o);
+//                this.org.getOrderCatalog().getOrders().add(o);
             }
         };
         JOptionPane.showMessageDialog(null, "Booking requests sent for the planned trip!");
