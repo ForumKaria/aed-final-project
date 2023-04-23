@@ -76,6 +76,8 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         price = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         ticket = new javax.swing.JTextField();
+        bgPanel = new javax.swing.JPanel();
+        bgImageLabel = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -95,11 +97,11 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(products);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 570, 280));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 620, 280));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Tourist Attraction Ticket Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jLabel2.setText("TOURIST ATTRACTION TICKET MANAGEMENT\n");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 340, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 153, 153));
         jButton4.setText("Remove Ticket");
@@ -108,14 +110,14 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 410, 120, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 150, -1));
 
         desCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 desCityActionPerformed(evt);
             }
         });
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 120, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 200, 150, -1));
 
         select.setBackground(new java.awt.Color(204, 255, 204));
         select.setText("Select Ticket");
@@ -124,23 +126,26 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
                 selectActionPerformed(evt);
             }
         });
-        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 140, 130, 40));
+        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 130, 150, 30));
 
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("City");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(895, 180, 50, -1));
 
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Price");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 310, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 290, 40, 20));
 
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel9.setText("Ticket Type");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 260, -1, -1));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(893, 236, 100, 20));
 
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 priceActionPerformed(evt);
             }
         });
-        add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 330, 120, -1));
+        add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 310, 150, -1));
 
         jButton6.setBackground(new java.awt.Color(204, 255, 255));
         jButton6.setText("Update Ticket");
@@ -149,14 +154,26 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 120, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, 150, -1));
 
         ticket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ticketActionPerformed(evt);
             }
         });
-        add(ticket, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 280, 120, -1));
+        add(ticket, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 260, 150, -1));
+
+        bgPanel.setPreferredSize(new java.awt.Dimension(1300, 870));
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/david-trana-mmdchg5UPtQ-unsplash.jpg"))); // NOI18N
+        bgImageLabel.setMaximumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setMinimumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setPreferredSize(new java.awt.Dimension(1300, 870));
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
+
+        add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 740));
     }// </editor-fold>//GEN-END:initComponents
 
     private void desCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desCityActionPerformed
@@ -201,6 +218,8 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JTextField desCity;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;

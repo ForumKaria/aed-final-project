@@ -67,19 +67,19 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         //to do: create product panels for food,travel agency,insurance orgs
         else if (this.org==this.platform.getFoodServiceOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new FoodManagerProductWorkArea( platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
         else if (this.org==this.platform.getTravelAgencyOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new TravelAgencyProductWorkArea(platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
         else if (this.org==this.platform.getInsuranceOrg()){
-            JPanel manageProductJPanel = new HotelManagerProductWorkArea( platform,  container,  ua);
+            JPanel manageProductJPanel = new InsuranceProductManagerWorkArea(platform,  container,  ua);
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
@@ -113,13 +113,17 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
             layout.next(workArea);
         }
         else if (this.org==this.platform.getTravelAgencyOrg()){
+
             JPanel manageProductJPanel = new TravelAgencyOrgManagerAllOrdersWorkArea( platform,  container,  ua);
+
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);
         }
         else if (this.org==this.platform.getInsuranceOrg()){
+
             JPanel manageProductJPanel = new InsuranceOrgManagerAllOrdersWorkArea( platform,  container,  ua);
+
             workArea.add(manageProductJPanel);
             CardLayout layout = (CardLayout) workArea.getLayout();
             layout.next(workArea);

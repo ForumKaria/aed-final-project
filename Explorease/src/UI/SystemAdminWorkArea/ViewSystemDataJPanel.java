@@ -4,9 +4,26 @@
  */
 package UI.SystemAdminWorkArea;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
 import Business.Platform;
 import UserAccount.UserAccount;
+import WorkRequest.WorkRequest;
+import java.awt.BorderLayout;
+import java.io.File;
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
 /**
  *
@@ -20,6 +37,7 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
     Platform platform;
     UserAccount ua;
     JPanel container;
+    JFreeChart barChart;
     
     public ViewSystemDataJPanel(JPanel container, Platform platform, UserAccount ua) {
         initComponents();
@@ -28,7 +46,60 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
+        populateBarGraph();
     }
+    
+    public void populateBarGraph() {
+        
+        ArrayList<ReportingAdminSceneRequest> workReqList = new ArrayList<>();
+        Map<String, Integer> workReqMap = new HashMap<>();
+            
+            for(Enterprise enterprise:platform.getEnterpriseDirectory().getEnterpriseList()) {
+//                workReqList.clear();
+                for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()) {
+                    
+                    for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()){
+                        //isVisited = true;
+                        if (wr instanceof ReportingAdminSceneRequest) {
+                            System.out.println("1*****>> " + ((ReportingAdminSceneRequest)wr).getSceneName() + ((ReportingAdminSceneRequest)wr).getSceneId());
+                            workReqList.add((ReportingAdminSceneRequest)wr);
+                        }
+                    }  
+                    
+                }
+            
+            
+            //if(isVisited == false) {
+               // workReqMap.put(network.getName(), 0);
+            //}
+            workReqMap.put(platform.getName(), workReqList.size());
+                    
+        }
+      
+        barChart = ChartFactory.createPieChart(
+         "Number of Scenes Created across Networks",                     
+         createDataset(workReqMap),          
+         true, true, false);
+         
+        ChartPanel chartPanel = new ChartPanel( barChart );   
+        JPanel.removeAll();
+        jPanel1.add(chartPanel, BorderLayout.CENTER);
+        jPanel1.validate();
+        /*chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
+        setContentPane( chartPanel );*/ 
+        
+    }
+    
+    private PieDataset createDataset(Map<String, Integer> workReqMap) {
+       
+        final DefaultPieDataset dataset = new DefaultPieDataset();  
+
+        for(String r : workReqMap.keySet()) {
+            dataset.setValue(r, workReqMap.get(r));
+        }               
+
+        return dataset; 
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,10 +111,21 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        download = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Combo Chart.png"))); // NOI18N
+
+        download.setBackground(new java.awt.Color(255, 255, 255));
+        download.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        download.setForeground(new java.awt.Color(25, 56, 82));
+        download.setText("Download Graph");
+        download.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downloadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -51,19 +133,36 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(837, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(download))
+                .addContainerGap(776, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 622, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(download)
+                .addGap(0, 561, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
+        try {
+            int width = 640;    /* Width of the image */
+            int height = 480;   /* Height of the image */
+            File BarChart = new File( "BarChart.jpeg" );
+            ChartUtilities.saveChartAsJPEG( BarChart , barChart , width , height );
+            JOptionPane.showMessageDialog(null, "A JPEG image file named BarChart.jpeg is downloaded in your current directory.");
+        } catch (IOException ex) {
+            Logger.getLogger(NoOfScenesGraph.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_downloadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton download;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,6 +25,11 @@ public class FoodServiceProduct extends Product {
     public String getMenu() {
         return menu;
     }
+
+    public
+    void setMenu(String menu) {
+        this.menu = menu;
+    }
     
     
     

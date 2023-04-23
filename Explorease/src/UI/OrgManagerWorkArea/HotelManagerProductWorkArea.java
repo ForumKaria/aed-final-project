@@ -77,10 +77,13 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         airline = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         departureDate = new com.toedter.calendar.JDateChooser();
+        bgPanel = new javax.swing.JPanel();
+        bgImageLabel = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
-        setPreferredSize(new java.awt.Dimension(1300, 553));
+        setMinimumSize(new java.awt.Dimension(1300, 870));
+        setPreferredSize(new java.awt.Dimension(1300, 870));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,72 +99,95 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(flights);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 570, 280));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 530, 280));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Hotel Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("HOTEL MANAGEMENT");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
 
-        jButton4.setBackground(new java.awt.Color(255, 153, 153));
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton4.setText("Remove Room");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 130, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 330, 140, -1));
 
         depCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depCityActionPerformed(evt);
             }
         });
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 120, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 120, -1));
 
-        select.setBackground(new java.awt.Color(204, 255, 204));
+        select.setBackground(new java.awt.Color(255, 255, 255));
+        select.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         select.setText("Select Room");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectActionPerformed(evt);
             }
         });
-        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 130, 40));
+        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 120, 40));
 
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("City");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 80, -1, 20));
 
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Date");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 230, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Number of Rooms");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, -1, -1));
 
         desCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 desCityActionPerformed(evt);
             }
         });
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 120, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 120, -1));
 
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Room Type");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, -1, -1));
 
         airline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 airlineActionPerformed(evt);
             }
         });
-        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 120, -1));
+        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, 120, -1));
 
-        jButton6.setBackground(new java.awt.Color(204, 255, 255));
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton6.setText("Update Room");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 370, 130, -1));
-        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 120, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 140, -1));
+        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 250, 120, -1));
+
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/orva-studio-YC8qqp50BdA-unsplash.jpg"))); // NOI18N
+        bgImageLabel.setMaximumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setMinimumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setPreferredSize(new java.awt.Dimension(1300, 870));
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.PAGE_START);
+
+        add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 870));
     }// </editor-fold>//GEN-END:initComponents
 
     private void depCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depCityActionPerformed
@@ -209,6 +235,8 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField airline;
+    private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JTextField depCity;
     private com.toedter.calendar.JDateChooser departureDate;
     private javax.swing.JTextField desCity;

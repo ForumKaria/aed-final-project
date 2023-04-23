@@ -61,8 +61,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         flights = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -85,10 +83,10 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         nonStop = new javax.swing.JCheckBox();
         jButton6 = new javax.swing.JButton();
         departureDate = new com.toedter.calendar.JDateChooser();
+        bgPanel = new javax.swing.JPanel();
+        bgImageLabel = new javax.swing.JLabel();
 
-        jButton1.setText("jButton1");
-
-        setPreferredSize(new java.awt.Dimension(1300, 553));
+        setPreferredSize(new java.awt.Dimension(1300, 870));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
@@ -104,112 +102,128 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(flights);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 910, 420));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 880, 340));
 
         jLabel1.setText("Non-Stop");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(942, 426, 80, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Airline Flight Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
+        jLabel2.setText("AIRLINE FLIGHT MANAGEMENT");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 27, -1, 20));
 
-        jButton4.setBackground(new java.awt.Color(255, 153, 153));
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton4.setText("Remove Flight");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 530, 130, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 530, 150, 60));
 
         depCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depCityActionPerformed(evt);
             }
         });
-        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 120, -1));
+        add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 72, 140, 30));
 
         seats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatsActionPerformed(evt);
             }
         });
-        add(seats, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 410, 120, -1));
+        add(seats, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 396, 140, 30));
 
-        select.setBackground(new java.awt.Color(204, 255, 204));
+        select.setBackground(new java.awt.Color(255, 255, 255));
+        select.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         select.setText("Select Flight");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectActionPerformed(evt);
             }
         });
-        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 130, 40));
+        add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 130, 60));
 
         jLabel4.setText("Departure City");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 90, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(941, 36, 110, 40));
 
         jLabel7.setText("Departure Date");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 240, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 216, 110, 30));
 
         jLabel8.setText("Destination City");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 140, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(942, 106, 120, 20));
 
         desCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 desCityActionPerformed(evt);
             }
         });
-        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 160, 120, -1));
+        add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 132, 140, 30));
 
         jLabel9.setText("Airline");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, -1, -1));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(941, 166, 60, 20));
 
         airline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 airlineActionPerformed(evt);
             }
         });
-        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 210, 120, -1));
+        add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 186, 140, 30));
 
         duration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 durationActionPerformed(evt);
             }
         });
-        add(duration, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 120, -1));
+        add(duration, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 346, 140, 30));
 
         jLabel10.setText("Seats");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 390, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(943, 376, 50, 20));
 
         departureTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 departureTimeActionPerformed(evt);
             }
         });
-        add(departureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 310, 120, -1));
+        add(departureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 296, 140, 30));
 
         jLabel11.setText("Departure Time");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 290, -1, -1));
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(947, 276, 110, 20));
 
         jLabel12.setText("Duration");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, -1));
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 326, 70, 20));
 
         nonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nonStopActionPerformed(evt);
             }
         });
-        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 440, -1, -1));
+        add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 423, 30, 30));
 
-        jButton6.setBackground(new java.awt.Color(204, 255, 255));
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton6.setText("Update Flight");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 490, 130, -1));
-        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 260, 120, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 459, 150, 60));
+        add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 246, 140, -1));
+
+        bgPanel.setMaximumSize(new java.awt.Dimension(1300, 870));
+        bgPanel.setPreferredSize(new java.awt.Dimension(1300, 870));
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        bgImageLabel.setBackground(new java.awt.Color(204, 204, 255));
+        bgImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sebastien-goldberg-t9IrzQ-38Tk-unsplash.jpg"))); // NOI18N
+        bgImageLabel.setMaximumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setMinimumSize(new java.awt.Dimension(1300, 870));
+        bgImageLabel.setPreferredSize(new java.awt.Dimension(1300, 870));
+        bgPanel.add(bgImageLabel, java.awt.BorderLayout.CENTER);
+
+        add(bgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, 0, 1290, 850));
     }// </editor-fold>//GEN-END:initComponents
 
     private void depCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depCityActionPerformed
@@ -278,13 +292,14 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField airline;
+    private javax.swing.JLabel bgImageLabel;
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JTextField depCity;
     private com.toedter.calendar.JDateChooser departureDate;
     private javax.swing.JTextField departureTime;
     private javax.swing.JTextField desCity;
     private javax.swing.JTextField duration;
     private javax.swing.JTable flights;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -297,7 +312,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JCheckBox nonStop;
     private javax.swing.JTextField seats;
     private javax.swing.JButton select;

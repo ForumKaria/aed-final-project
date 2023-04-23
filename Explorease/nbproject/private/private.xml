@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/College/5100/Final%20Project/aed-final-project/Explorease/src/UI/EnterpriseAdminWorkArea/EnterpriseAdminWorkAreaJPanel.java</file>
-            <file>file:/D:/College/5100/Final%20Project/aed-final-project/Explorease/src/UI/SystemAdminWorkArea/ViewSystemDataJPanel.java</file>
-            <file>file:/D:/College/5100/Final%20Project/aed-final-project/Explorease/src/UI/HotelManagerWorkArea/MangerWorkArea.java</file>
-            <file>file:/D:/College/5100/Final%20Project/aed-final-project/Explorease/src/UI/SystemAdminWorkArea/ManageEnterpriseJPanel.java</file>
-            <file>file:/D:/College/5100/Final%20Project/aed-final-project/Explorease/src/UI/SystemAdminWorkArea/SystemAdminWorkAreaJPanel.java</file>
+            <file>file:/Users/forumkaria/NetBeansProjects/aed-final-project/Explorease/src/UI/OrgManagerWorkArea/TravelAgencyProductWorkArea.java</file>
+            <file>file:/Users/forumkaria/NetBeansProjects/aed-final-project/Explorease/src/UI/OrgManagerWorkArea/FoodManagerProductWorkArea.java</file>
+            <file>file:/Users/forumkaria/NetBeansProjects/aed-final-project/Explorease/src/Business/Platform.java</file>
+            <file>file:/Users/forumkaria/NetBeansProjects/aed-final-project/Explorease/src/UI/OrgManagerWorkArea/OrgManagerWorkAreaJPanel.java</file>
         </group>
     </open-files>
 </project-private>
