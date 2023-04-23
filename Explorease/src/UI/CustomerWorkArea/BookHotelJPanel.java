@@ -60,7 +60,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         initComponents();
         this.platform = platform;
         this.ua = ua;
-        this.org = this.platform.getAirlineOrg(); //hotel
+        this.org = this.platform.getHotelOrg(); //hotel
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
@@ -70,7 +70,7 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         this.platform = platform;
         this.ua = ua;
         this.isEmp = true;
-        this.org = this.platform.getAirlineOrg();
+        this.org = this.platform.getHotelOrg();
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
         this.trp = wr;

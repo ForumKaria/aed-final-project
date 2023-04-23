@@ -55,7 +55,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         initComponents();
         this.platform = platform;
         this.ua = ua;
-        this.org = this.platform.getAirlineOrg(); //is this org correct?
+        this.org = this.platform.getAttractionOrg(); //is this org correct?
         this.resultTable = (DefaultTableModel) att.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
     }
@@ -65,7 +65,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.platform = platform;
         this.ua = ua;
         this.isEmp = true;
-        this.org = this.platform.getAirlineOrg();
+        this.org = this.platform.getAttractionOrg();
         this.resultTable = (DefaultTableModel) att.getModel();
         this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
         this.trp = wr;

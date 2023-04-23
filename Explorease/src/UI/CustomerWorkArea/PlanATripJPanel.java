@@ -123,7 +123,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
                 planBtnActionPerformed(evt);
             }
         });
-        add(planBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 110, -1));
+        add(planBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 110, -1));
 
         plannedTrips.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,7 +152,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
                 bookBtnActionPerformed(evt);
             }
         });
-        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, -1, -1));
+        add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/planATrip_128px.png"))); // NOI18N
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 138, 136));
@@ -290,8 +290,8 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTable plannedTrips;
     private javax.swing.JButton planBtn;
+    private javax.swing.JTable plannedTrips;
     // End of variables declaration//GEN-END:variables
 
 }

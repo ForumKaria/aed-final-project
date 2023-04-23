@@ -11,6 +11,7 @@ import Business.Product.FoodServiceProduct;
 import Business.Product.InsuranceProduct;
 import UserAccount.UserAccount;
 import WorkRequest.FoodServiceWorkRequest;
+import WorkRequest.InsuranceWorkRequest;
 import WorkRequest.WorkRequest;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -154,8 +155,8 @@ public class InsuranceOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         if (wr.getStatus().equalsIgnoreCase("Order requested")){
             wr.setStatus("Insurance approved");
 //          this.org.getWorkQueue().finishWorkRequest(wr);
-            FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-            foodwr.getCustomerFlightRequest().setStatus("Insurance confirmed");
+            InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
+            foodwr.getCustomerTripPlanningRequest().setStatus("Insurance confirmed");
             populateOrders();
         }else{
             JOptionPane.showMessageDialog(null, "Processing already completed");
@@ -171,8 +172,8 @@ public class InsuranceOrgManagerAllOrdersWorkArea extends javax.swing.JPanel {
         if (wr.getStatus().equalsIgnoreCase("Order requested")){
             wr.setStatus("Insurance rejected");
 //        this.org.getWorkQueue().rejectWorkRequest(wr);
-            FoodServiceWorkRequest foodwr = (FoodServiceWorkRequest) wr;
-            foodwr.getCustomerFlightRequest().setStatus("Insurance rejected");
+            InsuranceWorkRequest foodwr = (InsuranceWorkRequest) wr;
+            foodwr.getCustomerTripPlanningRequest().setStatus("Insurance rejected");
             populateOrders();
         }else{
             JOptionPane.showMessageDialog(null, "Already processed");

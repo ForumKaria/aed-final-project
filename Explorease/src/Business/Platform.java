@@ -127,7 +127,7 @@ public class Platform {
         UserAccount hotelOrgAdmin = hotelOrg.getUserAccountDirectory().createUserAccount("hotelorgadmin", "hotelorgadmin", new AirlineAgentRole());
         UserAccount foodOrgAdmin = foodServiceOrg.getUserAccountDirectory().createUserAccount("foodorgadmin", "foodorgadmin", new FoodServiceSupplierRole());
         UserAccount travelOrgAdmin = travelAgencyOrg.getUserAccountDirectory().createUserAccount("travelorgadmin", "travelorgadmin", new TravelAgentRole());
-        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insuranceorgadmin", "insuranceorgadmin", new InsuranceAdvisorRole());
+        UserAccount insuranceOrgAdmin = insuranceOrg.getUserAccountDirectory().createUserAccount("insorgadmin", "insorgadmin", new InsuranceAdvisorRole());
         UserAccount attOrgAdmin = attractionOrg.getUserAccountDirectory().createUserAccount("attorgadmin", "attorgadmin", new AttractionOfficerRole());
 
         //create a customer for testing
