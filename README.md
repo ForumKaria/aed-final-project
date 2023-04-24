@@ -1,6 +1,4 @@
 # aed-final-project
-
-DESCRIPTION OF THE PROJECT
  
 Welcome to ExploreEase - your one-stop-shop for all your travel needs! Are you tired of browsing multiple websites to plan your dream vacation? Look no further, because ExploreEase has got you covered. Our platform provides end-to-end travel solutions that are fully customizable to suit your preferences and budget.
 
@@ -14,7 +12,7 @@ At ExploreEase, we are committed to providing our customers with a hassle-free a
 
 So what are you waiting for? Plan your dream vacation with ExploreEase and explore the world at ease!
 
-Unique Selling Proposition of ExploreEase:
+# Unique Selling Proposition of ExploreEase:
 
 Personalized Travel: ExploreEase offers a personalized travel experience to its customers. With a wide range of options for flights, hotels, attractions, and travel insurance, customers can tailor their travel plans to their needs and preferences.
 
@@ -26,7 +24,7 @@ Sustainable Travel: ExploreEase is committed to promoting sustainable travel. Th
 
 Overall, with reliable service, ExploreEase is the perfect solution for anyone looking for a hassle-free, personalized, and sustainable travel experience.
 
-PROJECT FLOW:
+# PROJECT FLOW:
 
 Our system involves four enterprises: Transportation, Hotels, Travel Agency, and Tourist Attraction. The six organizations involved are ExploreEase Airline, Food Service, Hotel, Travel Agency, Insurance, Attraction. The Nine roles are the Customer, System Admin, Enterprise Admin, Airline Agent, Food Service Supplier, Hotel Manager, Travel Agent, Insurance Advisor and Attraction Officer.
 
@@ -48,11 +46,10 @@ Insurance advisor: Can advise customers on travel insurance options, provide ins
 
 Attraction officer: Can manage attraction ticket sales, including checking ticket availability, booking tickets, canceling bookings, and managing ticket inventory.
 
-Individual Contributions:
-Emily: Customer WorkAreas and Set up the class structure for the Project, UML
-Forum: UI and Product Management Panels for Organizations, CRUD for Enterprise Admin, Reporting Module, UML, Documentation
-Saaketh: Implemented Work Requests, cross organization requests, Reporting Module
-
+# Individual Contributions:
+## Emily: Customer WorkAreas and Set up the class structure for the Project, UML
+## Forum: UI and Product Management Panels for Organizations, CRUD for Enterprise Admin, Reporting Module, UML, Documentation
+## Saaketh: Implemented Work Requests, cross organization requests, Reporting Module
 
 ![image](https://user-images.githubusercontent.com/113734458/233896801-9a30c08c-e3d0-44b6-a01b-c6b2afa0db18.png)
 
