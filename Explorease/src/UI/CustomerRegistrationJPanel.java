@@ -169,8 +169,11 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 public static void sendEmail(String to, String subject, String body) {
         // Sender email configuration
-        String senderEmail = "exploreease.noreply@gmail.com";
-        String senderPassword = "Password12#34";
+//        String senderEmail = "exploreease.noreply@gmail.com";
+//        String senderPassword = "Password12#34";
+
+          String senderEmail = "exploreease.noreply@gmail.com";
+          String senderPassword = "Password12#34";
 
         // Recipient email configuration
         String recipientEmail = to;

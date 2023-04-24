@@ -6,6 +6,7 @@ package Business.Organization;
 
 import Business.Employee.EmployeeDirectory;
 import Business.Product.ProductCatalog;
+import Order.Order;
 import Order.OrderCatalog;
 import UserAccount.UserAccountDirectory;
 import WorkRequest.WorkQueue;
@@ -22,6 +23,7 @@ public class Organization {
     EmployeeDirectory employeeDirectory;
     ProductCatalog productCatalog;
     OrderCatalog orderCatalog;
+    
     //Order Report
     //Product Report
     
@@ -90,7 +92,15 @@ public class Organization {
         return orderCatalog;
     }
     
-    
+    public int getTotalRevenue(){
+        int rev = 0;
+        for(Order o: this.getOrderCatalog().getOrders()){
+//            rev+= o.getOrderTotal();
+            rev+= o.getMainOrderTotal();
+        }
+        return rev;
+    }
+
     
 
 }

@@ -44,8 +44,9 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     }
     
     public void viewData(){
-        JPanel viewEnterpriseDataJPanel = new ViewEnterpriseDataJPanel(container,platform, ua);
-        workArea.add("viewData",viewEnterpriseDataJPanel);
+        
+        JPanel viewEntDataJPanel = new ViewEntDataJPanel(container,platform, ua, enterprise);
+        workArea.add("viewData",viewEntDataJPanel);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }

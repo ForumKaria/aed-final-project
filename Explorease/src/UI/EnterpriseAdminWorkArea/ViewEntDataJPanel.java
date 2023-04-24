@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.SystemAdminWorkArea;
+package UI.EnterpriseAdminWorkArea;
 
+import UI.SystemAdminWorkArea.*;
 import Business.Customer.Customer;
 import Business.Enterprise.Enterprise;
 import Business.Organization.AirlineOrganization;
@@ -42,7 +43,7 @@ import org.jfree.data.general.PieDataset;
  *
  * @author emi
  */
-public class ViewSystemDataJPanel extends javax.swing.JPanel {
+public class ViewEntDataJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -51,24 +52,26 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
     UserAccount ua;
     JPanel container;
     JFreeChart barChart;
+    Enterprise enterprise;
     
-    public ViewSystemDataJPanel(JPanel container, Platform platform, UserAccount ua) {
+    public ViewEntDataJPanel(JPanel container, Platform platform, UserAccount ua, Enterprise ent) {
         initComponents();
         this.setVisible(true);
         
         this.platform = platform; 
         this.container = container;
         this.ua = ua;
+        this.enterprise = ent;
         populateOrganizationContri();
+        
+        revByEntBtn.setVisible(false);
     }
     
     public void populateOrganizationContri() {
         
         ArrayList<Order> workReqList = new ArrayList<>();
         Map<String, Integer> workReqMap = new HashMap<>();
-            
-            for(Enterprise enterprise:platform.getEnterpriseDirectory().getEnterpriseList()) {
-
+        
                 for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()) {
                     
                     for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()){
@@ -90,7 +93,7 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
                     workReqMap.put(organization.getClass().getSimpleName(), workReqList.size());  
                 }
         
-        }
+        
       
         barChart = ChartFactory.createPieChart(
          "Orders split By Organization",                     
@@ -127,24 +130,23 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
         return dataset; 
     }
     
-    public void populateRevenueByEnterprise() {
+    public void populateRevenueByOrg() {
         
         ArrayList<Integer> enterpriseRev = new ArrayList<Integer>();
                   ArrayList<String> enterpriseName = new ArrayList<String>();
             
-            for(Enterprise enterprise:platform.getEnterpriseDirectory().getEnterpriseList()) {
+           
 //             
                 for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()) {
 
-                        enterpriseName.add(enterprise.getClass().getSimpleName());
-                        enterpriseRev.add(enterprise.getTotalRevenue());
-                    }  
+                        enterpriseName.add(organization.getClass().getSimpleName());
+                        enterpriseRev.add(organization.getTotalRevenue());
                 }      
         
       
         barChart = ChartFactory.createBarChart(
-         "Revenue By Enterprise",           
-         "Enterprises",            
+         "Revenue By Organization",           
+         "Organizations",            
          "USD",            
          createBarDataset(enterpriseName, enterpriseRev),          
          PlotOrientation.VERTICAL,           
@@ -158,38 +160,7 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
         System.out.print(chartPanel);
 
     }
-    
-    public void populateCustomerContribution() {
-        
-        ArrayList<Integer> enterpriseRev = new ArrayList<Integer>();
-                  ArrayList<String> enterpriseName = new ArrayList<String>();
-            
-            for(Customer customer:platform.getCustomerDirectory().getCustomerlist()) {
-//             
-                        enterpriseName.add(customer.getPerson().getName());
-                        enterpriseRev.add(customer.getTotalExpenditure());
-                    }  
-                 
-        
-      
-        barChart = ChartFactory.createBarChart(
-         "Revenue by Customer",           
-         "Customers",            
-         "USD",            
-         createBarDataset(enterpriseName, enterpriseRev),          
-         PlotOrientation.VERTICAL,           
-         true, true, false);
-        
-         
-        ChartPanel chartPanel = new ChartPanel( barChart );  
 
-        jPanel1.removeAll();
-        jPanel1.add(chartPanel, BorderLayout.CENTER);
-        jPanel1.validate();
-        System.out.print(chartPanel);
-
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,7 +176,6 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         orgcontriBtn = new javax.swing.JButton();
         revByEntBtn = new javax.swing.JButton();
-        custContriBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -233,18 +203,10 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
         });
 
         revByEntBtn.setBackground(new java.awt.Color(255, 255, 255));
-        revByEntBtn.setText("Revenue By Enterprise");
+        revByEntBtn.setText("Revenue By Organization");
         revByEntBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 revByEntBtnActionPerformed(evt);
-            }
-        });
-
-        custContriBtn.setBackground(new java.awt.Color(255, 255, 255));
-        custContriBtn.setText("Customer Contribution");
-        custContriBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                custContriBtnActionPerformed(evt);
             }
         });
 
@@ -258,8 +220,7 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(revByEntBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(orgcontriBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(download, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(custContriBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(download, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(54, 54, 54)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
                 .addGap(51, 51, 51))
@@ -274,8 +235,6 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
                 .addComponent(orgcontriBtn)
                 .addGap(31, 31, 31)
                 .addComponent(revByEntBtn)
-                .addGap(37, 37, 37)
-                .addComponent(custContriBtn)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -305,18 +264,11 @@ public class ViewSystemDataJPanel extends javax.swing.JPanel {
 
     private void revByEntBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revByEntBtnActionPerformed
         // TODO add your handling code here:
-        populateRevenueByEnterprise();
+        populateRevenueByOrg();
     }//GEN-LAST:event_revByEntBtnActionPerformed
-
-    private void custContriBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custContriBtnActionPerformed
-        // TODO add your handling code here:
-        populateCustomerContribution();
-        
-    }//GEN-LAST:event_custContriBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton custContriBtn;
     private javax.swing.JButton download;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

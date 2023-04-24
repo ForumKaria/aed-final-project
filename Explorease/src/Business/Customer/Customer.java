@@ -76,6 +76,13 @@ public class Customer {
     void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
-
+    
+    public int getTotalExpenditure(){
+        int rev = 0;
+        for(Order o: this.getCustomerOrderCatalog().getOrders()){
+            rev+= o.getOrderTotal();
+        }
+        return rev;
+    }
 
 }

@@ -1,7 +1,9 @@
 package Business.Enterprise;
 
+import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import UserAccount.UserAccountDirectory;
+import WorkRequest.WorkRequest;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,6 +17,7 @@ import UserAccount.UserAccountDirectory;
 public abstract class Enterprise {
     static int counter = 1;
     String enterpriseId;
+    String entName;
     OrganizationDirectory organizationDirectory;
     UserAccountDirectory userAccountDirectory;
     
@@ -73,4 +76,25 @@ public abstract class Enterprise {
         this.userAccountDirectory = userAccountDirectory;
     }
 
+    public int getTotalRevenue(){
+        int rev = 0;
+        for(Organization organization:this.getOrganizationDirectory().getOrganizationList()) {
+                    for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()){
+                        rev+=wr.getOrder().getOrderTotal();
+                    }
+    }
+        return rev;
+}
+
+    public
+    String getEntName() {
+        return entName;
+    }
+
+    public
+    void setEntName(String entName) {
+        this.entName = entName;
+    }
+    
+    
 }
