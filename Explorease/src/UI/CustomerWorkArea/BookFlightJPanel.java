@@ -12,6 +12,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
 import WorkRequest.AirTicketWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
@@ -219,7 +220,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         String dep = depCity.getText();
         String des = desCity.getText();
         Date date = depDate.getDate();
-
+        
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(dep,des,date);
+        
+        if(nonull){
         for (Product flight : this.org.getProductCatalog().getProducts()) {
             FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
             if (!nonStop.isSelected()) {
@@ -252,17 +257,23 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Oops...no flight found");
         }
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = flights.getSelectedRow();
-        this.flightSelected = (FlightTicketProduct) resultTable.getValueAt(selectedRow, 0);
-        jTextField3.setText(flightSelected.getProductId());
-        jTextField5.setText(flightSelected.getDepartureCity());
-        jTextField6.setText(flightSelected.getDestinationCity());
-        jTextField4.setText(String.valueOf((tripTypeCombo.getSelectedItem().equals("One-way")) ? flightSelected.getPrice() : flightSelected.getPrice() * 2));
+        if(selectedRow>=0){
+            this.flightSelected = (FlightTicketProduct) resultTable.getValueAt(selectedRow, 0);
+            jTextField3.setText(flightSelected.getProductId());
+            jTextField5.setText(flightSelected.getDepartureCity());
+            jTextField6.setText(flightSelected.getDestinationCity());
+            jTextField4.setText(String.valueOf((tripTypeCombo.getSelectedItem().equals("One-way")) ? flightSelected.getPrice() : flightSelected.getPrice() * 2));
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a flight");
+        }
+        
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed

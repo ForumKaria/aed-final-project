@@ -103,7 +103,6 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         jLabel2.setText("TOURIST ATTRACTION TICKET MANAGEMENT\n");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 340, -1));
 
-        jButton4.setBackground(new java.awt.Color(255, 153, 153));
         jButton4.setText("Remove Ticket");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +118,6 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(desCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 200, 150, -1));
 
-        select.setBackground(new java.awt.Color(204, 255, 204));
         select.setText("Select Ticket");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +145,6 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 310, 150, -1));
 
-        jButton6.setBackground(new java.awt.Color(204, 255, 255));
         jButton6.setText("Update Ticket");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

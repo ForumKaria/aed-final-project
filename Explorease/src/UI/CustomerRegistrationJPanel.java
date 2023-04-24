@@ -89,14 +89,9 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fieldusername.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 120, 30));
-
-        fieldPassword.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 120, 30));
 
-        fieldname.setForeground(new java.awt.Color(255, 255, 255));
         fieldname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fieldnameFocusLost(evt);
@@ -110,21 +105,24 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
+        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 120, -1));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, 20));
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Username:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, 20));
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Name:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, 20));
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Email:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, 20));
 
-        filedEmail.setForeground(new java.awt.Color(255, 255, 255));
         filedEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 filedEmailFocusLost(evt);
@@ -132,10 +130,10 @@ public class CustomerRegistrationJPanel extends javax.swing.JPanel {
         });
         jPanel1.add(filedEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 120, 30));
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Phone:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, 30));
 
-        fieldPhone.setForeground(new java.awt.Color(255, 255, 255));
         fieldPhone.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fieldPhoneFocusLost(evt);
@@ -244,7 +242,7 @@ public static void sendEmail(String to, String subject, String body) {
                 UserAccount user = uad.createUserAccount(userName, pass,new CustomerRole());
                 Person p = this.platform.getPersonDirectory().createPerson(user.getAccountId(), name);
                 Customer c = this.platform.getCustomerDirectory().createCustomer(p, user);
-                sendEmail("saakethlogs@gmail.com","Welcome to ExploreEase !!","We are glad to welcome you into our One Stop Solution for all your Travel plans. Happy Travelling with Ease! \n - ExploreEase Team");
+//                sendEmail("saakethlogs@gmail.com","Welcome to ExploreEase !!","We are glad to welcome you into our One Stop Solution for all your Travel plans. Happy Travelling with Ease! \n - ExploreEase Team");
                 JOptionPane.showMessageDialog(null, "Registered Successfully");
             }
         }

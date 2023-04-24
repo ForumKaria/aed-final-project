@@ -106,7 +106,6 @@ public class FoodManagerProductWorkArea extends javax.swing.JPanel {
         jLabel2.setText("FOOD SERVICE MANAGEMENT");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
 
-        removeFoodBtn.setBackground(new java.awt.Color(255, 255, 255));
         removeFoodBtn.setText("Remove Food Service");
         removeFoodBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,9 +119,8 @@ public class FoodManagerProductWorkArea extends javax.swing.JPanel {
                 menuActionPerformed(evt);
             }
         });
-        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 120, -1));
+        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 160, -1));
 
-        select.setBackground(new java.awt.Color(255, 255, 255));
         select.setText("Select Food Service");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,22 +133,21 @@ public class FoodManagerProductWorkArea extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("MENU");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 200, 60, -1));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("PRICE");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 270, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(788, 270, 60, -1));
 
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 priceActionPerformed(evt);
             }
         });
-        jPanel1.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 290, 120, -1));
+        jPanel1.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, 160, -1));
 
-        updateFoodBtn.setBackground(new java.awt.Color(255, 255, 255));
         updateFoodBtn.setText("Update Food Service");
         updateFoodBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

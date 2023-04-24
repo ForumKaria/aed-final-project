@@ -108,7 +108,6 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         jLabel2.setText("HOTEL MANAGEMENT");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton4.setText("Remove Room");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +115,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 330, 140, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 330, 120, -1));
 
         depCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +124,6 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(depCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 120, -1));
 
-        select.setBackground(new java.awt.Color(255, 255, 255));
         select.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         select.setText("Select Room");
         select.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +167,6 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(airline, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, 120, -1));
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton6.setText("Update Room");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +174,7 @@ public class HotelManagerProductWorkArea extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 140, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 120, -1));
         add(departureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 250, 120, -1));
 
         bgPanel.setLayout(new java.awt.BorderLayout());

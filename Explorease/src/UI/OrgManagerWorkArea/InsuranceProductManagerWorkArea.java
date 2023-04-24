@@ -110,7 +110,6 @@ public class InsuranceProductManagerWorkArea extends javax.swing.JPanel {
         jLabel2.setText("INSURANCE ADVISOR MANAGEMENT");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 27, 310, 40));
 
-        removeFoodBtn.setBackground(new java.awt.Color(255, 255, 255));
         removeFoodBtn.setText("Remove  Plan");
         removeFoodBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,16 +123,15 @@ public class InsuranceProductManagerWorkArea extends javax.swing.JPanel {
                 planActionPerformed(evt);
             }
         });
-        jPanel2.add(plan, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 166, 120, 30));
+        jPanel2.add(plan, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 166, 150, 30));
 
-        select.setBackground(new java.awt.Color(255, 255, 255));
         select.setText("Select Service");
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectActionPerformed(evt);
             }
         });
-        jPanel2.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 140, 40));
+        jPanel2.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 150, 40));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,9 +148,8 @@ public class InsuranceProductManagerWorkArea extends javax.swing.JPanel {
                 priceActionPerformed(evt);
             }
         });
-        jPanel2.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 216, 120, 30));
+        jPanel2.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 216, 150, 30));
 
-        updateFoodBtn.setBackground(new java.awt.Color(255, 255, 255));
         updateFoodBtn.setText("Update  Plan");
         updateFoodBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

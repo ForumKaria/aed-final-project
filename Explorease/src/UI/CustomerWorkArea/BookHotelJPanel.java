@@ -13,6 +13,7 @@ import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
 import WorkRequest.HotelBookingWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
@@ -52,18 +53,19 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getHotelOrg();
+        this.isEmp = false;
         this.resultTable = (DefaultTableModel) rooms.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
     }
 
-    public BookHotelJPanel(Platform platform, UserAccount ua) {
-        initComponents();
-        this.platform = platform;
-        this.ua = ua;
-        this.org = this.platform.getHotelOrg(); //hotel
-        this.resultTable = (DefaultTableModel) rooms.getModel();
-        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
-    }
+//    public BookHotelJPanel(Platform platform, UserAccount ua) {
+//        initComponents();
+//        this.platform = platform;
+//        this.ua = ua;
+//        this.org = this.platform.getHotelOrg(); //hotel
+//        this.resultTable = (DefaultTableModel) rooms.getModel();
+//        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+//    }
 
     public BookHotelJPanel(Platform platform, UserAccount ua, TripPlanningWorkRequest wr) {
         initComponents();
@@ -221,10 +223,13 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         ArrayList<Product> searchResult = new ArrayList<Product>();
 
         String des = desCity.getText();
-//        Date indate = checkIn.getDate();
-//        Date outdate = checkOut.getDate();
+        Date indate = checkIn.getDate();
+        Date outdate = checkOut.getDate();
 //        int rooms = (int) roomsCombo.getSelectedItem();
-
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(des,indate,outdate);
+        
+        if(nonull){
         for (Product room : this.org.getProductCatalog().getProducts()) {
             HotelRoomsProduct r = (HotelRoomsProduct) room.getProductDetails();
             if (r.getCity().equalsIgnoreCase(des) //                    && f.getDepartureDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().
@@ -249,34 +254,41 @@ public class BookHotelJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Oops...no hotel found");
         }
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = rooms.getSelectedRow();
-        this.roomSelected = (HotelRoomsProduct) resultTable.getValueAt(selectedRow, 0);
 
-        jTextField3.setText(roomSelected.getProductId());
+        if(selectedRow>=0){
+            this.roomSelected = (HotelRoomsProduct) resultTable.getValueAt(selectedRow, 0);
 
-        Instant checkindate = checkIn.getDate().toInstant();
-        Instant checkoutdate = checkOut.getDate().toInstant();
-        Long durationSeconds = Duration.between(checkindate, checkoutdate).getSeconds();
-        jTextField5.setText(String.valueOf((int) TimeUnit.DAYS.convert(durationSeconds, TimeUnit.SECONDS))); //stay duration
+            jTextField3.setText(roomSelected.getProductId());
 
-        jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
-        //unit price*rooms*nights
-        jTextField4.setText(String.valueOf(roomSelected.getPrice() * Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText())));
+            Instant checkindate = checkIn.getDate().toInstant();
+            Instant checkoutdate = checkOut.getDate().toInstant();
+            Long durationSeconds = Duration.between(checkindate, checkoutdate).getSeconds();
+            jTextField5.setText(String.valueOf((int) TimeUnit.DAYS.convert(durationSeconds, TimeUnit.SECONDS))); //stay duration
+
+            jTextField7.setText(String.valueOf(roomsCombo.getSelectedItem())); //rooms
+            //unit price*rooms*nights
+            jTextField4.setText(String.valueOf(roomSelected.getPrice() * Integer.valueOf(jTextField5.getText()) * Integer.valueOf(jTextField7.getText())));
+        }else{
+             JOptionPane.showMessageDialog(null, "select a product");
+        }
+        
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
         if (this.roomSelected != null) {
-            if (this.isEmp) {
+             if (this.isEmp) {
                 trp.addToTripDetails(roomSelected);
                 JOptionPane.showMessageDialog(null, "Added to trip details");
 
-            } else {
+            }else{
                 //create order for customer and add to customer's order list
                 Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
                 //link product with the order

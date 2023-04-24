@@ -38,7 +38,8 @@ public class OrgManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.ua = ua;
         this.org = this.platform.findOrgByUserAccount(ua.getUsername(), ua.getPassword());
         this.container = container;
-
+        
+        manageEmployeeBtn.setVisible(false);
         manageOrders();
 
     }

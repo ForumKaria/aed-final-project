@@ -310,6 +310,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.setVisible(false);
         logoutPanel.setVisible(false);
         container.removeAll();
+        this.userAccount = null;
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void registerBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtn2ActionPerformed

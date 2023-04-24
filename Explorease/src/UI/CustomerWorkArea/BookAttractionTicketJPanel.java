@@ -13,6 +13,8 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import Order.Order;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
+import WorkRequest.AttractionBookingWorkRequest;
 import WorkRequest.TripPlanningWorkRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,18 +49,19 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         this.container = container;
         this.ua = ua;
         this.org = this.platform.getAttractionOrg();
+        this.isEmp = false;
         this.resultTable = (DefaultTableModel) att.getModel();
         this.cus = this.platform.getCustomerDirectory().findCustomerById(ua.getAccountId());
     }
 
-    public BookAttractionTicketJPanel(Platform platform, UserAccount ua) {
-        initComponents();
-        this.platform = platform;
-        this.ua = ua;
-        this.org = this.platform.getAttractionOrg(); //is this org correct?
-        this.resultTable = (DefaultTableModel) att.getModel();
-        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
-    }
+//    public BookAttractionTicketJPanel(Platform platform, UserAccount ua) {
+//        initComponents();
+//        this.platform = platform;
+//        this.ua = ua;
+//        this.org = this.platform.getAttractionOrg(); //is this org correct?
+//        this.resultTable = (DefaultTableModel) att.getModel();
+//        this.emp = this.platform.getTravelAgencyOrg().getEmployeeDirectory().findById(ua.getAccountId());
+//    }
 
     public BookAttractionTicketJPanel(Platform platform, UserAccount ua, TripPlanningWorkRequest wr) {
         initComponents();
@@ -180,6 +183,12 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         ArrayList<Product> searchResult = new ArrayList<Product>();
 
         String des = desCity.getText();
+        Date date = depDate.getDate();
+        
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(des,date);
+        
+        if(nonull){
 
         for (Product att : this.org.getProductCatalog().getProducts()) {
             AttractionProduct ap = (AttractionProduct) att.getProductDetails();
@@ -201,16 +210,22 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Oops...no ticket found");
         }
+        }
 
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = att.getSelectedRow();
-        this.attrctionSelected = (AttractionProduct) resultTable.getValueAt(selectedRow, 0);
-        jTextField3.setText(attrctionSelected.getProductId());
-        String num = String.valueOf(visitorsCombo.getSelectedItem());
-        jTextField4.setText(String.valueOf(attrctionSelected.getPrice() * Integer.valueOf(num)));
+        if(selectedRow>=0){
+            this.attrctionSelected = (AttractionProduct) resultTable.getValueAt(selectedRow, 0);
+            jTextField3.setText(attrctionSelected.getProductId());
+            String num = String.valueOf(visitorsCombo.getSelectedItem());
+            jTextField4.setText(String.valueOf(attrctionSelected.getPrice() * Integer.valueOf(num)));
+        }else{
+            JOptionPane.showMessageDialog(null, "select a product first");
+        }
+        
     }//GEN-LAST:event_selectBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -225,6 +240,7 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 Order o = this.cus.getCustomerOrderCatalog().createOrder(cus);
                 //link product with the order
                 o.newOrderItem(this.attrctionSelected);
+                AttractionBookingWorkRequest attReq = o.getOrderWorkQueue().newAttractionBookingWorkRequest(o, this.cus, this.cus.getUserAccount(), this.platform); //this WR 
                 //add the order to org's order list
                 this.org.getOrderCatalog().getOrders().add(o);
                 JOptionPane.showMessageDialog(null, "Booking request sent");

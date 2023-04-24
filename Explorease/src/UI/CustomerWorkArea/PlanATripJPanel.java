@@ -58,7 +58,6 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         this.plannedTrip = this.cus.getPlannedTrips(); // array list of products to populate in table
         populatePlannedTrips();
         
-        bookBtn.setVisible(false);
     }
 
     private void populatePlannedTrips() {
@@ -258,9 +257,10 @@ public class PlanATripJPanel extends javax.swing.JPanel {
             travelAgencyWR.setNeedBooking(false);
 
             JOptionPane.showMessageDialog(null, "Request Sent");
-        }else{
-             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip"); //pop up msg already written in check null method
         }
+//        else{
+//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip"); //pop up msg already written in check null method
+//        }
     }//GEN-LAST:event_planBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
@@ -295,9 +295,10 @@ public class PlanATripJPanel extends javax.swing.JPanel {
             travelAgencyWR.setNeedBooking(true);
 
             JOptionPane.showMessageDialog(null, "Request Sent");
-        }else{
-             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
         }
+//        else{
+//             JOptionPane.showMessageDialog(null, "Please fill in necessary information for your desired trip");
+//        }
 
     }//GEN-LAST:event_bookBtnActionPerformed
 
@@ -308,8 +309,9 @@ public class PlanATripJPanel extends javax.swing.JPanel {
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
         //select a row from result table, check if it's a booking request, then set the confirmToBook to true
-        int selectedRow;
-        selectedRow = plannedTrips.getSelectedRow();
+        int selectedRow = plannedTrips.getSelectedRow();
+        if(selectedRow>=0){
+
         WorkRequest wr = (WorkRequest) plannedTrips.getValueAt(selectedRow, 0);
         if(wr!=null){
         this.trp = (TripPlanningWorkRequest) wr;
@@ -317,7 +319,7 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Confirmed to make bookings");
         } else {
             JOptionPane.showMessageDialog(null, "Select a plan!");
-
+        }
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 

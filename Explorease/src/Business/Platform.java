@@ -91,8 +91,11 @@ public class Platform {
         configureBusiness();
         populateProductData();
 
-        //create fake orders for the pre-created customer
-        generateFakeOrders(this.getCustomerDirectory().findCustomerByUSerName("c"));
+        //create fake orders for the pre-created customers
+        for(Customer c: this.customerDirectory.getCustomerlist()){
+            generateFakeOrders(c);  
+        }
+        
     }
 
     public void configureBusiness() {
@@ -109,8 +112,8 @@ public class Platform {
         //create enterprise admin user
         UserAccount transAdmin = transportation.getUserAccountDirectory().createUserAccount("transadmin", "transadmin", new EnterpriseAdminRole());
         UserAccount hotelAdmin = hotel.getUserAccountDirectory().createUserAccount("hoteladmin", "hoteladmin", new EnterpriseAdminRole());
-        UserAccount travelAgencyAdmin = travelAgency.getUserAccountDirectory().createUserAccount("travelAgencyadmin", "travelAgencyadmin", new EnterpriseAdminRole());
-        UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attractionadmin", "attractionadmin", new EnterpriseAdminRole());
+        UserAccount travelAgencyAdmin = travelAgency.getUserAccountDirectory().createUserAccount("traveladmin", "traveladmin", new EnterpriseAdminRole());
+        UserAccount attractionAdmin = attraction.getUserAccountDirectory().createUserAccount("attadmin", "attadmin", new EnterpriseAdminRole());
 
         //create the 6 orgs
 
@@ -134,6 +137,13 @@ public class Platform {
         UserAccount cus = this.getUad().createUserAccount("c", "c", new CustomerRole());
         Person p = this.getPersonDirectory().createPerson(cus.getAccountId(), "customer1");
         Customer c = this.getCustomerDirectory().createCustomer(p,cus);
+        //create more customers
+        for(int i = 0; i<10; i++){
+            UserAccount cc = this.getUad().createUserAccount("c"+String.valueOf(i), "c"+String.valueOf(i), new CustomerRole());
+            Person pp = this.getPersonDirectory().createPerson(cc.getAccountId(), "customer"+String.valueOf(i));
+            Customer customer = this.getCustomerDirectory().createCustomer(pp,cc);
+        }
+        
 
        }
 
