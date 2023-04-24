@@ -51,8 +51,6 @@ Attraction officer: Can manage attraction ticket sales, including checking ticke
 ## Forum: UI and Product Management Panels for Organizations, CRUD for Enterprise Admin, Reporting Module, UML, Documentation
 ## Saaketh: Implemented Work Requests, cross organization requests, Reporting Module
 
-![image](https://user-images.githubusercontent.com/113734458/233896801-9a30c08c-e3d0-44b6-a01b-c6b2afa0db18.png)
-
 
 High-level Component Diagram
 ![AED Final Project Wireframe](https://user-images.githubusercontent.com/113735355/233879327-b6a6583f-9197-4bb4-ba9b-78ea8226d72a.png)
