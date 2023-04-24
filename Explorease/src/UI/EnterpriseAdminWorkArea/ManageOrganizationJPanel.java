@@ -16,6 +16,7 @@ import Roles.InsuranceAdvisorRole;
 import Roles.TravelAgentRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import Validation.VerifyNull;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -283,8 +284,14 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Organization orgSelected = this.en.getOrganizationDirectory().findOrganizationByType((String) jComboBox1.getSelectedItem());
         if (orgSelected != null) {
+            String name = managerName.getText();
             String user = username.getText();
             String pass = password.getText();
+            
+             VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(name,user,pass);
+        
+            if(nonull){
             UserAccount userCreated = orgSelected.getUserAccountDirectory().findById(user);
             if (this.en.getOrganizationDirectory().checkUsernameUniqueAcrossOrgs(user) && user.length()>0 && pass.length()>0  ) {
                 if (orgSelected == this.platform.getAirlineOrg()) {
@@ -312,9 +319,10 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Username taken!");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Select an Employee!");
-
+        } 
+//            else {
+//            JOptionPane.showMessageDialog(null, "Select an Employee!");
+//            }
         }
 
 

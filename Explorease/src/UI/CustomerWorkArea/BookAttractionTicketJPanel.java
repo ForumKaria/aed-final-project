@@ -244,6 +244,10 @@ public class BookAttractionTicketJPanel extends javax.swing.JPanel {
                 //add the order to org's order list
                 this.org.getOrderCatalog().getOrders().add(o);
                 JOptionPane.showMessageDialog(null, "Booking request sent");
+                
+                jTextField3.setText("");
+                jTextField4.setText("");
+
             }
         } else {
             JOptionPane.showMessageDialog(null, "Select a product!");

@@ -313,6 +313,12 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
             //no need to add to the org's order list, we just loop workQueue for org data
             JOptionPane.showMessageDialog(null, "Booking request sent");
+            
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jTextField6.setText("");
+            
         }} else {
             JOptionPane.showMessageDialog(null, "Select a product!");
 

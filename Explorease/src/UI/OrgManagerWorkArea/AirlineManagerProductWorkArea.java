@@ -5,6 +5,7 @@ import Business.Platform;
 import Business.Product.FlightTicketProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,12 +44,17 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         if (flights.size() > 0) {
             for (Product flight : flights) {
                 FlightTicketProduct f = (FlightTicketProduct) flight.getProductDetails();
-                Object[] row = new Object[10];
+                Object[] row = new Object[9];
                 row[0] = f;
-                row[1] = f.getAirline();
-                row[2] = f.getDepartureCity();
-                row[3] = f.getDepartureDate();
-                row[4] = f.getNonStop();
+                row[1] = f.getDepartureCity();
+                row[2] = f.getDestinationCity();
+                row[3] = f.getAirline();
+                row[4] = f.getDepartureDate();
+                row[5] = f.getDepartureTime();
+                row[6] = f.getFlightDuration();
+                row[7] = f.getNonStop();
+                row[8] = f.getNumberOfSeatsAvailable();
+
                 prodTable.addRow(row);
             }
         }
@@ -93,13 +99,13 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
 
         flights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Obj", "Flight ID", "Departure City", "Destination City", "Airline", "Departure Date", "Departure TIme", "Flight Duration", "Non Stop", "Seats "
+                "Flight ID", "Departure City", "Destination City", "Airline", "Departure Date", "Departure TIme", "Flight Duration", "Non Stop", "Seats "
             }
         ));
         jScrollPane2.setViewportView(flights);
@@ -113,7 +119,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         jLabel2.setText("AIRLINE FLIGHT MANAGEMENT");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 27, -1, 20));
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton4.setText("Remove Flight");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +142,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(seats, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 396, 140, 30));
 
-        select.setBackground(new java.awt.Color(255, 255, 255));
         select.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         select.setText("Select Flight");
         select.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +207,6 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         });
         add(nonStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 423, 30, 30));
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButton6.setText("Update Flight");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -282,11 +285,19 @@ public class AirlineManagerProductWorkArea extends javax.swing.JPanel {
         if (selectedRow > -1) {
         FlightTicketProduct f = (FlightTicketProduct) prodTable.getValueAt(selectedRow, 0);
 
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(depCity.getText(),desCity.getText(),airline.getText(),departureDate.getDate(),departureTime.getText(),duration.getText(),seats.getText());
+        
+        if(nonull){
             f.setDepartureCity(depCity.getText());
+            f.setDestinationCity(desCity.getText());
             f.setAirline(airline.getText());
-            airline.setText(f.getAirline());
+            f.setDepartureDate(departureDate.getDate());
+            f.setDepartureTime(departureTime.getText());
+            f.setFlightDuration(duration.getText());
+            f.setNumberOfSeatsAvailable(Integer.valueOf(seats.getText()));
             populateFlights();
-
+        }
         } else {
             JOptionPane.showMessageDialog(null, "Select a Work request!");
 

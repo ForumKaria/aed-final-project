@@ -9,6 +9,7 @@ import Business.Platform;
 import Business.Product.FoodServiceProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -228,11 +229,17 @@ public class FoodManagerProductWorkArea extends javax.swing.JPanel {
         int selectedRow = products.getSelectedRow();
         if (selectedRow > -1) {
         FoodServiceProduct f = (FoodServiceProduct) prodTable.getValueAt(selectedRow, 0);
-
-            f.setMenu(menu.getText());
-            f.setPrice(Integer.valueOf(price.getText()));
-            populateFoodService();
-
+        
+        
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(menu.getText(),price.getText());
+        
+            if(nonull){
+                f.setMenu(menu.getText());
+                f.setPrice(Integer.valueOf(price.getText()));
+            
+                populateFoodService();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Select a Work request!");
 

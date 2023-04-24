@@ -6,6 +6,7 @@ import Business.Product.FlightTicketProduct;
 import Business.Product.HotelRoomsProduct;
 import Business.Product.Product;
 import UserAccount.UserAccount;
+import Validation.VerifyNull;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -195,10 +196,15 @@ public class AttractionManagerProductWorkArea extends javax.swing.JPanel {
         int selectedRow = products.getSelectedRow();
         AttractionProduct f = (AttractionProduct) prodTable.getValueAt(selectedRow, 0);
         
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(desCity.getText(),ticket.getText(),price.getText());
+        
+        if(nonull){
         f.setCity(desCity.getText());
         f.setTicketType(ticket.getText());
         f.setPrice(Integer.valueOf(price.getText()));
         populateTickets();
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

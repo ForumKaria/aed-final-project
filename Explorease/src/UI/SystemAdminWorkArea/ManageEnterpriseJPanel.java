@@ -11,6 +11,7 @@ import Person.Person;
 import Roles.EnterpriseAdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import Validation.VerifyNull;
 import WorkRequest.TripPlanningWorkRequest;
 import WorkRequest.WorkRequest;
 import java.util.ArrayList;
@@ -209,9 +210,13 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         if(selectedRow>=0){
             Enterprise entSelected = this.platform.getEnterpriseDirectory().findEnterpriseByType((String) ent.getValueAt(selectedRow, 0));
         
-        
+            String name = managerName.getText();
             String user = username.getText();
             String pass = password.getText();
+            
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(name,user,pass);
+            if(nonull){
 //            UserAccount userCreated = entSelected.getUserAccountDirectory().findById(user);
             Boolean usernameUnique = this.platform.getEnterpriseDirectory().checkUsernameUniqueAcrossEnts(user);
             if (usernameUnique) {
@@ -221,7 +226,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                 populateTable();
             }else {
                 JOptionPane.showMessageDialog(null, "Username taken!");
-            }
+            }}
         } else {
             JOptionPane.showMessageDialog(null, "Select an Enterprise!");
 
@@ -236,6 +241,11 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         int selectedRow = ent.getSelectedRow();
 
         if (selectedRow > -1) {
+            
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(updatePass.getText());
+        
+            if(nonull){
             Enterprise entSelected = this.platform.getEnterpriseDirectory().findEnterpriseByType((String) ent.getValueAt(selectedRow, 0));
             String username = (String) ent.getValueAt(selectedRow, 2);
 
@@ -243,7 +253,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             uaSelected.setPassword(updatePass.getText());
 
             populateTable();
-
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Select an Enterprise!");
 

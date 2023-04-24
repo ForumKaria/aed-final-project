@@ -333,11 +333,27 @@ public class PlanATripJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow;
         selectedRow = plannedTrips.getSelectedRow();
-        int flightPrice = (int) plannedTrips.getValueAt(selectedRow, 6);
-        int hotelPrice = (int) plannedTrips.getValueAt(selectedRow, 8);
-        int attPrice = (int) plannedTrips.getValueAt(selectedRow, 10);
         
-        int totalbudget = flightPrice + hotelPrice + attPrice;
+        
+        
+        
+        int totalbudget = 0;
+        Boolean value1 = plannedTrips.getValueAt(selectedRow, 6)==null;
+        Boolean value2 = plannedTrips.getValueAt(selectedRow, 8)==null;
+        Boolean value3 = plannedTrips.getValueAt(selectedRow, 10)==null;
+        if (!value1){
+            int flightPrice = (int) plannedTrips.getValueAt(selectedRow, 6);
+            totalbudget=totalbudget+flightPrice;
+        }
+        if(!value2){
+            int hotelPrice = (int) plannedTrips.getValueAt(selectedRow, 8);
+            totalbudget=totalbudget+hotelPrice;
+        }
+        if(!value3){
+            int attPrice = (int) plannedTrips.getValueAt(selectedRow, 10);
+            totalbudget=totalbudget+attPrice;
+        }
+        
         jTextField4.setText(String.valueOf(totalbudget));
     }//GEN-LAST:event_plannedTripsMouseClicked
 
