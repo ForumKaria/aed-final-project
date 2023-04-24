@@ -46,9 +46,9 @@ public class OrganizationDirectory {
                     return false;
                 }
             }
-            return true;
+//            return true;
         }
-        return null;
+        return true;
     }
 
     public Organization findOrganizationByType(String orgType) {

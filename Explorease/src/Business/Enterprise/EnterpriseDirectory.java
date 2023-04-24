@@ -5,6 +5,8 @@
 package Business.Enterprise;
 
 import Business.Enterprise.Enterprise.EnterpriseType;
+import Business.Organization.Organization;
+import UserAccount.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,15 @@ public class EnterpriseDirectory {
     public Enterprise findEnterprise(String entId){
         for (Enterprise enterprise : enterpriseList) {
             if(enterprise.getEnterpriseId().equals(entId)){
+                return enterprise;
+            }
+        }
+        return null;
+    }
+    
+    public Enterprise findEnterpriseByType(String type){
+        for (Enterprise enterprise : enterpriseList) {
+            if(enterprise.getClass().getSimpleName().equals(type)){
                 return enterprise;
             }
         }
@@ -76,6 +87,19 @@ public class EnterpriseDirectory {
 //        }
 //        
 //        return null;
+    }
+    
+    public Boolean checkUsernameUniqueAcrossEnts(String username) {
+        for (Enterprise en : this.enterpriseList) {
+            for (UserAccount u : en.getUserAccountDirectory().getUseraccountList()) {
+                if (u.getUsername().equals(username)) {
+                    return false;
+                }
+            }
+//            return true;
+        }
+//        return null;
+        return true;
     }
     
 }
